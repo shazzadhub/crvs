@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 10, 2016 at 08:22 AM
+-- Generation Time: Mar 12, 2016 at 03:35 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -55,8 +55,8 @@ INSERT INTO `classes` (`id`, `name`, `school_id`, `class_teacher_id`) VALUES
 CREATE TABLE IF NOT EXISTS `head_teachers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ht_name` varchar(255) DEFAULT NULL,
-  `ht_nid` int(17) DEFAULT NULL,
-  `ht_mobile` int(11) DEFAULT NULL,
+  `ht_nid` varchar(255) DEFAULT NULL,
+  `ht_mobile` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
@@ -65,12 +65,12 @@ CREATE TABLE IF NOT EXISTS `head_teachers` (
 --
 
 INSERT INTO `head_teachers` (`id`, `ht_name`, `ht_nid`, `ht_mobile`) VALUES
-(1, 'জুয়েল স্যার', 121344656, 1741228971),
-(2, 'মাসুদ ভাই', 12345678, 1741228971),
-(3, 'প্রধান শিক্ষক ১', 12345789, 1741228971),
-(4, 'প্রধান শিক্ষক ২', 123456789, 1741228971),
-(5, 'প্রধান শিক্ষক ৩', 123456789, 1741228971),
-(6, 'প্রধান শিক্ষক ৪', 123456789, 1741228971);
+(1, 'জুয়েল স্যার', '121344656', '1741228971'),
+(2, 'মাসুদ ভাই', '12345678', '1741228971'),
+(3, 'প্রধান শিক্ষক ১', '12345789', '1741228971'),
+(4, 'প্রধান শিক্ষক ২', '123456789', '1741228971'),
+(5, 'প্রধান শিক্ষক ৩', '123456789', '1741228971'),
+(6, 'প্রধান শিক্ষক ৪', '123456789', '1741228971');
 
 -- --------------------------------------------------------
 
@@ -310,50 +310,50 @@ CREATE TABLE IF NOT EXISTS `students` (
   `student_younger_brother_name_ban` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `student_younger_brother_name_eng` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `student_younger_brother_borndate` date DEFAULT NULL,
-  `student_younger_brother_brn` int(17) DEFAULT NULL,
+  `student_younger_brother_brn` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `student_younger_brother_name_ban1` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `student_younger_brother_name_eng1` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `student_younger_brother_borndate1` date DEFAULT NULL,
-  `student_younger_brother_brn1` int(17) DEFAULT NULL,
+  `student_younger_brother_brn1` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `student_younger_brother_name_ban2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `student_younger_brother_name_eng2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `student_younger_brother_borndate2` date DEFAULT NULL,
-  `student_younger_brother_brn2` int(17) DEFAULT NULL,
+  `student_younger_brother_brn2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `student_younger_brother_name_ban3` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `student_younger_brother_name_eng3` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `student_younger_brother_borndate3` date DEFAULT NULL,
-  `student_younger_brother_brn3` int(17) DEFAULT NULL,
+  `student_younger_brother_brn3` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `student_father_death_if` int(2) DEFAULT NULL,
   `student_mother_death_if` int(2) DEFAULT NULL,
   `healthform_formno` int(7) DEFAULT NULL,
-  `healthform_helthID` int(12) DEFAULT NULL,
+  `healthform_helthID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `healthform_name_eng` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `healthform_name_ban` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `healthform_birthdate` date DEFAULT NULL,
   `healthform_birthplace` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
   `healthform_sex` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `healthform_birth_no` int(18) DEFAULT NULL,
+  `healthform_birth_no` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `healthform_religion` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `healthform_moblie` int(11) DEFAULT NULL,
+  `healthform_moblie` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `healthform_occupation` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
   `healthform_maritual_status` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `healthform_maritual_name_eng` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `healthform_maritual_name_ban` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `healthform_maritual_nidbrn` int(17) DEFAULT NULL,
-  `healthform_maritual_cellno` int(11) DEFAULT NULL,
+  `healthform_maritual_nidbrn` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `healthform_maritual_cellno` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `healthform_father_name_ban` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `healthform_father_name_eng` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `healthform_father_nidbrn` int(17) DEFAULT NULL,
+  `healthform_father_nidbrn` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `healthform_father_death_date` date DEFAULT NULL,
   `healthform_mather_name_ban` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `healthform_mather_name_eng` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `healthform_mather_nidbrn` int(17) DEFAULT NULL,
+  `healthform_mather_nidbrn` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `healthform_mather_death_date` date DEFAULT NULL,
   `healthform_present_address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `healthform_permanent_address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `healthform_operator_nid` int(17) DEFAULT NULL,
+  `healthform_operator_nid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `healthform_operator_entrydate` date DEFAULT NULL,
-  `healthform_biometric_nid` int(17) DEFAULT NULL,
+  `healthform_biometric_nid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `healthform_biometric_entrydate` date DEFAULT NULL,
   `student_father_nid_have` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `student_father_nid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -383,7 +383,7 @@ CREATE TABLE IF NOT EXISTS `students` (
   `student_operator_nid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `student_operator_name_ban` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `student_operator_entrydate` date DEFAULT NULL,
-  `student_biometric_nid` int(17) DEFAULT NULL,
+  `student_biometric_nid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `student_biometric_name_ban` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `student_biometric_entrydate` date DEFAULT NULL,
   `school_id` int(11) DEFAULT NULL,
@@ -398,7 +398,7 @@ CREATE TABLE IF NOT EXISTS `students` (
 --
 
 INSERT INTO `students` (`id`, `student_ed_id`, `form_serial_no`, `name`, `name_ban`, `name_eng`, `birth_no`, `birth_place`, `birth_date`, `student_sex`, `student_nationality`, `student_nationality_other`, `student_classCode`, `PSC`, `JSC`, `SSC`, `ibtadayi`, `JDC`, `dakhil`, `student_religion`, `student_relegion_other`, `student_bloodbroup`, `student_spotmark`, `student_disability_if`, `student_disability_code`, `student_younger_brother_name_ban`, `student_younger_brother_name_eng`, `student_younger_brother_borndate`, `student_younger_brother_brn`, `student_younger_brother_name_ban1`, `student_younger_brother_name_eng1`, `student_younger_brother_borndate1`, `student_younger_brother_brn1`, `student_younger_brother_name_ban2`, `student_younger_brother_name_eng2`, `student_younger_brother_borndate2`, `student_younger_brother_brn2`, `student_younger_brother_name_ban3`, `student_younger_brother_name_eng3`, `student_younger_brother_borndate3`, `student_younger_brother_brn3`, `student_father_death_if`, `student_mother_death_if`, `healthform_formno`, `healthform_helthID`, `healthform_name_eng`, `healthform_name_ban`, `healthform_birthdate`, `healthform_birthplace`, `healthform_sex`, `healthform_birth_no`, `healthform_religion`, `healthform_moblie`, `healthform_occupation`, `healthform_maritual_status`, `healthform_maritual_name_eng`, `healthform_maritual_name_ban`, `healthform_maritual_nidbrn`, `healthform_maritual_cellno`, `healthform_father_name_ban`, `healthform_father_name_eng`, `healthform_father_nidbrn`, `healthform_father_death_date`, `healthform_mather_name_ban`, `healthform_mather_name_eng`, `healthform_mather_nidbrn`, `healthform_mather_death_date`, `healthform_present_address`, `healthform_permanent_address`, `healthform_operator_nid`, `healthform_operator_entrydate`, `healthform_biometric_nid`, `healthform_biometric_entrydate`, `student_father_nid_have`, `student_father_nid`, `student_father_name_ban`, `student_father_name_eng`, `student_father_deathdate`, `student_mother_nid_have`, `student_mother_nid`, `student_mother_name_ban`, `student_mother_name_eng`, `student_mother_deathdate`, `student_legalgurdian_nid`, `student_legalgurdian_name_ban`, `student_legalgurdian_rel`, `student_address_pres`, `student_address_pres_word`, `student_address_pres_upozilla`, `student_address_pres_zilla`, `student_address_pres_dist`, `student_address_pres_postcode`, `student_address_parm`, `student_address_prmt_word`, `student_address_prmt_upozilla`, `student_address_prmt_zilla`, `student_address_prmt_dist`, `student_address_prmt_postcode`, `student_operator_nid`, `student_operator_name_ban`, `student_operator_entrydate`, `student_biometric_nid`, `student_biometric_name_ban`, `student_biometric_entrydate`, `school_id`, `class_id`, `created`, `modified`) VALUES
-(3, '445566332211', '10101110101010', 'shazzad', 'মুসা ভহাই', 'shazzadur rahaman', '1245678', 'DK', '1988-05-01', 'পুরুষ', 'অন্যান্য', 'Canadian', '০৯', 1, 0, 1, 0, 0, 1, 'অন্যান্য', 'unknown religion', 'AB+', 'নাই', 'হ্যাঁ', '', 'মঞ্জুরে হেলাল তুহিন', 'Manjurey Helal Tuhin', '1975-05-21', 0, '', '', '2000-11-30', 0, '', '', '2000-11-30', 0, '', '', '2000-11-30', 0, 0, 0, 4027, 2147483647, 'Shazzadur Rahaman', 'সাজ্জাদুর রহমান', '2016-02-12', 'DK', 'পুরুষ', 2147483647, 'ইসলাম', 1741228971, 'Ra', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'হ্যাঁ', '1234567987', 'মোঃ মজিবুর রহমান', 'Md. Mozibur Rahman', '2000-11-30', 'হ্যাঁ', '', 'হাওয়া রহমান', 'Mrs. Hawa Rahaman', '2000-11-30', '', 'মুস্তাফিজুর রহমান', 'ভাই/বোন', 'somthing address', 'Dhaka', 1, 2, 3, 1230, 'somthing address', 'Dhaka', 1, 2, 3, 1230, '3015147785899', 'আবদুল মজিদ', '2016-01-26', 1321354657, 'bangla', '2016-03-25', 1, 1, '2016-01-24 17:39:25', '2016-03-01 12:48:54'),
+(3, '445566332211', '10101110101010', 'shazzad', 'মুসা ভহাই', 'shazzadur rahaman', '1245678', 'DK', '1988-05-01', 'পুরুষ', 'অন্যান্য', 'Canadian', '০৯', 1, 0, 1, 0, 0, 1, 'অন্যান্য', 'unknown religion', 'AB+', 'নাই', 'হ্যাঁ', '', 'মঞ্জুরে হেলাল তুহিন', 'Manjurey Helal Tuhin', '1975-05-21', '0', '', '', '2000-11-30', '0', '', '', '2000-11-30', '0', '', '', '2000-11-30', '0', 0, 0, 4027, '2147483647', 'Shazzadur Rahaman', 'সাজ্জাদুর রহমান', '2016-02-12', 'DK', 'পুরুষ', '2147483647', 'ইসলাম', '1741228971', 'Ra', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'হ্যাঁ', '1234567987', 'মোঃ মজিবুর রহমান', 'Md. Mozibur Rahman', '2000-11-30', 'হ্যাঁ', '', 'হাওয়া রহমান', 'Mrs. Hawa Rahaman', '2000-11-30', '', 'মুস্তাফিজুর রহমান', 'ভাই/বোন', 'somthing address', 'Dhaka', 1, 2, 3, 1230, 'somthing address', 'Dhaka', 1, 2, 3, 1230, '3015147785899', 'আবদুল মজিদ', '2016-01-26', '1321354657', 'bangla', '2016-03-25', 1, 1, '2016-01-24 17:39:25', '2016-03-01 12:48:54'),
 (4, '1234567891011', '', 'shazzad test 1', '', '', '', '', '0000-00-00', '', '', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, 'ইসলাম', NULL, '', '', NULL, NULL, 'মঞ্জুরে হেলাল তুহিন', 'Manjurey Helal Tuhin', '1975-05-21', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '১২৩৪৫২২৫৪৪৫৭৯৮৫', 'মোঃ মজিবুর রহমান', 'Md. Mozibur Rahman', '2014-10-20', NULL, '১২৩৪৫২২৫৪৪৫৭৯৮৫', 'হাওয়া রহমান', 'Mrs. Hawa Rahaman', '1899-12-02', '১২৩৪৫৮৫৫৮৭৫৫২১', 'মুস্তাফিজুর রহমান', 'ভাই/বোন', 'somthing address', NULL, NULL, NULL, NULL, NULL, 'somthing address', NULL, NULL, NULL, NULL, NULL, '3015147785899', 'আবদুল মজিদ', '2016-01-26', NULL, NULL, NULL, 1, 1, '2016-01-24 17:39:25', '2016-02-03 10:09:38'),
 (5, '1234567891011', '10101110101010', 'shazzad test 2\r\n', 'সাজ্জাদুর রহমান', 'shazzadur rahaman', '1245678', 'Uttara', '1988-05-01', 'পুরুষ', 'বাংলাদেশী', NULL, 'বি এস সি পাশ', NULL, NULL, NULL, NULL, NULL, NULL, 'ইসলাম', NULL, 'AB+', 'তেমন কিছু নাই', NULL, NULL, 'মঞ্জুরে হেলাল তুহিন', 'Manjurey Helal Tuhin', '1975-05-21', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '১২৩৪৫২২৫৪৪৫৭৯৮৫', 'মোঃ মজিবুর রহমান', 'Md. Mozibur Rahman', '2014-10-20', NULL, '১২৩৪৫২২৫৪৪৫৭৯৮৫', 'হাওয়া রহমান', 'Mrs. Hawa Rahaman', '1899-12-02', '১২৩৪৫৮৫৫৮৭৫৫২১', 'মুস্তাফিজুর রহমান', 'ভাই/বোন', 'somthing address', NULL, NULL, NULL, NULL, NULL, 'somthing address', NULL, NULL, NULL, NULL, NULL, '3015147785899', 'আবদুল মজিদ', '2016-01-26', NULL, NULL, NULL, 1, 1, '2016-01-24 17:39:25', '2016-02-01 06:13:53');
 
@@ -411,7 +411,7 @@ INSERT INTO `students` (`id`, `student_ed_id`, `form_serial_no`, `name`, `name_b
 CREATE TABLE IF NOT EXISTS `teachers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `teacher_nid` int(17) DEFAULT NULL,
+  `teacher_nid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `teacher_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `school_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -424,25 +424,25 @@ CREATE TABLE IF NOT EXISTS `teachers` (
 INSERT INTO `teachers` (`id`, `name`, `teacher_nid`, `teacher_email`, `school_id`) VALUES
 (12, 'Masud', NULL, NULL, 2),
 (13, 'Masud', NULL, NULL, 2),
-(14, 'Masud Cumilla 1', NULL, NULL, 5),
+(14, 'Masud Cumilla 1', '12346798', 'sha@gmail.com', 5),
 (15, 'Masud Cumilla 2', NULL, NULL, 5),
 (16, 'Masud Mirpur 1', NULL, NULL, 3),
 (17, 'Masud Mirpur 2', NULL, NULL, 3),
-(22, 'teacher 1', 123456789, 'testemail@gmail.com', 1),
-(23, 'teacher 2', 123456, 'teacher2@kiteplexit.com', 1),
+(22, 'facebook', '12314679879876465', 'shawon05@yahoo.com', 1),
+(23, 'teacher 2', '2147483647', 'shazzad@gmail.com', 1),
 (24, 'teacher 3', NULL, NULL, 1),
 (25, 'teacher 4', NULL, NULL, 1),
 (26, 'teacher 5', NULL, NULL, 1),
-(27, 'teacher 6', NULL, NULL, 1),
-(28, 'teacher 7', NULL, NULL, 1),
+(27, 'teacher 6', '1234987', 'sha@gmail.com', 1),
+(28, 'teacher 7', '123456', 'sha@gmail.com', 1),
 (29, 'tea', NULL, NULL, 1),
 (30, 'মোঃ মনিরুল ইসলাম', NULL, NULL, 7),
 (31, 'শাহরিয়ার ', NULL, NULL, 7),
 (32, 'মইনুদ্দিন ম মাসুদ', NULL, NULL, 7),
 (33, 'জুয়েল স্যার', NULL, NULL, 7),
-(34, 'emailtestTeacher', 123456789, 'shazzadurrahaman@gmail.com', 1),
-(35, 'shazzad', 123456789, 'testemail@gmail.com', 1),
-(36, 'Roni Cumilla', 123456, 'roni@kiteplexit.com', 5);
+(34, 'emailtestTeacher', '123456789', 'shazzadurrahaman@gmail.com', 1),
+(35, 'shazzad', '123456789', 'testemail@gmail.com', 1),
+(36, 'Roni Cumilla', '123456', 'roni@kiteplexit.com', 5);
 
 -- --------------------------------------------------------
 

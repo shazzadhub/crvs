@@ -178,9 +178,25 @@ if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
                 <input type="hidden" name="id" id="dialogFormTeacher-id" data-dojo-type="dijit/form/TextBox"/>
                 <input type="hidden" id="grid-teacher-refresh-id" data-dojo-type="dijit/form/TextBox"/>
                 <input type="hidden" name="school_id" id="dialogFormTeacher-school-id" data-dojo-type="dijit/form/TextBox"/>
-                <label for='foo'>Name:</label><div id="dialogFormTeacher-name" name="name" data-dojo-type="dijit.form.ValidationTextBox" data-dojo-props="required:true" onChange="sendName=this.value"></div>
-                <label for='foo1'>NID:</label><div type="number" id="dialogFormTeacher-nid" name="teacher_nid" maxLength="17" data-dojo-type="dijit.form.ValidationTextBox" data-dojo-props="required:true" onChange="sendNID=this.value"></div>
-                <label for='foo2'>Email Address:</label><div id="dialogFormTeacher-email" name="teacher_email" data-dojo-type="dijit.form.ValidationTextBox" data-dojo-props="required:true" onChange="sendEmail=this.value"></div>
+                
+                <table border="0" style="border-collapse: separate; table-layout: fixed; height: auto;">
+                    <tbody>
+                        <tr>
+                            <td><label for='foo'>Name:</label></td>
+                            <td><div id="dialogFormTeacher-name" name="name" data-dojo-type="dijit.form.ValidationTextBox" data-dojo-props="required:true" onChange="sendName=this.value"></div></td>
+                        </tr>
+                        <tr>
+                            <td><label for='foo1'>NID:</label></td>
+                            <td><div id="dialogFormTeacher-nid" name="teacher_nid" maxlength="17" data-dojo-type="dijit.form.ValidationTextBox" data-dojo-props="required:true" onChange="sendNID=this.value"></div></td>
+                        </tr>
+                        <tr>
+                            <td><label for='foo2'>Email Address:</label></td>
+                            <td><div id="dialogFormTeacher-email" name="teacher_email" data-dojo-type="dijit.form.ValidationTextBox" data-dojo-props="required:true" onChange="sendEmail=this.value"></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                
             </div>
             <div class="dijitDialogPaneActionBar">
                 <button data-dojo-type="dijit.form.Button" type="submit">OK</button>
