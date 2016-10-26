@@ -553,7 +553,18 @@ Flight::route('POST /student/save', function(){
         'student_legalgurdian_rel'=>$_POST['student_legalgurdian_rel'],
 
         'student_address_pres'=>$_POST['student_address_pres'],
+        'student_address_pres_word'=>$_POST['student_address_pres_word'],
+        'student_address_pres_upozilla'=>$_POST['student_address_pres_upozilla'],
+        'student_address_pres_zilla'=>$_POST['student_address_pres_zilla'],
+        'student_address_pres_dist'=>$_POST['student_address_pres_dist'],
+        'student_address_pres_postcode'=>$_POST['student_address_pres_postcode'],
+        
         'student_address_parm'=>$_POST['student_address_parm'],
+        'student_address_prmt_word'=>$_POST['student_address_prmt_word'],
+        'student_address_prmt_upozilla'=>$_POST['student_address_prmt_upozilla'],
+        'student_address_prmt_zilla'=>$_POST['student_address_prmt_zilla'],
+        'student_address_prmt_dist'=>$_POST['student_address_prmt_dist'],
+        'student_address_prmt_postcode'=>$_POST['student_address_prmt_postcode'],
 
         'student_operator_nid'=>$_POST['student_operator_nid'],
         'student_operator_name_ban'=>$_POST['student_operator_name_ban'],

@@ -69,7 +69,18 @@
 
             //Address_info
             dijit.byId('student_address_pres').set('value',data.student_address_pres);
+            dijit.byId('student_address_pres_word').set('value',data.student_address_pres_word);
+            dijit.byId('student_address_pres_upozilla').set('value',data.student_address_pres_upozilla);
+            dijit.byId('student_address_pres_zilla').set('value',data.student_address_pres_zilla);
+            dijit.byId('student_address_pres_dist').set('value',data.student_address_pres_dist);
+            dijit.byId('student_address_pres_postcode').set('value',data.student_address_pres_postcode);
+            
             dijit.byId('student_address_parm').set('value',data.student_address_parm);
+            dijit.byId('student_address_prmt_word').set('value',data.student_address_prmt_word);
+            dijit.byId('student_address_prmt_upozilla').set('value',data.student_address_prmt_upozilla);
+            dijit.byId('student_address_prmt_zilla').set('value',data.student_address_prmt_zilla);
+            dijit.byId('student_address_prmt_dist').set('value',data.student_address_prmt_dist);
+            dijit.byId('student_address_prmt_postcode').set('value',data.student_address_prmt_postcode);
             
             //Others_info
             dijit.byId('student_operator_nid').set('value',data.student_operator_nid);
@@ -153,7 +164,18 @@
 
         //Address_info
         dijit.byId('student_address_pres').set('value','');
+        dijit.byId('student_address_pres_word').set('value','');
+        dijit.byId('student_address_pres_upozilla').set('value','');
+        dijit.byId('student_address_pres_zilla').set('value','');
+        dijit.byId('student_address_pres_dist').set('value','');
+        dijit.byId('student_address_pres_postcode').set('value','');
+        
         dijit.byId('student_address_parm').set('value','');
+        dijit.byId('student_address_prmt_word').set('value','');
+        dijit.byId('student_address_prmt_upozilla').set('value','');
+        dijit.byId('student_address_prmt_zilla').set('value','');
+        dijit.byId('student_address_prmt_dist').set('value','');
+        dijit.byId('student_address_prmt_postcode').set('value','');
         
         //Others_info
         dijit.byId('student_operator_nid').set('value','');
@@ -335,8 +357,8 @@
             //console.log(JSON.stringify(demo.domForm.toObject(this.id)));
             return demo.saveForm("student",this.id,function(message){},function(message){});
         }else{
-        alert('Form contains invalid data.  Please correct first');
-        return false;
+            alert('Form contains invalid data or missing fileds. Please correct first');
+            return false;
         }
         return false;
     </script>
@@ -362,61 +384,55 @@
                     <tr>
                         <td><label>ছাত্রছাত্রীর আইডি:</label></td>
                         <td>
-                            <input type="number" data-dojo-type="dijit/form/TextBox" id="studentid" name="studentid" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="true" placeHolder="সংখ্যায় লিখুন"></input>
+                            <input type="number" data-dojo-type="dijit/form/TextBox" id="studentid" name="studentid" maxlength="7" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="true" placeHolder="সংখ্যায় লিখুন"></input>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label>
-                            ফরম এর সিরিয়াল নাম্বার:</label>
+                            <label>ফরম এর সিরিয়াল নাম্বার:</label>
                         </td>
                         <td>
-                            <input type="number" data-dojo-type="dijit/form/TextBox" id="student_form_serial_no" name="student_form_serial_no" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="সংখ্যায় লিখুন"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>
-                            শিক্ষার্থীর নাম(বাংলা):*</label>
-                        </td>
-                        <td>
-                            <input type="text" data-dojo-type="dijit/form/TextBox" id="student_name_ban" name="student_name_ban" required intermediateChanges="false" maxlength="35" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন"></input>
+                            <input type="number" data-dojo-type="dijit/form/TextBox" id="student_form_serial_no" name="student_form_serial_no" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="true" placeHolder="সংখ্যায় লিখুন"></input>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label>
-                            শিক্ষার্থীর নাম(ইংরেজি বড় অক্ষরে):*</label>
+                            <label>শিক্ষার্থীর নাম(বাংলা):*</label>
                         </td>
                         <td>
-                            <input type="text" data-dojo-type="dijit/form/TextBox" id="student_name_eng" name="student_name_eng" required intermediateChanges="false" maxlength="35" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="ইংরেজি বড় অক্ষরে লিখুন"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>
-                            জন্ম নিবন্ধন নম্বর:*</label>
-                        </td>
-                        <td>
-                            <input type="number" data-dojo-type="dijit/form/TextBox" id="student_birth_no" name="student_birth_no" required intermediateChanges="false" maxlength="17" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="সংখ্যায় লিখুন"></input>
+                            <input type="text" data-dojo-type="dijit/form/ValidationTextBox" id="student_name_ban" name="student_name_ban" required="true" intermediateChanges="false" maxlength="35" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="true" placeHolder="বাংলায় লিখুন" promptMessage="বাংলায় লিখুন" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক"></input>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label>
-                            জন্ম তারিখ:*(DD/MM/YYYY)*</label>
+                            <label>শিক্ষার্থীর নাম(ইংরেজি বড় অক্ষরে):*</label>
                         </td>
                         <td>
-                            <input type="text" data-dojo-type="dijit/form/DateTextBox" id="student_birth_date" name="student_birth_date" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$"></input>
+                            <input type="text" data-dojo-type="dijit/form/ValidationTextBox" id="student_name_eng" name="student_name_eng" required="true" intermediateChanges="false" maxlength="35" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="true" placeHolder="ইংরেজি বড় অক্ষরে লিখুন" promptMessage="ইংরেজি বড় অক্ষরে লিখুন" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক"></input>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label>
-                            জন্মস্থান:*</label>
+                            <label>জন্ম নিবন্ধন নম্বর:*</label>
                         </td>
                         <td>
-                            <input type="text" data-dojo-type="dijit/form/TextBox" id="student_birth_place" name="student_birth_place" required intermediateChanges="false" maxlength="2" trim="false" uppercase="false" lowercase="false" propercase="false" placeHolder="জন্মস্থান" selectOnClick="false"></input>
+                            <input type="number" data-dojo-type="dijit/form/ValidationTextBox" id="student_birth_no" name="student_birth_no" required="true" intermediateChanges="false" maxlength="17" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="true" placeHolder="সংখ্যায় লিখুন" promptMessage="সংখ্যায় লিখুন" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>জন্ম তারিখ: (দিন/মাস/বছর)*</label>
+                        </td>
+                        <td>
+                            <input type="text" data-dojo-type="dijit/form/DateTextBox" id="student_birth_date" name="student_birth_date" required="true" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>জন্মস্থান:*</label>
+                        </td>
+                        <td>
+                            <input type="text" data-dojo-type="dijit/form/ValidationTextBox" id="student_birth_place" name="student_birth_place" required="true" intermediateChanges="false" maxlength="2" trim="false" uppercase="false" lowercase="false" propercase="false" placeHolder="জন্মস্থান" selectOnClick="true" promptMessage="জন্মস্থান কোড" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক"></input>
                         </td> <!-- style="width: 3em;"-->
                     </tr>
                     <tr>
@@ -424,7 +440,7 @@
                             <label>লিঙ্গ:*</label>
                         </td>
                         <td>
-                            <select data-dojo-type="dijit/form/Select" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" id="student_sex" name="student_sex" placeHolder="সিলেক্ট করুন">
+                            <select data-dojo-type="dijit/form/Select" required="true" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" id="student_sex" name="student_sex" placeHolder="সিলেক্ট করুন" missingMessage="সিলেক্ট আবশ্যক" invalidMessage:"সিলেক্ট করা আবশ্যক" missingMessage="সিলেক্ট আবশ্যক" invalidMessage:"সিলেক্ট করা আবশ্যক">
                                 <option value="পুরুষ">
                                 পুরুষ</option>
                                 <option value="মহিলা">
@@ -439,7 +455,7 @@
                             <label>জাতীয়তা:*</label>
                         </td>
                         <td>
-                            <select data-dojo-type="dijit/form/Select" value="বাংলাদেশী" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" id="student_nationality" name="student_nationality" onChange="nationality_other" placeHolder="সিলেক্ট করুন">
+                            <select data-dojo-type="dijit/form/Select" value="বাংলাদেশী" required="true" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" id="student_nationality" name="student_nationality" onChange="nationality_other" placeHolder="সিলেক্ট করুন" missingMessage="সিলেক্ট আবশ্যক" invalidMessage:"সিলেক্ট করা আবশ্যক">
                                 <option value="বাংলাদেশী">
                                 বাংলাদেশী</option>
                                 <option value="অন্যান্য">
@@ -460,7 +476,7 @@
                             <label>ধর্ম:*</label>
                         </td>
                         <td>
-                            <select data-dojo-type="dijit/form/Select" value="ধর্ম" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" id="student_religion" name="student_religion" onChange="relegion_other" placeHolder="সিলেক্ট করুন">
+                            <select data-dojo-type="dijit/form/Select" value="ধর্ম" required="true" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" id="student_religion" name="student_religion" onChange="relegion_other" placeHolder="সিলেক্ট করুন" missingMessage="সিলেক্ট আবশ্যক" invalidMessage:"সিলেক্ট করা আবশ্যক">
                                 <option value="ইসলাম">
                                 ইসলাম</option>
                                 <option value="হিন্দু">
@@ -585,26 +601,23 @@
                 <tbody>
                     <tr>
                         <td>
-                            <label>
-                            পিতার নাম (বাংলা):*</label>
+                            <label>পিতার নাম (বাংলা):*</label>
                         </td>
                         <td>
-                            <input type="text" id="student_father_name_ban" name="student_father_name_ban" data-dojo-type="dijit/form/TextBox" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>
-                            পিতার নাম (ইংরেজি বড় অক্ষরে):*</label>
-                        </td>
-                        <td>
-                            <input type="text" id="student_father_name_eng" name="student_father_name_eng" data-dojo-type="dijit/form/TextBox" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="ইংরেজিতে লিখুন"></input>
+                            <input type="text" id="student_father_name_ban" name="student_father_name_ban" data-dojo-type="dijit/form/ValidationTextBox" required="true" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন" promptMessage="বাংলায় লিখুন" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক"></input>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label>
-                            পিতা মৃত হইলে মৃত্যুর সন (পিতা মৃত হলে টিক দিন):</label>
+                            <label>পিতার নাম (ইংরেজি বড় অক্ষরে):*</label>
+                        </td>
+                        <td>
+                            <input type="text" id="student_father_name_eng" name="student_father_name_eng" data-dojo-type="dijit/form/ValidationTextBox" required="true" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="ইংরেজিতে লিখুন" promptMessage="ইংরেজি বড় অক্ষরে লিখুন" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>পিতা মৃত হইলে মৃত্যুর সন (পিতা মৃত হলে টিক দিন):</label>
                         </td>
                         <td>
                             <input id="student_father_death_if" name="student_father_death_if" type="checkbox" checked="false" onChange="father_death_if" data-dojo-type="dijit/form/CheckBox" intermediateChanges="false" iconClass="dijitNoIcon"></input>
@@ -626,11 +639,10 @@
                     </tr>
                     <tr>
                         <td>
-                            <label>
-                            জাতীয় পরিচয় পত্র নাম্বার:</label>
+                            <label>জাতীয় পরিচয় পত্র নাম্বার:</label>
                         </td>
                         <td>
-                            <input id="student_father_nid" name="student_father_nid" type="number" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" maxlength="17" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="শুধু মাত্র সংখ্যা এখানে অনুমোদিত"></input>
+                            <input type="number" id="student_father_nid" name="student_father_nid" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" maxlength="17" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="শুধু মাত্র সংখ্যা এখানে অনুমোদিত"></input>
                         </td>
                     </tr>
             </tbody>
@@ -666,7 +678,7 @@
                             <tr>
                                 <td><label>মাতার নাম (বাংলা):*</label></td>
                                 <td>
-                                    <input type="text" id="student_mother_name_ban" name="student_mother_name_ban" data-dojo-type="dijit/form/TextBox" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন"></input>
+                                    <input type="text" id="student_mother_name_ban" name="student_mother_name_ban" data-dojo-type="dijit/form/ValidationTextBox" required="true" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন" promptMessage="বাংলায় লিখুন" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক"></input>
                                 </td>
                             </tr>
                             <tr>
@@ -674,7 +686,7 @@
                                     <label>মাতার নাম (ইংরেজি বড় অক্ষরে):*</label>
                                 </td>
                                 <td>
-                                    <input type="text" id="student_mother_name_eng" name="student_mother_name_eng" data-dojo-type="dijit/form/TextBox" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="ইংরেজিতে লিখুন"></input>
+                                    <input type="text" id="student_mother_name_eng" name="student_mother_name_eng" data-dojo-type="dijit/form/ValidationTextBox" required="true" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="ইংরেজিতে লিখুন" promptMessage="ইংরেজি বড় অক্ষরে লিখুন" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক"></input>
                                 </td>
                             </tr>
                             <tr>
@@ -718,8 +730,7 @@
 
 
             <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em; left: 9px; top: 8px;">
-                <legend>
-                আইনানুগ অভিভাবক, স্থানীয় অভিভাবক (পিতা মাতার অবর্তমানে)</legend>
+                <legend>আইনানুগ অভিভাবক, স্থানীয় অভিভাবক (পিতা মাতার অবর্তমানে)</legend>
                 <table border="0" style="border-collapse: separate; table-layout: fixed; width: 100%; height: auto;">
                     <colgroup>
                     <col class="colgroup_first_col" style="width: 38%;"></col>
@@ -727,23 +738,20 @@
                     </colgroup>
                     <tbody>
                         <tr>
-                            <td>
-                            জাতীয় পরিচয় পত্র নাম্বার:</td>
+                            <td>জাতীয় পরিচয় পত্র নাম্বার:</td>
                             <td>
                                 <input type="number" data-dojo-type="dijit/form/TextBox" id="student_legalgurdian_nid" name="student_legalgurdian_nid" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="সংখ্যায় লিখুন"></input>
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                            নাম(বাংলা):</td>
+                            <td>নাম(বাংলা):</td>
                             <td>
                                 <input type="text" id="student_legalgurdian_name_ban" name="student_legalgurdian_name_ban" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন"></input>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <label>
-                                ছাত্রছাত্রীর সাথে সম্পর্কঃ</label>
+                                <label>ছাত্রছাত্রীর সাথে সম্পর্কঃ</label>
                             </td>
                             <td>
                                 <select data-dojo-type="dijit/form/Select" id="student_legalgurdian_rel" name="student_legalgurdian_rel" value="" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" placeHolder="সিলেক্ট করুন">
@@ -914,16 +922,62 @@
         <div data-dojo-type="dijit/layout/ContentPane" title="ঠিকানা" extractContent="false" preventCache="false" preload="false" refreshOnShow="false" doLayout="true" selected="true" closable="false" style="height: auto;">
             <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em;">
                 <legend>বর্তমান ঠিকানা*</legend>
-                <textarea type="text" id="student_address_pres" name="student_address_pres" data-dojo-type="dijit/form/Textarea" required intermediateChanges="false" rows="3" trim="false" uppercase="false" lowercase="false" propercase="false" style="margin-left: 5%; width: 70%; height: auto;"></textarea>
+                <textarea type="text" id="student_address_pres" name="student_address_pres" data-dojo-type="dijit/form/Textarea" required="true" intermediateChanges="false" rows="3" trim="false" uppercase="false" lowercase="false" propercase="false" style="margin-left: 5%; width: 70%; height: auto;" promptMessage="ঠিকানা লিখুন" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক"></textarea>
+                </br>
+                <table style="width:100%">
+                    <tbody>
+                        <tr>
+                            <td><label>ওয়ার্ড/ইউনিয়ন*</label>
+                                <input type="text" data-dojo-type="dijit/form/ValidationTextBox" id="student_address_pres_word" name="student_address_pres_word" required="true" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="true" placeHolder="ওয়ার্ড/ইউনিয়ন" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক" ></input>    
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>উপজেলা/থানা*</label>
+                            <input type="number" data-dojo-type="dijit/form/ValidationTextBox" id="student_address_pres_upozilla" name="student_address_pres_upozilla" required="true" intermediateChanges="false" maxlength="2" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="true" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক" ></input>
+
+                            <td><label>জেলা*</label>
+                            <input type="number" data-dojo-type="dijit/form/ValidationTextBox" id="student_address_pres_zilla" name="student_address_pres_zilla" required="true" intermediateChanges="false" maxlength="2" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="true" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক" ></input>
+
+                            <td><label>বিভাগ*</label>
+                            <input type="number" data-dojo-type="dijit/form/ValidationTextBox" id="student_address_pres_dist" name="student_address_pres_dist" required="true" intermediateChanges="false" maxlength="1" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="true" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক" ></input>
+
+                            <td><label>পোস্ট কোড*</label>
+                            <input type="number" data-dojo-type="dijit/form/ValidationTextBox" id="student_address_pres_postcode" name="student_address_pres_postcode" required="true" intermediateChanges="false" maxlength="4" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="true" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক" ></input>    
+                        </tr>
+                    </tbody>
+                </table>
+
                 <br></br>
-                <a style="margin-left: 5%; margin-top: 2%;">
-                সঠিক ঠিকানা লিখার জন্য ক্লিক করুন</a>
+                <a style="margin-left: 5%; margin-top: 2%;">সঠিক ঠিকানা লিখার জন্য ক্লিক করুন</a>
             </fieldset>
             <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em;">
                 <input type="checkbox" data-dojo-type="dijit/form/CheckBox" intermediateChanges="false" iconClass="dijitNoIcon"></input>বর্তমান ও স্থায়ী ঠিকানা একই হলে চেকমার্ক বক্সে ক্রস চহ্ন দিন
                 <legend>স্থায়ী ঠিকানা*</legend>
                 <br></br>
-                <textarea type="text" id="student_address_parm" name="student_address_parm" data-dojo-type="dijit/form/Textarea" required intermediateChanges="false" rows="3" trim="false" uppercase="false" lowercase="false" propercase="false" style="height: auto; margin-left: 5%; width: 70%;"></textarea>
+                <textarea type="text" id="student_address_parm" name="student_address_parm" data-dojo-type="dijit/form/Textarea" required="true" intermediateChanges="false" rows="3" trim="false" uppercase="false" lowercase="false" propercase="false" style="height: auto; margin-left: 5%; width: 70%;" promptMessage="ঠিকানা লিখুন" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক"></textarea>
+                </br>
+                <table style="width:100%">
+                    <tbody>
+                        <tr>
+                            <td><label>ওয়ার্ড/ইউনিয়ন*</label>
+                                <input type="text" data-dojo-type="dijit/form/ValidationTextBox" id="student_address_prmt_word" name="student_address_prmt_word" required="true" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="true" placeHolder="ওয়ার্ড/ইউনিয়ন" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক" ></input>    
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>উপজেলা/থানা*</label>
+                            <input type="number" data-dojo-type="dijit/form/ValidationTextBox" id="student_address_prmt_upozilla" name="student_address_prmt_upozilla" required="true" intermediateChanges="false" maxlength="2" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="true" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক" ></input>
+
+                            <td><label>জেলা*</label>
+                            <input type="number" data-dojo-type="dijit/form/ValidationTextBox" id="student_address_prmt_zilla" name="student_address_prmt_zilla" required="true" intermediateChanges="false" maxlength="2" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="true" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক" ></input>
+
+                            <td><label>বিভাগ*</label>
+                            <input type="number" data-dojo-type="dijit/form/ValidationTextBox" id="student_address_prmt_dist" name="student_address_prmt_dist" required="true" intermediateChanges="false" maxlength="1" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="true" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক" ></input>
+
+                            <td><label>পোস্ট কোড*</label>
+                            <input type="number" data-dojo-type="dijit/form/ValidationTextBox" id="student_address_prmt_postcode" name="student_address_prmt_postcode" required="true" intermediateChanges="false" maxlength="4" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="true" missingMessage="পূরণ করা আবশ্যক" invalidMessage:"পূরণ করা আবশ্যক" ></input>    
+                        </tr>
+                    </tbody>
+                </table>
                 <br></br>
                 <a style="margin-left: 5%; margin-top: 2%;">
                 সঠিক ঠিকানা লিখার জন্য ক্লিক করুন</a>
