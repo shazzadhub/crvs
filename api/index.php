@@ -91,11 +91,14 @@ Flight::route('/schools', function(){
                   plc1.`name` `division`,
                   plc2.`name` `district`,
                   plc3.`name` `subdistrict`,
-                  `school_type_id`
+                  type.`name` `school_type_id`,
+                  head.`ht_name` `head_teacher_id`
             FROM `schools` AS sch
             INNER JOIN `places` AS plc1 ON sch.`division` = plc1.`id`
             INNER JOIN `places` AS plc2 ON sch.`district` = plc2.`id`
             INNER JOIN `places` AS plc3 ON sch.`subdistrict` = plc3.`id`
+            INNER JOIN `school_types` AS type ON sch.`school_type_id` = type.`id`
+            INNER JOIN `head_teachers` AS head ON sch.`head_teacher_id` = head.`id`
 
             ");
     Flight::json(array(
@@ -284,8 +287,10 @@ Flight::route('POST /teacher/save', function(){
     Flight::checkLogin();
 
     $db = Flight::db();
-    $data =         array(
+    $data = array(
         'name'=>$_POST['name'],
+        'teacher_nid'=>$_POST['teacher_nid'],
+        'teacher_email'=>$_POST['teacher_email'],
         'school_id'=>$_POST['school_id']
     );
 
@@ -298,7 +303,7 @@ Flight::route('POST /teacher/save', function(){
     if($flg){
         Flight::json(array(
             'status'  => 'success',
-            'message' => 'School Saved Successfully.'
+            'message' => 'Teacher Added Successfully.'
         ));
     }else{
         Flight::json(array(
@@ -307,41 +312,168 @@ Flight::route('POST /teacher/save', function(){
         ));
     }
 });
-Flight::route('POST /teacher/mail', function(){
-    echo 'mail testing';
-    $to = "shazzadurrahaman@gmail.com";
-    $subject = "Test Email from CRVS";
 
+Flight::route('/mailTest', function(){
+    $random_hash = substr(md5(uniqid(rand(), true)), 6, 6);
     $message = "
     <html>
-    <head>
-    <title>CRVS</title>
-    </head>
-    <body>
-    <p>This is the confirmation that one Teacher has added to the server</p>
-    <table>
-    <tr>
-    <th>Name</th>
-    <th>School</th>
-    </tr>
-    <tr>
-    <td>Test Teacher 1</td>
-    <td>Uttara School Test</td>
-    </tr>
-    </table>
-    </body>
+        <head>
+            <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+            <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' integrity='sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7' crossorigin='anonymous'>
+            <script src='//code.jquery.com/jquery-1.12.0.min.js'></script>
+            <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' integrity='sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS' crossorigin='anonymous'></script>
+        </head>
+
+        <body>
+
+            <div class='container'>
+                <div class='row'>
+                    <header class='page-header' style='margin:0; padding:20px 0px ; background: rgb(81, 145, 187); color:#FFF;'>
+                        <div style='margin-left:3%'>
+                            <h1>প্রাথমিক শিক্ষা অধিদপ্তর</h1>
+                            <h3>গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</h3>
+                        <div>
+                    </header>
+
+                    <div class='col-md-12' style='
+                    background-color: #E5EEF5;
+                    text-align: justify;
+                    font-family: verdana, arail, sans-serif;
+                    font-size: 15px;
+                    padding-bottom:50px;'>
+                        <p style='padding-top:30px'><i>This is an autometed mail, dont reply this email</i></p>
+                        <div style='margin-left:3%; margin-top:50px;'>
+                            <p><strong>Dear sir, </strong></p>
+                            <p style='margin-top:20px;'>
+                                This is a confirmation email that with the following information a teacher has been added into the CRVS database: 
+                            </p>
+                            <div style='margin-top:30px'>
+                                <table style='font: inherit'>
+                                    <tbody>
+                                        <tr>
+                                            <td style='padding-right: 10px'>Name</td>
+                                            <td><strong>varriable</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td style='padding-right: 10px'>NID</td>
+                                            <td><strong>varriable</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div style='margin-left:3%; padding-top:30px'>This is the confirmation code to enter in the CRVS software</div>
+                        <div style='margin-left:3%; font-family:arial, sans-serif; font-size:20px; padding-top:18px' class='well'>
+                            <div style='background: #7FD27E;width: 10%;text-align: center;'><strong>".$random_hash."</strong></div>
+                        </div>
+                    <div>
+                </div>
+            </div>
+
+        </body>
     </html>
     ";
 
-    // Always set content-type when sending HTML email
+    echo $message;
+});
+Flight::route('POST /teacher/mailTest2', function(){
+    $random_hash = substr(md5(uniqid(rand(), true)), 6, 6);
+
+    Flight::json(array(
+        'status'  => 'success',
+        'code' => $random_hash
+    ));
+    Flight::json(array(
+        'status'  => 'failure',
+        'message' => 'Mail sending failed'
+    ));
+});
+Flight::route('POST /teacher/mail', function(){
+    //$data = file_get_contents('php://input');
+    $to = $_POST["teacherEmail"];
+    $reciever_name = $_POST['teacherName'];
+    $reciever_nid = $_POST['teacherNID'];
+    $subject = "CRVS Teacher Confirmation";
+    $random_hash = substr(md5(uniqid(rand(), true)), 6, 6);
+
+    $message = "
+    <html>
+        <head>
+            <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+            <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' integrity='sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7' crossorigin='anonymous'>
+            <script src='//code.jquery.com/jquery-1.12.0.min.js'></script>
+            <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' integrity='sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS' crossorigin='anonymous'></script>
+        </head>
+
+        <body>
+
+            <div class='container'>
+                <div class='row'>
+                    <header class='page-header' style='margin:0; padding:20px 0px ; background: rgb(81, 145, 187); color:#FFF;'>
+                        <div style='margin-left:3%'>
+                            <h1>প্রাথমিক শিক্ষা অধিদপ্তর</h1>
+                            <h3>গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</h3>
+                        <div>
+                    </header>
+
+                    <div class='col-md-12' style='
+                    background-color: #E5EEF5;
+                    text-align: justify;
+                    font-family: verdana, arail, sans-serif;
+                    font-size: 15px;
+                    padding-bottom:50px;'>
+                        <p style='padding-top:30px'><i>This is an autometed mail, dont reply this email</i></p>
+                        <div style='margin-left:3%; margin-top:50px;'>
+                            <p><strong>Dear sir, </strong></p>
+                            <p style='margin-top:20px;'>
+                                This is a confirmation email that with the following information a teacher has been added into the CRVS database: 
+                            </p>
+                            <div style='margin-top:30px'>
+                                <table style='font: inherit'>
+                                    <tbody>
+                                        <tr>
+                                            <td style='padding-right: 10px'>Name</td>
+                                            <td><strong>".$reciever_name."</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td style='padding-right: 10px'>NID</td>
+                                            <td><strong>".$reciever_nid."</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div style='margin-left:3%; padding-top:30px'>This is the confirmation code to enter in the CRVS software</div>
+                        <div style='margin-left:3%; font-family:arial, sans-serif; font-size:20px; padding-top:18px' class='well'>
+                            <div style='background: #7FD27E;width: 10%;text-align: center;'><strong>".$random_hash."</strong></div>
+                        </div>
+                    <div>
+                </div>
+            </div>
+
+        </body>
+    </html>
+    ";
+
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-    // More headers
     $headers .= 'From: <shazzad@kiteplexit.com>' . "\r\n";
     // $headers .= 'Cc: myboss@example.com' . "\r\n";
 
-    mail($to,$subject,$message,$headers);
+    $mailflg = mail($to,$subject,$message,$headers);
+
+    if($mailflg){
+        Flight::json(array(
+            'status'  => 'success',
+            'code' => $random_hash
+        ));
+    }else{
+        Flight::json(array(
+            'status'  => 'failure',
+            'message' => 'Mail sending failed'
+        ));
+    }
 });
 Flight::route('/teacher/@id', function($id){
     Flight::checkLogin();

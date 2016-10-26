@@ -29,6 +29,14 @@ if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
     <script type="text/javascript" src="src.js" charset="utf-8"></script>
 </head>
 <body class="claro" style="background-color: #5191bb!important;">
+    <script type="text/javascript">
+        var sendName;
+        var sendEmail;
+        var sendNID;
+
+        var confirmation_code_input;
+        var confirmation_code_gen;
+    </script>
 
     <div id="preloader">Loading Application...</div>
     <!-- Using Declarative Require to "hang" some modules off demo object for declarative scripting -->
@@ -44,34 +52,21 @@ if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
         "demo.Button": "dijit/form/Button",
         "demo.FormSelect": "dijit/form/Select",
         "demo.ValidationTextBox": "dijit/form/ValidationTextBox",
+
         "demo.dijit" : "dijit/dijit",
-        "demo.domstyle" : "dojo/dom-style",
-        "demo.domForm" : "dojo/dom-form"
-        
-        // "demo.parser" : "dojo/parser",
-        // "demo.BorderContainer" : "dijit/layout/BorderContainer",
-        // "demo.ContentPane" : "dijit/layout/ContentPane",
-        // "demo.TabContainer" : "dijit/layout/TabContainer",
-        // "demo.mobile" : "dojox/mobile",
-        // "demo.deviceTheme" : "dojox/mobile/deviceTheme",
-        // "demo.TabBar" : "dojox/mobile/TabBar",
-        // "demo.TabBarButton" : "dojox/mobile/TabBarButton",
-        // "demo.ComboButton" : "dijit/form/ComboButton",
-        // "demo.Menu" : "dijit/Menu",
-        // "demo.MenuItem" : "dijit/MenuItem",
-        // "demo.RadioButton" : "dijit/form/RadioButton",
-        // "demo.mobCheckBox" : "dojox/mobile/CheckBox",
-        // "demo.formCheckBox" : "dijit/form/CheckBox",
-        // "demo.RadioButton" : "dojox/mobile/RadioButton",
-        // "demo.TextBox" : "dijit/form/TextBox",
-        // "demo.DateTextBox" : "dijit/form/DateTextBox",
-        // "demo.ComboBox" : "dijit/form/ComboBox",
-        // "demo.Textarea" : "dijit/form/Textarea",
-        // "demo.NumberTextBox" : "dijit/form/NumberTextBox",
-        // "demo.ToggleButton" : "dijit/form/ToggleButton"
-
-
+        "demo.domstyle" : "dojo/dom-style"
     </script>
+
+    <!--<script type="text/javascript">
+        require(["dijit/ConfirmDialog"], function(ConfirmDialog){
+            teacherConfirmDialog = new ConfirmDialog({
+                title: "Enter Code to Confirm",
+                content: "<input type='text' id='teacher_confirmation_input' maxlength='6' data-dojo-type='dijit/form/TextBox' intermediateChanges='false' trim='false' uppercase='false' lowercase='false' propercase='false' selectOnClick='false' style='width: 100%;' placeHolder='CODE'></input>",
+                style: "width: 300px"
+            });
+        });
+    </script>-->
+
     <div data-dojo-type="dijit/layout/BorderContainer" id="mainContainer"  style="background-color: #5191bb!important;"
          data-dojo-props="gutters:false">
         <div data-dojo-type="dijit/layout/ContentPane" id="headerPane"
@@ -113,6 +108,34 @@ if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
         </div>
     </div>
 
+    <div data-dojo-type="dijit.Dialog" id="teacher_confirmation_dialog" title="Enter the Code to Confirm" style="display: none">
+        <form data-dojo-type="dijit.form.Form">
+            <script type="dojo/event" data-dojo-event="onSubmit" data-dojo-args="e">
+                dojo.stopEvent(e);
+                if(!this.isValid()){ window.alert('Please fix fields'); return; }
+                    if(confirmation_code_gen === confirmation_code_input){
+                        dijit.byId('teacher_confirmation_dialog').hide();
+                        alert("Successfully Added Teacher");
+                        confirmation_code_gen = null;
+                        confirmation_code_input = null;
+                    } else {
+                        dijit.byId("teacher_confirmation_dialog").set('title',"Code You entered is Invalid");
+                        dijit.byId("teacher_confirmation_dialog").set('backgroundColor',"red");
+                        confirmation_code_input = null;
+                    }
+            </script>
+            <div class="dijitDialogPaneContentArea">
+
+                <label for='foo'>Confirmation Code:</label><div id="teacher_conf_code_input" data-dojo-type="dijit.form.ValidationTextBox" value='' data-dojo-props="required:true" onChange="confirmation_code_input=this.value" style="font-weight:bold;" placeHolder="CODE"></div>
+            </div>
+            <div class="dijitDialogPaneActionBar">
+                    <button data-dojo-type="dijit.form.Button" type="submit">OK</button>
+                    <button data-dojo-type="dijit.form.Button" type="button"
+                        data-dojo-props="onClick:function(){dijit.byId('teacher_confirmation_dialog').hide();}">Cancel</button>
+            </div>
+         </form>
+    </div>
+
     <div data-dojo-type="dijit.Dialog" id="dialogFormTeacher" title="New/Edit Teacher" style="display: none">
         <form data-dojo-type="dijit.form.Form">
             <script type="dojo/event" data-dojo-event="onSubmit" data-dojo-args="e">
@@ -126,9 +149,23 @@ if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
                                 demo.reloadGrid(teachers_grid.get("value"), "api/teachers/"+school_id, function(){});
                             }
                             dijit.byId('dialogFormTeacher').hide();
-                            demo.email("teacher",this.id,function(message){
-                                alert("Confirmation Sent");
-                            },function(message){});
+                            
+                            //SENDING A EMAIL TO THE TEACHERS EMAIL ADDRESS
+                            //var data = dojo.toJson({"teacherName":sendName, "teacherNID":sendNID, "teacherEmail":sendEmail});
+                            var data = {};
+                            data["teacherName"]=sendName;
+                            data["teacherNID"]=sendNID;
+                            data["teacherEmail"]=sendEmail;
+                            demo.email("teacher",data,function(code){
+                                //console.log(message);
+                                confirmation_code_gen = code;
+                                console.debug('CONFIRMATION-CODE: '+confirmation_code_gen);
+                                dijit.byId("teacher_conf_code_input").set('value', '');
+                                dijit.byId("teacher_confirmation_dialog").show();
+                                //alert(code);
+                            },function(message){
+                                alert(message);
+                            });
                         },function(message){
                     });
                 }else{
@@ -141,7 +178,9 @@ if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
                 <input type="hidden" name="id" id="dialogFormTeacher-id" data-dojo-type="dijit/form/TextBox"/>
                 <input type="hidden" id="grid-teacher-refresh-id" data-dojo-type="dijit/form/TextBox"/>
                 <input type="hidden" name="school_id" id="dialogFormTeacher-school-id" data-dojo-type="dijit/form/TextBox"/>
-                <label for='foo'>Name:</label><div  id="dialogFormTeacher-name" name="name" data-dojo-type="dijit.form.ValidationTextBox" data-dojo-props="required:true"></div>
+                <label for='foo'>Name:</label><div id="dialogFormTeacher-name" name="name" data-dojo-type="dijit.form.ValidationTextBox" data-dojo-props="required:true" onChange="sendName=this.value"></div>
+                <label for='foo1'>NID:</label><div type="number" id="dialogFormTeacher-nid" name="teacher_nid" maxLength="17" data-dojo-type="dijit.form.ValidationTextBox" data-dojo-props="required:true" onChange="sendNID=this.value"></div>
+                <label for='foo2'>Email Address:</label><div id="dialogFormTeacher-email" name="teacher_email" data-dojo-type="dijit.form.ValidationTextBox" data-dojo-props="required:true" onChange="sendEmail=this.value"></div>
             </div>
             <div class="dijitDialogPaneActionBar">
                 <button data-dojo-type="dijit.form.Button" type="submit">OK</button>

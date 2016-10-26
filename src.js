@@ -108,15 +108,16 @@ require([
         return false;
 	});
 
-    lang.setObject("demo.email", function(model,form_name, onSuccess,onFailure){
+    lang.setObject("demo.email", function(model,data, onSuccess, onFailure){
         dojo.xhrPost({
             url: "api/" + model + "/mail",
-            form: form_name,
+            //url: "api/" + model + "/mailTest2",
+            postData: data,
             handleAs: 'json',
             load: function(response){
                 if (response.status == 'success') {
                     //widget.onSuccess(response);
-                    onSuccess(response.message);
+                    onSuccess(response.code);
                 } else {
                     //widget.onFailure(response);
                     onFailure(response.message);

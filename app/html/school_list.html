@@ -6,16 +6,18 @@
         <div data-dojo-type="dojo/data/ItemFileReadStore" id="fileGridStore"
              data-dojo-id="demo.fileGridStore" style="display: none"
              data-dojo-props="url: 'api/schools'"></div>
-        <!--<p>সিলেক্ট করতে ডবল ক্লিক করুন</p> -->
-        <table data-dojo-type="dojox/grid/DataGrid" id="schoolListGrid" onRowDblClick="demo.editSchool"
-               data-dojo-props="selectionMode: 'single',store: demo.fileGridStore, noDataMessage: 'No Files...'">
+        <!--<p>সিলেক্ট করতে ডবল ক্লিক করুন</p>-->
+        <table data-dojo-type="dojox/grid/EnhancedGrid" id="schoolListGrid" onRowDblClick="demo.editSchool"
+               data-dojo-props="selectionMode: 'single',store: demo.fileGridStore, loadingMessage: 'Loading Schools from Database', noDataMessage: 'No Schools...!'">
             <thead>
             <tr>
                 <th field="name" width="50%">Name</th>
-                <th field="eiin" width="20%">EIIN</th>
-                <th field="division" width="20%">Division</th>
-                <th field="district" width="20%">District</th>
-                <th field="subdistrict" width="20%">Sub-District</th>
+                <th field="eiin" width="10%">EIIN</th>
+                <th field="division" width="10%">Division</th>
+                <th field="district" width="10%">District</th>
+                <th field="subdistrict" width="10%">Sub-District</th>
+                <th field="school_type_id" width="20%">Type</th>
+                <th field="head_teacher_id" width="20%">Head Master</th>
             </tr>
             </thead>
         </table>
@@ -42,12 +44,13 @@
                 }
             </script>
         </button>
-        <!-- <button type="button" data-dojo-type="dijit/form/Button">
+        <!--<button type="button" data-dojo-type="dijit/form/Button">
             <span>Edit</span>
             <script type="dojo/on" data-dojo-event="click">
                 //demo.addTab("mainTabContainer", "app/html/school_new.html", "New School", true);
             </script>
-        </button> -->
+        </button>-->
+        <strong>সিলেক্ট করতে ডবল ক্লিক করুন</strong>
     </div>
 </div>
 
