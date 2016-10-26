@@ -33,7 +33,7 @@ if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
         var sendName;
         var sendEmail;
         var sendNID;
-
+        
         var confirmation_code_input;
         var confirmation_code_gen;
     </script>
@@ -42,6 +42,7 @@ if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
     <!-- Using Declarative Require to "hang" some modules off demo object for declarative scripting -->
     <script type="dojo/require">
         "demo.local" : "dojo/i18n",
+        "demo.domForm": "dojo/dom-form",
         "demo.parser" : "dojo/parser",
         "demo.dom": "dojo/dom",
         "demo.registry": "dijit/registry",
@@ -126,7 +127,7 @@ if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
                     }
             </script>
             <div class="dijitDialogPaneContentArea">
-
+                <p>A Confirmation Code has sent to, <?php echo $_SESSION['user_info'][0]['email']; ?> to verify the Logged-in User</p>
                 <label for='foo'>Confirmation Code:</label><div id="teacher_conf_code_input" data-dojo-type="dijit.form.ValidationTextBox" value='' data-dojo-props="required:true" onChange="confirmation_code_input=this.value" style="font-weight:bold;" placeHolder="CODE"></div>
             </div>
             <div class="dijitDialogPaneActionBar">
@@ -141,34 +142,35 @@ if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
         <form data-dojo-type="dijit.form.Form">
             <script type="dojo/event" data-dojo-event="onSubmit" data-dojo-args="e">
                 dojo.stopEvent(e);
+                //SENDING A EMAIL TO THE TEACHERS EMAIL ADDRESS
+                //var data = dojo.toJson({"teacherName":sendName, "teacherNID":sendNID, "teacherEmail":sendEmail});
+                var data = {};
+                data["teacherName"]=sendName;
+                data["teacherNID"]=sendNID;
+                data["teacherEmail"]=sendEmail;
+                demo.email("teacher",data,function(code){
+                    //console.log(message);
+                    confirmation_code_gen = code;
+                    console.debug('CONFIRMATION-CODE: '+confirmation_code_gen);
+                    dijit.byId("teacher_conf_code_input").set('value', '');
+                    dijit.byId("teacher_confirmation_dialog").show();
+                    //alert(code);
+                },function(message){
+                    alert(message);
+                    dijit.byId('dialogFormTeacher').hide();
+                });
+                
                 if(this.validate()){
-                    demo.saveForm("teacher",this.id,function(message){
-                            var teachers_grid = dijit.byId("grid-teacher-refresh-id");
-                            var school_id = demo.getSelectedSchoolId();
-                            if(school_id !== undefined){
-                                //console.debug(teachers_grid.get("value"));
-                                demo.reloadGrid(teachers_grid.get("value"), "api/teachers/"+school_id, function(){});
-                            }
-                            dijit.byId('dialogFormTeacher').hide();
-                            
-                            //SENDING A EMAIL TO THE TEACHERS EMAIL ADDRESS
-                            //var data = dojo.toJson({"teacherName":sendName, "teacherNID":sendNID, "teacherEmail":sendEmail});
-                            var data = {};
-                            data["teacherName"]=sendName;
-                            data["teacherNID"]=sendNID;
-                            data["teacherEmail"]=sendEmail;
-                            demo.email("teacher",data,function(code){
-                                //console.log(message);
-                                confirmation_code_gen = code;
-                                console.debug('CONFIRMATION-CODE: '+confirmation_code_gen);
-                                dijit.byId("teacher_conf_code_input").set('value', '');
-                                dijit.byId("teacher_confirmation_dialog").show();
-                                //alert(code);
-                            },function(message){
-                                alert(message);
-                            });
-                        },function(message){
-                    });
+                    // demo.saveForm("teacher",this.id,function(message){
+                    //         var teachers_grid = dijit.byId("grid-teacher-refresh-id");
+                    //         var school_id = demo.getSelectedSchoolId();
+                    //         if(school_id !== undefined){
+                    //             //console.debug(teachers_grid.get("value"));
+                    //             demo.reloadGrid(teachers_grid.get("value"), "api/teachers/"+school_id, function(){});
+                    //         }
+                    //         dijit.byId('dialogFormTeacher').hide();
+                    //     },function(message){
+                    // });
                 }else{
                     alert('Form contains invalid data.  Please correct first');
                     return false;

@@ -27,7 +27,20 @@
                             if(htconfirmation_code_gen === htconfirmation_code_input){
                                 dijit.byId('headteacher_confirmation_dialog').hide();
                                 //alert("Successfully Added Head Teacher");
-                                return demo.saveForm("school","new_school_form",function(message){alert(message);},function(message){});
+                                return demo.saveForm("school","new_school_form",function(message){
+                                    alert(message);
+
+                                    dijit.byId('new_name').set('value', '');
+                                    dijit.byId('new_school_type_id').set('value', '');
+                                    dijit.byId('new_eiin').set('value', '');
+                                    dijit.byId('new_head_teacher_id').set('value', '');
+                                    dijit.byId('new_division').set('value', '');
+                                    dijit.byId('new_district').set('value', '');
+                                    dijit.byId('new_subdistrict').set('value', '');
+
+                                },function(message){
+                                    alert(message);
+                                });
                                 htconfirmation_code_input = null;
                                 htconfirmation_code_input = null;
                                 dijit.byId("headteacher_confirmation_dialog").set('value', '');
@@ -40,7 +53,7 @@
                     </script>
                     <div class="dijitDialogPaneContentArea">
                     <div><i>A Confirmation Email has been sent to the selected Head Teacher's Email address </i></div> </br></br>
-                        <label for='foo'>Confirmation Code:</label><div id="headteacher_conf_code_input" data-dojo-type="dijit.form.ValidationTextBox" value='' data-dojo-props="required:true" onChange="htconfirmation_code_input=this.value" style="font-weight:bold;" placeHolder="CODE"></div>
+                        <label for='foo'>Confirmation Code:</label><div id="headteacher_new_conf_code_input" data-dojo-type="dijit.form.ValidationTextBox" value='' data-dojo-props="required:true" onChange="htconfirmation_code_input=this.value" style="font-weight:bold;" placeHolder="CODE"></div>
                     </div>
                     <div class="dijitDialogPaneActionBar">
                             <button data-dojo-type="dijit.form.Button" type="submit">OK</button>
@@ -99,7 +112,8 @@
                     <td>
                         <input type="text" id="new_name" name="name"
                                data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true"
-                               data-dojo-props="regExp:'[\\w]+', invalidMessage:'Name cannot be empty.'"/>
+                               data-dojo-props="regExp:'[\\w]+', invalidMessage:'Name cannot be empty.'"
+                               placeholder="স্কুলের নাম লিখুন" />
                     </td>
                 </tr>
                 <tr>
@@ -115,7 +129,7 @@
                 </tr>
                 <tr>
                     <td><label>Head Teacher</label></td>
-                    <td><input type="text" id="new_head_teacher_id" name="head_teacher_id"/></td>
+                    <td><input type="text" id="new_head_teacher_id" name="head_teacher_id" placeholder="সিলেক্ট করুন" /></td>
                 </tr>
 
                 <!--<tr>-->
@@ -127,15 +141,15 @@
                 <!--</tr>-->
                 <tr>
                     <td><label>Division</label></td>
-                    <td><input type="text" id="new_division" name="division" /></td>
+                    <td><input type="text" id="new_division" name="division" placeholder="সিলেক্ট করুন"/></td>
                 </tr>
                 <tr>
                     <td><label>District</label></td>
-                    <td><input type="text" id="new_district" name="district" id="district" /></td>
+                    <td><input type="text" id="new_district" name="district" id="district" placeholder="সিলেক্ট করুন"/></td>
                 </tr>
                 <tr>
                     <td><label>Sub-District</label></td>
-                    <td><input type="text" id="new_subdistrict" name="subdistrict" /></td>
+                    <td><input type="text" id="new_subdistrict" name="subdistrict" placeholder="সিলেক্ট করুন"/></td>
                 </tr>                
             </table>
             </br>

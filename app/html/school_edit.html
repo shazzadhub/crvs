@@ -6,17 +6,79 @@
         <div data-dojo-type="dijit/layout/TabContainer" title="Tab 1" nested="true">
 
             <div data-dojo-type="dijit/layout/ContentPane" title="Edit School" selected="true">
-                <div data-dojo-type="dijit/form/Form">
+                <div data-dojo-type="dijit/form/Form" id="schoolEditForm">
+                    <script type="text/javascript">
+                        var selectedHeadTeacher;
+                        var htconfirmation_code_input;
+                        var htconfirmation_code_gen;
+                    </script>
+
 
                     <script type="dojo/on" data-dojo-event="reset">
                         return confirm('Press OK to reset widget values');
                     </script>
 
+                    <div data-dojo-type="dijit.Dialog" id="school_edit_headteacher_confirmation_dialog" title="Enter the Code to Confirm" style="display: none">
+                        <form data-dojo-type="dijit.form.Form">
+                            <script type="dojo/event" data-dojo-event="onSubmit" data-dojo-args="e">
+                                dojo.stopEvent(e);
+                                if(!this.isValid()){ window.alert('Please fix fields'); return; }
+                                    if(htconfirmation_code_gen === htconfirmation_code_input){
+                                        dijit.byId('school_edit_headteacher_confirmation_dialog').hide();
+                                        //alert("Successfully Added Head Teacher");
+                                        return demo.saveForm("school","schoolEditForm",function(message){
+                                            alert(message);
+                                        },function(message){
+                                            alert(message); 
+                                        });
+
+                                        htconfirmation_code_input = null;
+                                        htconfirmation_code_input = null;
+                                        dijit.byId("school_edit_headteacher_confirmation_dialog").set('value', '');
+                                    } else {
+                                        alert("Code You entered is Invalid");
+                                        dijit.byId("school_edit_headteacher_confirmation_dialog").set('title',"Code You entered is Invalid");
+                                        htconfirmation_code_input = null;
+                                        dijit.byId("school_edit_headteacher_confirmation_dialog").set('value', '');
+                                    }
+                            </script>
+                            <div class="dijitDialogPaneContentArea">
+                            <div><i>A Confirmation Email has been sent to the selected Head Teacher's Email address </i></div> </br></br>
+                                <label for='foo'>Confirmation Code:</label><div id="headteacher_conf_code_input" data-dojo-type="dijit.form.ValidationTextBox" value='' data-dojo-props="required:true" onChange="htconfirmation_code_input=this.value" style="font-weight:bold;" placeHolder="CODE"></div>
+                            </div>
+                            <div class="dijitDialogPaneActionBar">
+                                    <button data-dojo-type="dijit.form.Button" type="submit">OK</button>
+                                    <button data-dojo-type="dijit.form.Button" type="button"
+                                        data-dojo-props="onClick:function(){dijit.byId('school_edit_headteacher_confirmation_dialog').hide();}">Cancel</button>
+                            </div>
+                         </form>
+                    </div>
+
+
                     <script type="dojo/on" data-dojo-event="submit" data-dojo-args="evt">
                         dojo.stopEvent(evt);
                         if(this.validate()){
+                            var emailData={};
                             //console.log(JSON.stringify(demo.domForm.toObject(this.id)));
-                            return demo.saveForm("school",this.id,function(message){},function(message){});
+                            //return demo.saveForm("school",this.id,function(message){},function(message){});
+
+                            demo.request.get("api/headmaster/"+selectedHeadTeacher,{}).then(function(data){
+                                emailData.email = JSON.parse(data).ht_email;
+                                emailData.name = JSON.parse(data).ht_name;
+                                emailData.nid = JSON.parse(data).ht_nid;
+                                console.log(emailData);
+
+                                demo.email("headmaster",emailData,function(code){
+                                    //console.log(message);
+                                    htconfirmation_code_gen = code;
+                                    console.debug('CONFIRMATION-CODE: '+htconfirmation_code_gen);
+                                    dijit.byId("school_edit_headteacher_confirmation_dialog").show();
+                                    //alert(code);
+                                },function(message){
+                                    alert(message);
+                                });
+                            });
+
                         }else{
                         alert('Form contains invalid data.  Please correct first');
                         return false;
@@ -27,6 +89,7 @@
                     <h1>Edit School</h1>
                     <br/>
                     <input type="hidden" name="id" data-dojo-type="dijit/form/TextBox"/>
+
                     <table border="0" style="border-collapse: separate; table-layout: fixed; width: 50%; height: auto;">
                         <colgroup>
                         <col class="colgroup_first_col"></col>
@@ -193,7 +256,7 @@
                                 var store = JSON.parse(demo.getPlaces());
                                 var school_types = JSON.parse(demo.getSchoolTypes());
                                 var head_teachers = JSON.parse(demo.getHeadTeachers());
-                                console.debug(school_types);
+                                //console.debug(school_types);
 
                                 request.get("api/" + model + "/edit/" + id, {
                                     data: {},
@@ -275,6 +338,7 @@
                                             }, div
                                     ).startup();
                                     var subdis = query('[name=head_teacher_id]', node.id)[0];
+                                    selectedHeadTeacher=data.head_teacher_id;
                                     var subdisSel = new FilteringSelect(
                                             {
                                                 id: "head_teacher_id_" + data.id,
@@ -282,7 +346,10 @@
                                                 store: new Memory({ idProperty: "id", data: head_teachers }),
                                                 searchAttr: 'ht_name',
                                                 autoComplete: true,
-                                                value: data.head_teacher_id
+                                                value: data.head_teacher_id,
+                                                onChange: function(head_teacher_id){
+                                                    selectedHeadTeacher = head_teacher_id;
+                                                }
                                             }, subdis
                                     ).startup();
 
