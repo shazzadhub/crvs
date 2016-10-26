@@ -79,6 +79,7 @@ if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
             <div style="float: left">
                 <img src="app/img/dpe-logo.jpg" alt="DPE-LOG" height="40px"/>
                 <img src="app/img/bdgov-logo.png" alt="GOV-LOG" height="40px"/>
+                <img src="app/img/a2i_logo.jpg" alt="GOV-LOG" height="40px"/>
             </div>
             <div style="float: left; line-height: 40px; margin-left: 10px;color:white"><strong>প্রাথমিক শিক্ষা অধিদপ্তর</strong></div>
 

@@ -23,6 +23,7 @@ require([
 
     var store = [];
     var school_types = [];
+    var head_teachers = [];
 
     var selected_school_id = undefined;
     var selected_student_id = undefined;
@@ -74,6 +75,9 @@ require([
 	lang.setObject("demo.getSchoolTypes", function(){
 		return school_types;
 	});
+    lang.setObject("demo.getHeadTeachers", function(){
+        return head_teachers;
+    });
 	lang.setObject("demo.getSelectedSchoolId", function(){
 		return selected_school_id;
 	});
@@ -212,6 +216,10 @@ require([
             request.get("api/school_types",{
             }).then(function(data){
                     school_types = data;
+                });
+            request.get("api/head_teachers",{
+            }).then(function(data){
+                    head_teachers = data;
                 });
             //dijit.byId("mainTabContainer") .destroyRecursive(true);
             var tabs = dijit.byId("mainTabContainer");

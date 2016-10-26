@@ -122,6 +122,15 @@ Flight::route('/school_types', function(){
     Flight::json($school_types);
 });
 
+Flight::route('/head_teachers', function(){
+    Flight::checkLogin();
+
+    $db = Flight::db();
+
+    $head_teachers = $db->fetchAll("SELECT id, ht_name FROM head_teachers");
+    Flight::json($head_teachers);
+});
+
 Flight::route('/divisions', function(){
     Flight::checkLogin();
 
@@ -211,14 +220,15 @@ Flight::route('POST /school/save', function(){
     Flight::checkLogin();
 
     $db = Flight::db();
-    $data =         array(
+    $data = array(
         'name'=>$_POST['name'],
         'eiin'=>$_POST['eiin'],
-        'school_type_id'=>$_POST['school_type_id'],
+        'created'=> date("Y-m-d H:i:s"),
         'division'=>$_POST['division'],
         'district'=>$_POST['district'],
         'subdistrict'=>$_POST['subdistrict'],
-        'created'=> date("Y-m-d H:i:s")
+        'school_type_id'=>$_POST['school_type_id'],
+        'head_teacher_id'=>$_POST['head_teacher_id']
     );
 
     if(isset($_POST['id'])){
@@ -244,7 +254,7 @@ Flight::route('/school/edit/@id', function($id){
     Flight::checkLogin();
 
     $db = Flight::db();
-    $user_info = $db->fetchRow("SELECT id, name, school_type_id, division, district, subdistrict, eiin, DATE_FORMAT(modified,'%Y-%m-%d') AS modified FROM schools WHERE id=:id",
+    $user_info = $db->fetchRow("SELECT id, name, school_type_id, division, district, subdistrict, eiin, head_teacher_id, DATE_FORMAT(modified,'%Y-%m-%d') AS modified FROM schools WHERE id=:id",
         array('id'=>$id)
     );
     if($user_info){

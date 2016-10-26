@@ -15,7 +15,8 @@
                     <script type="dojo/on" data-dojo-event="submit" data-dojo-args="evt">
                         dojo.stopEvent(evt);
                         if(this.validate()){
-                        return demo.saveForm("school",this.id,function(message){},function(message){});
+                            //console.log(JSON.stringify(demo.domForm.toObject(this.id)));
+                            return demo.saveForm("school",this.id,function(message){},function(message){});
                         }else{
                         alert('Form contains invalid data.  Please correct first');
                         return false;
@@ -41,13 +42,15 @@
                             <td><input type="text" id="new_school_type_id" name="school_type_id" /></td>
                         </tr>
                         <tr>
-                            <td><label>EIIN</label></td>
+                            <td><label>EIIN (4-Digit)</label></td>
                             <td><input type="text" name="eiin"
-                                       data-dojo-type="dijit/form/TextBox" /></td>
+                                       data-dojo-props="regExp:'\\d{4}', invalidMessage:'Invalid EIIN code.'"
+                                       data-dojo-type="dijit/form/ValidationTextBox"
+                                       placeHolder="ইংরেজিতে লিখুন"/></td>
                         </tr>
                         <tr>
-                            <td><label>Head Teacher</label></td>
-                            <td><input type="text" name="head_teacher_id" /></td>
+                            <td><label>Head Teacher Name</label></td>
+                            <td><input type="text" id="head_teacher_id" name="head_teacher_id" /></td>
                         </tr>
 
                         <tr>
@@ -189,6 +192,8 @@
                                 var id = widget.domNode.id.replace("tabschool_edit.html?id=", "");
                                 var store = JSON.parse(demo.getPlaces());
                                 var school_types = JSON.parse(demo.getSchoolTypes());
+                                var head_teachers = JSON.parse(demo.getHeadTeachers());
+                                console.debug(school_types);
 
                                 request.get("api/" + model + "/edit/" + id, {
                                     data: {},
@@ -197,6 +202,7 @@
 
 
                                     data = JSON.parse(data);
+//                                    console.debug(data);
 
                                     var t = query('[name=id]', node.id)[0];
                                     var box1 = registry.byId(t.id);
@@ -268,6 +274,17 @@
                                                 value: data.division
                                             }, div
                                     ).startup();
+                                    var subdis = query('[name=head_teacher_id]', node.id)[0];
+                                    var subdisSel = new FilteringSelect(
+                                            {
+                                                id: "head_teacher_id_" + data.id,
+                                                name: "head_teacher_id",
+                                                store: new Memory({ idProperty: "id", data: head_teachers }),
+                                                searchAttr: 'ht_name',
+                                                autoComplete: true,
+                                                value: data.head_teacher_id
+                                            }, subdis
+                                    ).startup();
 
 // start teachers
                                             var teachers_grid = query('.grid-teachers', node.id)[0];
@@ -288,18 +305,18 @@
                                                         });
                                                     }
                                                 });
-console.debug(dataStore);
-                                                    var subdis = query('[name=head_teacher_id]', node.id)[0];
-                                                    var subdisSel = new FilteringSelect(
-                                                            {
-                                                                id: "head_teacher_id_" + data.id,
-                                                                name: "head_teacher_id",
-                                                                store: new Memory({ idProperty: "id", data: dataStore }),
-//                                                                searchAttr: 'name',
-//                                                                autoComplete: true,
-                                                                value: data.head_teacher_id
-                                                            }, subdis
-                                                    ).startup();
+//console.debug(dataStore);
+//                                                     var subdis = query('[name=head_teacher_id]', node.id)[0];
+//                                                     var subdisSel = new FilteringSelect(
+//                                                             {
+//                                                                 id: "head_teacher_id_" + data.id,
+//                                                                 name: "head_teacher_id",
+//                                                                 store: new Memory({ idProperty: "id", data: dataStore }),
+// //                                                                searchAttr: 'name',
+// //                                                                autoComplete: true,
+//                                                                 value: data.head_teacher_id
+//                                                             }, subdis
+//                                                     ).startup();
 
                                             }
                                             dojo.connect(dijit.byId(teachers_grid.id), "onRowDblClick", function(evt) {

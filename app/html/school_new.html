@@ -12,6 +12,7 @@
             <script type="dojo/on" data-dojo-event="submit" data-dojo-args="evt">
                 dojo.stopEvent(evt);
                 if(this.validate()){
+                    //console.log(JSON.stringify(demo.domForm.toObject(this.id)));
                     return demo.saveForm("school","new_school_form",function(message){},function(message){});
                 }else{
                     alert('Form contains invalid data.  Please correct first');
@@ -22,7 +23,11 @@
 
             <h1>Create New School</h1>
             <br/>
-            <table>
+            <table border="0" style="border-collapse: separate; table-layout: fixed; width: 50%; height: auto;">
+                <colgroup>
+                    <col class="colgroup_first_col"></col>
+                    <col></col>
+                </colgroup>
                 <tr>
                     <td width="150px"><label>Name</label></td>
                     <td>
@@ -36,10 +41,11 @@
                     <td><input type="text" id="new_school_type_id" name="school_type_id" /></td>
                 </tr>
                 <tr>
-                    <td><label>EIIN (4-Digit EIIN Code)</label></td>
+                    <td><label>EIIN (4-Digit)</label></td>
                     <td><input type="text" id="new_eiin" name="eiin" required="true"
                                data-dojo-props="regExp:'\\d{4}', invalidMessage:'Invalid EIIN code.'"
-                               data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true" /></td>
+                               data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true" 
+                               placeHolder="ইংরেজিতে লিখুন"/></td>
                 </tr>
                 <tr>
                     <td><label>Head Teacher</label></td>
@@ -64,15 +70,11 @@
                 <tr>
                     <td><label>Sub-District</label></td>
                     <td><input type="text" id="new_subdistrict" name="subdistrict" /></td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td><br />
-                        <button type="submit" data-dojo-type="dijit/form/Button">Submit</button>
-                        <button type="reset" data-dojo-type="dijit/form/Button">Reset</button>
-                    </td>
-                </tr>
+                </tr>                
             </table>
+            </br>
+                <button type="submit" data-dojo-type="dijit/form/Button">Submit</button>
+                <button type="reset" data-dojo-type="dijit/form/Button">Reset</button>
         </div>
     </div>
 
@@ -106,6 +108,10 @@
 
                         var school_types;
                         school_types = JSON.parse(demo.getSchoolTypes());
+
+                        var new_head_teachers; 
+                        new_head_teachers = JSON.parse(demo.getHeadTeachers());
+                        console.log(new_head_teachers);
 
                         var school_type = query('#new_school_type_id', node.id)[0];
                         var school_typeSel = new FilteringSelect(
@@ -165,7 +171,7 @@
                         ).startup();
 
                         var school_id = demo.getSelectedSchoolId();
-                        if(school_id !== undefined){
+                        if(school_id == undefined){
 //                                                demo.reloadGrid(teachers_grid.id, "api/teachers/"+school_id, function(){});
                             var newStore = new dojo.data.ItemFileReadStore({url: "api/teachers/"+school_id});
 
@@ -179,15 +185,15 @@
                                             });
                                         }
                                     });
-                            console.debug(dataStore);
+//                            console.debug(dataStore);
                             var subdis = query('#new_head_teacher_id', node.id)[0];
                             var subdisSel = new FilteringSelect(
                                     {
                                         id: "new_head_teacher_id",
                                         name: "head_teacher_id",
-                                        store: new Memory({ idProperty: "id", data: dataStore }),
-//                                                                searchAttr: 'name',
-//                                                                autoComplete: true,
+                                        store: new Memory({ idProperty: "id", data: new_head_teachers }),
+                                                                searchAttr: 'ht_name',
+                                                                autoComplete: true,
                                         value: undefined
                                     }, subdis
                             ).startup();
