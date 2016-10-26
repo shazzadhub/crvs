@@ -79,12 +79,13 @@ if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
             <div style="float: left; line-height: 40px; margin-left: 10px;color:white"><strong>প্রাথমিক শিক্ষা অধিদপ্তর</strong></div>
 
 <!--            <div data-dojo-attach-point="logoutButton" dojoType="dijit.form.Button" label="Logout">-->
-                <button type="button" data-dojo-type="dijit/form/Button" class="logoutButton">
-                    <span>Logout</span>
-                    <script type="dojo/on" data-dojo-event="click">
-                        location.href = dojoConfig.baseUrl + '/logout.php';
-                    </script>
-                </button>
+            <button type="button" data-dojo-type="dijit/form/Button" class="logoutButton">
+                <span>Logout</span>
+                <script type="dojo/on" data-dojo-event="click">
+                    location.href = dojoConfig.baseUrl + '/logout.php';
+                </script>
+            </button>
+            <span class="sessionInfo"><i>user: </i><?php echo $_SESSION['user_info'][0]['email']; ?></span>
         </div>
         <div data-dojo-type="dijit/layout/BorderContainer" id="mainSplitter"
              data-dojo-props="liveSplitters: false, design: 'sidebar', region: 'center'">
@@ -94,7 +95,7 @@ if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
                      data-dojo-props="title: 'Menu', href:'app/html/menus/ap1.html'"
                      class="paneAccordion"></div>
                 <div data-dojo-type="dijit/layout/ContentPane" id="ap2"
-                     data-dojo-props="title: 'Help', href:'app/html/menus/ap2.html'"
+                     data-dojo-props="title: 'Support', href:'app/html/menus/ap2.html'"
                      class="paneAccordion"></div>
             </div>
 <!--            <div data-dojo-type="dijit/layout/ContentPane" id="mainTabContainer"-->

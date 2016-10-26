@@ -4,3 +4,10 @@
 		location.href = dojoConfig.baseUrl + '/logout.php';
 	</script>
 </button>
+
+<button type="button" data-dojo-type="dijit/form/Button" class="commandButton">
+  <span>Add Head Master</span>
+	<script type="dojo/on" data-dojo-event="click">
+		demo.addTab("mainTabContainer", "app/html/add_head_master.html", "Add Head Master", true);
+	</script>
+</button>

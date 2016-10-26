@@ -1,0 +1,56 @@
+<div data-dojo-type="dijit/layout/BorderContainer"
+     data-dojo-props="liveSplitters: false, design: 'sidebar'">
+    <div data-dojo-type="dijit/layout/ContentPane"
+         data-dojo-props="region: 'center'" onShow="onShowNodes(this)">
+
+        <div data-dojo-type="dijit/form/Form" id="new_headmaster_form">
+
+            <script type="dojo/on" data-dojo-event="reset">
+                return confirm('Press OK to reset widget values');
+            </script>
+
+            <script type="dojo/on" data-dojo-event="submit" data-dojo-args="evt">
+                dojo.stopEvent(evt);
+                if(this.validate()){
+                    //console.log(JSON.stringify(demo.domForm.toObject(this.id)));
+                    return demo.saveForm("headmaster","new_headmaster_form",function(message){},function(message){});
+                }else{
+                    alert('Form contains invalid data.  Please correct first');
+                    return false;
+                }
+                return false;
+            </script>
+
+            <h1>Add New Head Master</h1>
+            <br/>
+            <table border="0" style="border-collapse: separate; table-layout: fixed; width: 50%; height: auto;">
+                <colgroup>
+                    <col class="colgroup_first_col"></col>
+                    <col></col>
+                </colgroup>
+                <tr>
+                    <td width="150px"><label>Name</label></td>
+                    <td>
+                        <input type="text" id="ht_name" name="ht_name" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true" data-dojo-props="regExp:'[\\w]+', invalidMessage:'Name cannot be empty.'"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Head Teacher NID</label></td>
+                    <td><input type="text" id="ht_nid" name="ht_nid" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true" maxlength="17" data-dojo-props="regExp:'[\\w]+', invalidMessage:'NID cannot be empty.'"/></td>
+                </tr>
+                <tr>
+                    <td><label>Email Address</label></td>
+                    <td><input type="text" id="ht_email" name="ht_email" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true" data-dojo-props="regExp:'[\\w]+', invalidMessage:'NID cannot be empty.'"/></td>
+                </tr>
+                <tr>
+                    <td><label>Mobile no</label></td>
+                    <td><input type="text" id="ht_mobile" name="ht_mobile" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true" maxlength="11" data-dojo-props="regExp:'[\\w]+', invalidMessage:'Mobile no cannot be empty.'"/></td>
+                </tr>                
+            </table>
+            </br>
+                <button type="submit" data-dojo-type="dijit/form/Button">Submit</button>
+                <button type="reset" data-dojo-type="dijit/form/Button">Reset</button>
+        </div>
+    </div>
+
+</div>

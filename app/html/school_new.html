@@ -1,3 +1,7 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
 <div data-dojo-type="dijit/layout/BorderContainer"
      data-dojo-props="liveSplitters: false, design: 'sidebar'">
     <div data-dojo-type="dijit/layout/ContentPane"
@@ -9,11 +13,73 @@
                 return confirm('Press OK to reset widget values');
             </script>
 
+            <script type="text/javascript">
+                var selectedHeadTeacher;
+                var htconfirmation_code_input;
+                var htconfirmation_code_gen;
+            </script>
+
+            <div data-dojo-type="dijit.Dialog" id="headteacher_confirmation_dialog" title="Enter the Code to Confirm" style="display: none">
+                <form data-dojo-type="dijit.form.Form">
+                    <script type="dojo/event" data-dojo-event="onSubmit" data-dojo-args="e">
+                        dojo.stopEvent(e);
+                        if(!this.isValid()){ window.alert('Please fix fields'); return; }
+                            if(htconfirmation_code_gen === htconfirmation_code_input){
+                                dijit.byId('headteacher_confirmation_dialog').hide();
+                                //alert("Successfully Added Head Teacher");
+                                return demo.saveForm("school","new_school_form",function(message){alert(message);},function(message){});
+                                htconfirmation_code_input = null;
+                                htconfirmation_code_input = null;
+                                dijit.byId("headteacher_confirmation_dialog").set('value', '');
+                            } else {
+                                alert("Code You entered is Invalid");
+                                dijit.byId("headteacher_confirmation_dialog").set('title',"Code You entered is Invalid");
+                                htconfirmation_code_input = null;
+                                dijit.byId("headteacher_confirmation_dialog").set('value', '');
+                            }
+                    </script>
+                    <div class="dijitDialogPaneContentArea">
+                    <div><i>A Confirmation Email has been sent to the selected Head Teacher's Email address </i></div> </br></br>
+                        <label for='foo'>Confirmation Code:</label><div id="headteacher_conf_code_input" data-dojo-type="dijit.form.ValidationTextBox" value='' data-dojo-props="required:true" onChange="htconfirmation_code_input=this.value" style="font-weight:bold;" placeHolder="CODE"></div>
+                    </div>
+                    <div class="dijitDialogPaneActionBar">
+                            <button data-dojo-type="dijit.form.Button" type="submit">OK</button>
+                            <button data-dojo-type="dijit.form.Button" type="button"
+                                data-dojo-props="onClick:function(){dijit.byId('headteacher_confirmation_dialog').hide();}">Cancel</button>
+                    </div>
+                 </form>
+            </div>
+
             <script type="dojo/on" data-dojo-event="submit" data-dojo-args="evt">
                 dojo.stopEvent(evt);
+                //console.log(selectedHeadTeacher);
+
                 if(this.validate()){
-                    //console.log(JSON.stringify(demo.domForm.toObject(this.id)));
-                    return demo.saveForm("school","new_school_form",function(message){},function(message){});
+                    var emailData={};
+                    var formValue = dijit.byId('new_school_form').value;
+
+                    //demo.request.get("api/division/"+formValue.division,{}).then(function(data){ emailData.division= JSON.parse(data).name; });
+                    //demo.request.get("api/district/"+formValue.district,{}).then(function(data){ emailData.district=JSON.parse(data).name; });
+                    //demo.request.get("api/subdistrict/"+formValue.subdistrict,{}).then(function(data){ emailData.subdistrict=JSON.parse(data).name; });
+                    
+                    demo.request.get("api/headmaster/"+selectedHeadTeacher,{}).then(function(data){
+                        emailData.email = JSON.parse(data).ht_email;
+                        emailData.name = JSON.parse(data).ht_name;
+                        emailData.nid = JSON.parse(data).ht_nid;
+                        console.log(emailData);
+
+                        demo.email("headmaster",emailData,function(code){
+                            //console.log(message);
+                            htconfirmation_code_gen = code;
+                            console.debug('CONFIRMATION-CODE: '+htconfirmation_code_gen);
+                            dijit.byId("headteacher_confirmation_dialog").show();
+                            //alert(code);
+                        },function(message){
+                            alert(message);
+                        });
+                    });
+
+                    //return demo.saveForm("school","new_school_form",function(message){},function(message){});
                 }else{
                     alert('Form contains invalid data.  Please correct first');
                     return false;
@@ -49,7 +115,7 @@
                 </tr>
                 <tr>
                     <td><label>Head Teacher</label></td>
-                    <td><input type="text" id="new_head_teacher_id" name="head_teacher_id" /></td>
+                    <td><input type="text" id="new_head_teacher_id" name="head_teacher_id"/></td>
                 </tr>
 
                 <!--<tr>-->
@@ -111,7 +177,7 @@
 
                         var new_head_teachers; 
                         new_head_teachers = JSON.parse(demo.getHeadTeachers());
-                        console.log(new_head_teachers);
+                        //console.log(new_head_teachers);
 
                         var school_type = query('#new_school_type_id', node.id)[0];
                         var school_typeSel = new FilteringSelect(
@@ -194,7 +260,10 @@
                                         store: new Memory({ idProperty: "id", data: new_head_teachers }),
                                                                 searchAttr: 'ht_name',
                                                                 autoComplete: true,
-                                        value: undefined
+                                        value: undefined,
+                                        onChange: function(head_teacher_id){
+                                            selectedHeadTeacher = head_teacher_id;
+                                        }
                                     }, subdis
                             ).startup();
 

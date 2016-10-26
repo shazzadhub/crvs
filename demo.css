@@ -66,6 +66,18 @@ input{
     font-size: .8em;
 }
 
+.sessionInfo{
+	position: absolute;
+	margin-bottom: 0px;
+	font-family: arial, sans-sherif;
+    font-size: .8em;
+    right: 1%;
+    bottom:0;
+    color:#fff;
+    font-size: 11px;
+    text-shadow: 1px 1px 8px #eee;
+}
+
 pre {
 	white-space: pre-wrap;
 	white-space: -moz-pre-wrap;

@@ -836,5 +836,197 @@ Flight::route('POST /student/delete/@id', function($id){
     }
 });
 
+Flight::route('POST /headmaster/mail', function(){
+    //$data = file_get_contents('php://input');
+    $to = $_POST["email"];
+    $reciever_name = $_POST["name"];
+    $reciever_nid = $_POST["nid"];
+    $subject = "CRVS Head Master Confirmation";
+    $random_hash = substr(md5(uniqid(rand(), true)), 6, 6);
+
+    $message = "
+    <html>
+        <head>
+            <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+            <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' integrity='sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7' crossorigin='anonymous'>
+            <script src='//code.jquery.com/jquery-1.12.0.min.js'></script>
+            <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' integrity='sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS' crossorigin='anonymous'></script>
+        </head>
+
+        <body>
+
+            <div class='container'>
+                <div class='row'>
+                    <header class='page-header' style='margin:0; padding:20px 0px ; background: rgb(81, 145, 187); color:#FFF;'>
+                        <div style='margin-left:3%'>
+                            <h1>প্রাথমিক শিক্ষা অধিদপ্তর</h1>
+                            <h3>গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</h3>
+                        <div>
+                    </header>
+
+                    <div class='col-md-12' style='
+                    background-color: #E5EEF5;
+                    text-align: justify;
+                    font-family: verdana, arail, sans-serif;
+                    font-size: 15px;
+                    padding-bottom:50px;'>
+                        <p style='padding-top:30px'><i>This is an autometed mail, dont reply this email</i></p>
+                        <div style='margin-left:3%; margin-top:50px;'>
+                            <p><strong>Dear Sir/Madam, </strong></p>
+                            <p style='margin-top:20px;'>
+                                This is a confirmation email that with the following information a Head Master has been added into the CRVS database: 
+                            </p>
+                            <div style='margin-top:30px'>
+                                <table style='font: inherit'>
+                                    <tbody>
+                                        <tr>
+                                            <td style='padding-right: 10px'>Name</td>
+                                            <td><strong>".$reciever_name."</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td style='padding-right: 10px'>NID</td>
+                                            <td><strong>".$reciever_nid."</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div style='margin-left:3%; padding-top:30px'>This is the confirmation code to enter in the CRVS software</div>
+                        <div style='margin-left:3%; font-family:arial, sans-serif; font-size:20px; padding-top:18px' class='well'>
+                            <div style='background: #7FD27E;width: 10%;text-align: center;'><strong>".$random_hash."</strong></div>
+                        </div>
+                    <div>
+                </div>
+            </div>
+
+        </body>
+    </html>
+    ";
+
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+    $headers .= 'From: <shazzad@kiteplexit.com>' . "\r\n";
+    // $headers .= 'Cc: myboss@example.com' . "\r\n";
+
+    $mailflg = mail($to,$subject,$message,$headers);
+
+    if($mailflg){
+        Flight::json(array(
+            'status'  => 'success',
+            'code' => $random_hash
+        ));
+    }else{
+        Flight::json(array(
+            'status'  => 'failure',
+            'message' => 'Mail sending failed'
+        ));
+    }
+
+
+        // Flight::json(array(
+        //     'status'  => 'success',
+        //     'code' => $random_hash
+        // ));
+ 
+        // Flight::json(array(
+        //     'status'  => 'failure',
+        //     'message' => 'Mail sending failed'
+        // ));
+});
+Flight::route('/headmaster/@id', function($id){
+    Flight::checkLogin();
+
+    $db = Flight::db();
+    $head_teachers = $db->fetchRow("SELECT * FROM head_teachers WHERE id=:id",
+        array('id'=>$id)
+    );
+    if($head_teachers){
+        Flight::json($head_teachers);
+    }else{
+        Flight::json(array(
+            'status'  => 'failure',
+            'message' => 'Invalid teacher id.'
+        ));
+    }
+});
+Flight::route('/division/@id', function($id){
+    Flight::checkLogin();
+
+    $db = Flight::db();
+    $division = $db->fetchRow("SELECT name FROM places WHERE id=:id AND type_id=1",
+        array('id'=>$id)
+    );
+    if($division){
+        Flight::json($division);
+    }else{
+        Flight::json(array(
+            'status'  => 'failure',
+            'message' => 'Invalid teacher id.'
+        ));
+    }
+});
+Flight::route('/district/@id', function($id){
+    Flight::checkLogin();
+
+    $db = Flight::db();
+    $district = $db->fetchRow("SELECT name FROM places WHERE id=:id AND type_id=2",
+        array('id'=>$id)
+    );
+    if($district){
+        Flight::json($district);
+    }else{
+        Flight::json(array(
+            'status'  => 'failure',
+            'message' => 'Invalid teacher id.'
+        ));
+    }
+});
+Flight::route('/subdistrict/@id', function($id){
+    Flight::checkLogin();
+
+    $db = Flight::db();
+    $subdistrict = $db->fetchRow("SELECT name FROM places WHERE id=:id AND type_id=3",
+        array('id'=>$id)
+    );
+    if($subdistrict){
+        Flight::json($subdistrict);
+    }else{
+        Flight::json(array(
+            'status'  => 'failure',
+            'message' => 'Invalid teacher id.'
+        ));
+    }
+});
+Flight::route('POST /headmaster/save', function(){
+    Flight::checkLogin();
+
+    $db = Flight::db();
+    $data = array(
+        'ht_name'=>$_POST['ht_name'],
+        'ht_nid'=>$_POST['ht_nid'],
+        'ht_email'=>$_POST['ht_email'],
+        'ht_mobile'=>$_POST['ht_mobile']
+    );
+
+    if(isset($_POST['id']) && !empty($_POST['id'])){
+        $flg = $db->update("head_teachers",$data, array('id'=>$_POST['id']));
+    }else{
+        $flg = $db->insert("head_teachers",$data);
+    }
+
+    if($flg){
+        Flight::json(array(
+            'status'  => 'success',
+            'message' => 'Head Teacher Added Successfully.'
+        ));
+    }else{
+        Flight::json(array(
+            'status'  => 'failure',
+            'message' => 'Error Occurred.'
+        ));
+    }
+});
+
 Flight::start();
 ?>

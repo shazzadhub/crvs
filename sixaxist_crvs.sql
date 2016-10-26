@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2016 at 03:35 PM
--- Server version: 5.6.17
--- PHP Version: 5.5.12
+-- Generation Time: Mar 15, 2016 at 02:22 PM
+-- Server version: 10.1.10-MariaDB
+-- PHP Version: 5.5.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `sixaxist_crvs`
@@ -26,13 +26,12 @@ SET time_zone = "+00:00";
 -- Table structure for table `classes`
 --
 
-CREATE TABLE IF NOT EXISTS `classes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `classes` (
+  `id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `school_id` int(11) DEFAULT NULL,
-  `class_teacher_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+  `class_teacher_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `classes`
@@ -52,25 +51,25 @@ INSERT INTO `classes` (`id`, `name`, `school_id`, `class_teacher_id`) VALUES
 -- Table structure for table `head_teachers`
 --
 
-CREATE TABLE IF NOT EXISTS `head_teachers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `head_teachers` (
+  `id` int(11) NOT NULL,
   `ht_name` varchar(255) DEFAULT NULL,
   `ht_nid` varchar(255) DEFAULT NULL,
   `ht_mobile` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+  `ht_email` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `head_teachers`
 --
 
-INSERT INTO `head_teachers` (`id`, `ht_name`, `ht_nid`, `ht_mobile`) VALUES
-(1, 'জুয়েল স্যার', '121344656', '1741228971'),
-(2, 'মাসুদ ভাই', '12345678', '1741228971'),
-(3, 'প্রধান শিক্ষক ১', '12345789', '1741228971'),
-(4, 'প্রধান শিক্ষক ২', '123456789', '1741228971'),
-(5, 'প্রধান শিক্ষক ৩', '123456789', '1741228971'),
-(6, 'প্রধান শিক্ষক ৪', '123456789', '1741228971');
+INSERT INTO `head_teachers` (`id`, `ht_name`, `ht_nid`, `ht_mobile`, `ht_email`) VALUES
+(1, 'জুয়েল স্যার', '121344656', '1741228971', 'shazzadurrahaman@gmail.com'),
+(2, 'মাসুদ ভাই', '12345678', '1741228971', 'shazzadurrahaman@gmail.com'),
+(3, 'প্রধান শিক্ষক ১', '12345789', '1741228971', 'shazzadurrahaman@gmail.com'),
+(4, 'প্রধান শিক্ষক ২', '123456789', '1741228971', 'shazzadurrahaman@gmail.com'),
+(5, 'প্রধান শিক্ষক ৩', '123456789', '1741228971', 'shazzadurrahaman@gmail.com'),
+(6, 'প্রধান শিক্ষক ৪', '123456789', '1741228971', 'shazzadurrahaman@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -78,13 +77,12 @@ INSERT INTO `head_teachers` (`id`, `ht_name`, `ht_nid`, `ht_mobile`) VALUES
 -- Table structure for table `places`
 --
 
-CREATE TABLE IF NOT EXISTS `places` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `places` (
+  `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
-  `type_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=128 ;
+  `type_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `places`
@@ -225,8 +223,8 @@ INSERT INTO `places` (`id`, `name`, `parent_id`, `type_id`) VALUES
 -- Table structure for table `schools`
 --
 
-CREATE TABLE IF NOT EXISTS `schools` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `schools` (
+  `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `eiin` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created` datetime DEFAULT NULL,
@@ -235,9 +233,8 @@ CREATE TABLE IF NOT EXISTS `schools` (
   `district` int(11) DEFAULT NULL,
   `subdistrict` int(11) DEFAULT NULL,
   `school_type_id` int(11) DEFAULT NULL,
-  `head_teacher_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
+  `head_teacher_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `schools`
@@ -258,11 +255,10 @@ INSERT INTO `schools` (`id`, `name`, `eiin`, `created`, `modified`, `division`, 
 -- Table structure for table `school_types`
 --
 
-CREATE TABLE IF NOT EXISTS `school_types` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+CREATE TABLE `school_types` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `school_types`
@@ -281,8 +277,8 @@ INSERT INTO `school_types` (`id`, `name`) VALUES
 -- Table structure for table `students`
 --
 
-CREATE TABLE IF NOT EXISTS `students` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `students` (
+  `id` int(11) NOT NULL,
   `student_ed_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `form_serial_no` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -389,9 +385,8 @@ CREATE TABLE IF NOT EXISTS `students` (
   `school_id` int(11) DEFAULT NULL,
   `class_id` int(11) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
-  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `students`
@@ -408,14 +403,13 @@ INSERT INTO `students` (`id`, `student_ed_id`, `form_serial_no`, `name`, `name_b
 -- Table structure for table `teachers`
 --
 
-CREATE TABLE IF NOT EXISTS `teachers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `teachers` (
+  `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `teacher_nid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `teacher_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `school_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=37 ;
+  `school_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `teachers`
@@ -428,8 +422,8 @@ INSERT INTO `teachers` (`id`, `name`, `teacher_nid`, `teacher_email`, `school_id
 (15, 'Masud Cumilla 2', NULL, NULL, 5),
 (16, 'Masud Mirpur 1', NULL, NULL, 3),
 (17, 'Masud Mirpur 2', NULL, NULL, 3),
-(22, 'facebook', '12314679879876465', 'shawon05@yahoo.com', 1),
-(23, 'teacher 2', '2147483647', 'shazzad@gmail.com', 1),
+(22, 'mark', '12314679879876465', 'shawon05@yahoo.com', 1),
+(23, 'jukerburg', '2147483647', 'shazzad@gmail.com', 1),
 (24, 'teacher 3', NULL, NULL, 1),
 (25, 'teacher 4', NULL, NULL, 1),
 (26, 'teacher 5', NULL, NULL, 1),
@@ -450,14 +444,13 @@ INSERT INTO `teachers` (`id`, `name`, `teacher_nid`, `teacher_email`, `school_id
 -- Table structure for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `users`
@@ -467,6 +460,102 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `created`) VALUES
 (2, 'masud', 'masud@kiteplexit.com', 'a8ccfb8652be6a517156d7387eca9b1d', '2016-01-19 11:20:32'),
 (3, 'shazzad', 'shazzad@kiteplexit.com', '5c3cd4b50ac9fc5e1836859568d76a2d', '2016-01-25 06:57:41');
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `classes`
+--
+ALTER TABLE `classes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `head_teachers`
+--
+ALTER TABLE `head_teachers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `places`
+--
+ALTER TABLE `places`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `schools`
+--
+ALTER TABLE `schools`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `school_types`
+--
+ALTER TABLE `school_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `students`
+--
+ALTER TABLE `students`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `teachers`
+--
+ALTER TABLE `teachers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `classes`
+--
+ALTER TABLE `classes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `head_teachers`
+--
+ALTER TABLE `head_teachers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `places`
+--
+ALTER TABLE `places`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+--
+-- AUTO_INCREMENT for table `schools`
+--
+ALTER TABLE `schools`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `school_types`
+--
+ALTER TABLE `school_types`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `students`
+--
+ALTER TABLE `students`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `teachers`
+--
+ALTER TABLE `teachers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
