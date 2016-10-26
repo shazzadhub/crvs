@@ -1,0 +1,16 @@
+@font-face {
+    font-family: "solaiman";
+    src: url("solaimanlipi.ttf");
+}
+
+.student_info_left_col{
+	background-color: rgba(127, 127, 127, 0.1);
+}
+
+.colgroup_first_col{
+	background-color: #D2E6FF;
+}
+
+table{
+	font-size: 13px;
+}

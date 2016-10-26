@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CRVS</title>
+
+    <link rel="stylesheet" href="carlo.css" type="text/css" />
+    <!--<link rel='stylesheet' href='http://ajax.googleapis.com/ajax/libs/dojo/1.10.0/dijit/themes/soria/soria.css'>-->
+    <link rel='stylesheet' href='app/css/login.css'>
+    <script type="text/javascript">
+    // Configure Dojo.
+    var dojoConfig = {
+        baseUrl: location.href.substring(0,location.href.lastIndexOf('/')),
+        parseOnLoad: true,
+        packages: [
+            {name: 'app', location: 'app'}
+        ]
+    };
+    </script>
+    <script type="text/javascript" src="dojo/dojo.js"></script>
+    <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.10.0/dojo/dojo.js"></script>-->
+    <script type="text/javascript">
+    require([
+        'app/login',
+        'dijit/Tooltip'
+    ]);
+    </script>
+</head>
+<body class="claro">
+</body>
+</html>

@@ -1,0 +1,644 @@
+<div data-dojo-type="dijit/layout/BorderContainer"
+     data-dojo-props="liveSplitters: true, design: 'sidebar', gutters:true">
+    <div data-dojo-type="dijit/layout/ContentPane"
+         data-dojo-props="region: 'center'" onShow="onShowNodes(this)">
+
+        <div data-dojo-type="dijit/layout/TabContainer" title="Tab 1" nested="true">
+
+            <div data-dojo-type="dijit/layout/ContentPane" title="Edit School" selected="true">
+                <div data-dojo-type="dijit/form/Form">
+
+                    <script type="dojo/on" data-dojo-event="reset">
+                        return confirm('Press OK to reset widget values');
+                    </script>
+
+                    <script type="dojo/on" data-dojo-event="submit" data-dojo-args="evt">
+                        dojo.stopEvent(evt);
+                        if(this.validate()){
+                        return demo.saveForm("school",this.id,function(message){},function(message){});
+                        }else{
+                        alert('Form contains invalid data.  Please correct first');
+                        return false;
+                        }
+                        return false;
+                    </script>
+
+                    <h1>Edit School</h1>
+                    <br/>
+                    <input type="hidden" name="id" data-dojo-type="dijit/form/TextBox"/>
+                    <table border="0" style="border-collapse: separate; table-layout: fixed; width: 50%; height: auto;">
+                        <colgroup>
+                        <col class="colgroup_first_col"></col>
+                        <col></col>
+                        </colgroup>
+                        <tr>
+                            <td><label>Name</label></td>
+                            <td><input type="text" name="name"
+                                       data-dojo-type="dijit/form/TextBox" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Institute Type</label></td>
+                            <td><input type="text" id="new_school_type_id" name="school_type_id" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>EIIN</label></td>
+                            <td><input type="text" name="eiin"
+                                       data-dojo-type="dijit/form/TextBox" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Head Teacher</label></td>
+                            <td><input type="text" name="head_teacher_id" /></td>
+                        </tr>
+
+                        <tr>
+                            <td><label>Division</label></td>
+                            <td><input type="text" name="division" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>District</label></td>
+                            <td><input type="text" name="district" id="district" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Sub-District</label></td>
+                            <td><input type="text" name="subdistrict" /></td>
+                        </tr>
+                        
+                    </table>
+                </br>
+                    <button type="submit" data-dojo-type="dijit/form/Button">Submit</button>
+                    <button type="reset" data-dojo-type="dijit/form/Button">Reset</button>
+                </div>
+            </div>
+            <div data-dojo-type="dijit/layout/ContentPane" title="Teachers">
+
+                <div data-dojo-type="dijit/layout/BorderContainer"
+                     data-dojo-props="liveSplitters: false, design: 'sidebar'">
+                    <div data-dojo-type="dijit/layout/ContentPane"
+                         data-dojo-props="region: 'center'">
+                        <table data-dojo-type="dojox/grid/DataGrid"
+                               class="grid-teachers"
+                               data-dojo-props="selectionMode: 'single', noDataMessage: 'No Files...'">
+                            <thead>
+                            <tr>
+                                <th field="name" width="50%">Name</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div data-dojo-type="dijit/layout/ContentPane"
+                         data-dojo-props="region: 'top', splitter: false">
+                        <button class="grid-teacher-refresh" type="button"></button>
+                        <button class="grid-teacher-new" type="button"></button>
+                        <button class="grid-teacher-delete" type="button"></button>
+                    </div>
+                </div>
+
+            </div>
+            <div data-dojo-type="dijit/layout/ContentPane" title="Classes">
+                <div data-dojo-type="dijit/layout/BorderContainer"
+                     data-dojo-props="liveSplitters: false, design: 'sidebar', gutters:false">
+
+                    <div data-dojo-type="dijit/layout/ContentPane" style="width: 250px;"
+                        data-dojo-props="region: 'leading', splitter: false">
+
+                        <div data-dojo-type="dijit/layout/BorderContainer"
+                             data-dojo-props="liveSplitters: false, design: 'sidebar', gutters:true" style="border: none;">
+                            <div data-dojo-type="dijit/layout/ContentPane"
+                                 data-dojo-props="region: 'center'">
+
+                                <table data-dojo-type="dojox/grid/DataGrid"
+                                       class="grid-classes"
+                                       data-dojo-props="selectionMode: 'single', noDataMessage: 'No Files...'">
+                                    <thead>
+                                    <tr>
+                                        <th field="name" width="50%">Name</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div data-dojo-type="dijit/layout/ContentPane"
+                                 data-dojo-props="region: 'top', splitter: false">
+                                <button class="grid-class-refresh" type="button"></button>
+                                <button class="grid-class-new" type="button"></button>
+                                <button class="grid-class-delete" type="button"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-dojo-type="dijit/layout/ContentPane" style="width: 250px;"
+                    data-dojo-props="region: 'center', splitter: false">
+
+                        <div data-dojo-type="dijit/layout/BorderContainer"
+
+                             data-dojo-props="liveSplitters: false, design: 'sidebar', gutters:false">
+                            <div data-dojo-type="dijit/layout/ContentPane"
+                                 data-dojo-props="region: 'center'">
+
+                                <table data-dojo-type="dojox/grid/DataGrid"
+                                        class="grid-class-students"
+                                       data-dojo-props="selectionMode: 'single', noDataMessage: 'কোন ক্লাস সিলেক্ট করা হয়নি ...'">
+                                    <thead>
+                                    <tr>
+                                        <th field="name" width="50%">Name</th>
+                                        <th field="created" width="50%">Created</th>
+                                        <th field="modified" width="50%">Modified</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div data-dojo-type="dijit/layout/ContentPane"
+                                 data-dojo-props="region: 'top', splitter: false">
+                                <button class="grid-student-refresh" type="button"></button>
+                                <button class="grid-student-new" type="button"></button>
+                                <button class="grid-student-delete" type="button"></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+<script>
+
+
+    function onShowNodes(node){
+        demo.editById(node,'school',loadForm);
+    }
+    require(["dojo/_base/lang", "dojo/_base/array", "dojo/ready", "dijit/registry", "dojo/query", "dojo/dom",
+        "dijit/form/DateTextBox","dijit/form/Select", "dijit/form/FilteringSelect", "dojox/grid/DataGrid",
+        "dojo/store/Memory", "dojo/request",  "dojo/domReady!"],
+            function(lang,array, ready, registry, query, dom, DateTextBox, Select, FilteringSelect, DataGrid, Memory, request) {
+                ready(function() {
+                });
+
+                lang.setObject("demo.editById", function(node, model, callback){
+
+                    query('[widgetid*="tabschool_edit.html?id="]').forEach(function(nd){
+
+                        if(nd.id.length>0){
+
+                            var widget = registry.byId(nd.id);
+                            var widget2 = registry.byId(node.id);
+                            if(dom.isDescendant(widget2.domNode, widget.domNode)){
+
+                                var id = widget.domNode.id.replace("tabschool_edit.html?id=", "");
+                                var store = JSON.parse(demo.getPlaces());
+                                var school_types = JSON.parse(demo.getSchoolTypes());
+
+                                request.get("api/" + model + "/edit/" + id, {
+                                    data: {},
+                                    headers: {}
+                                }).then(function(data){
+
+
+                                    data = JSON.parse(data);
+
+                                    var t = query('[name=id]', node.id)[0];
+                                    var box1 = registry.byId(t.id);
+                                    box1.set("value", data.id);
+
+                                    t = query('[name=name]', node.id)[0];
+                                    box1 = registry.byId(t.id);
+                                    box1.set("value", data.name);
+
+                                    t = query('[name=eiin]', node.id)[0];
+                                    box1 = registry.byId(t.id);
+                                    box1.set("value", data.eiin);
+
+                                    var school_type = query('[name=school_type_id]', node.id)[0];
+                                    var school_typeSel = new FilteringSelect(
+                                            {
+                                                id: "school_type_id_" + data.id,
+                                                name: "school_type_id",
+                                                store: new Memory({ idProperty: "id", data: school_types }),
+                                                searchAttr: 'name',
+                                                autoComplete: true,
+                                                value: data.school_type_id
+                                            }, school_type
+                                    ).startup();
+
+                                    var subdis = query('[name=subdistrict]', node.id)[0];
+                                    var subdisSel = new FilteringSelect(
+                                            {
+                                                id: "subdistrict_" + data.id,
+                                                name: "subdistrict",
+                                                store: new Memory({ idProperty: "id", data: store }),
+                                                query: {type_id:3, parent_id: data.district},
+                                                searchAttr: 'name',
+                                                autoComplete: true,
+                                                value: data.subdistrict
+                                            }, subdis
+                                    ).startup();
+//                                                    console.debug(dijit.byId("subdistrict_" + data.id));
+                                    var dis = query('[name=district]', node.id)[0];
+                                    var disSel = new FilteringSelect(
+                                            {
+                                                id: "district_" + data.id,
+                                                name: "district",
+                                                store: new Memory({ idProperty: "id", data: store }),
+                                                query: {type_id:2, parent_id: data.division},
+                                                autoComplete: true,
+                                                onChange: function(name){
+                                                    if(this.item)
+                                                        dijit.byId("subdistrict_" + data.id).query.parent_id = this.item.id || /.*/;
+                                                    dijit.byId("subdistrict_" + data.id).set('value','');
+                                                },
+                                                value: data.district
+                                            }, dis
+                                    ).startup();
+                                    //
+                                    var div = query('[name=division]', node.id)[0];
+                                    var divSel = new FilteringSelect(
+                                            {
+                                                id: "division_" + data.id,
+                                                name: "division",
+                                                store: new Memory({ idProperty: "id", data: store }),
+                                                query: {type_id:1},
+                                                autoComplete: true,
+                                                onChange: function(name){
+                                                    if(this.item)
+                                                        dijit.byId("district_" + data.id).query.parent_id = this.item.id || /.*/;
+                                                    dijit.byId("district_" + data.id).set('value','');
+                                                },
+                                                value: data.division
+                                            }, div
+                                    ).startup();
+
+// start teachers
+                                            var teachers_grid = query('.grid-teachers', node.id)[0];
+                                            var school_id = demo.getSelectedSchoolId();
+                                            if(school_id !== undefined){
+//                                                demo.reloadGrid(teachers_grid.id, "api/teachers/"+school_id, function(){});
+                                                var newStore = new dojo.data.ItemFileReadStore({url: "api/teachers/"+school_id});
+                                                var grid = dijit.byId(teachers_grid.id);
+                                                grid.setStore(newStore);
+
+                                                var dataStore;
+                                                newStore.fetch(
+                                                {
+                                                    onComplete:function(items,request) // items is an array
+                                                    {
+                                                        array.forEach(items, function(entry, i){
+                                                            dataStore.push({"id":entry.id[0],"name":entry.name[0]});
+                                                        });
+                                                    }
+                                                });
+console.debug(dataStore);
+                                                    var subdis = query('[name=head_teacher_id]', node.id)[0];
+                                                    var subdisSel = new FilteringSelect(
+                                                            {
+                                                                id: "head_teacher_id_" + data.id,
+                                                                name: "head_teacher_id",
+                                                                store: new Memory({ idProperty: "id", data: dataStore }),
+//                                                                searchAttr: 'name',
+//                                                                autoComplete: true,
+                                                                value: data.head_teacher_id
+                                                            }, subdis
+                                                    ).startup();
+
+                                            }
+                                            dojo.connect(dijit.byId(teachers_grid.id), "onRowDblClick", function(evt) {
+
+                                                var idx = evt.rowIndex,
+                                                        item = this.getItem(idx);
+
+                                                //console.debug(idx);
+                                                var teacherID = this.store.getValue(item, "id");
+                                                var school_id = demo.getSelectedSchoolId();
+                                                if(school_id !== undefined){
+                                                    request.get("api/teacher/"+teacherID,{
+                                                        handleAs: "json"
+                                                    }).then(function(data){
+                                                        dijit.byId("grid-teacher-refresh-id").set('value',teachers_grid.id);
+                                                        dijit.byId("dialogFormTeacher-id").set('value',data.id);
+                                                        dijit.byId("dialogFormTeacher-school-id").set('value',data.school_id);
+                                                        dijit.byId("dialogFormTeacher-name").set('value',data.name);
+                                                        dijit.byId("dialogFormTeacher").show();
+                                                    });
+                                                }
+                                            });
+
+                                            var div = query('.grid-teacher-refresh', node.id)[0];
+                                            var myButton = new dijit.form.Button({
+                                                label: "Refresh",
+                                                onClick: function(){
+                                                    var school_id = demo.getSelectedSchoolId();
+                                                    if(school_id !== undefined){
+                                                        demo.reloadGrid(teachers_grid.id, "api/teachers/"+school_id, function(){});
+                                                    }
+                                                }
+                                            }, div).startup();
+
+                                            var div = query('.grid-teacher-new', node.id)[0];
+                                            var myButton = new dijit.form.Button({
+                                                label: "New...",
+                                                onClick: function(){
+                                                    dijit.byId("grid-teacher-refresh-id").set('value',teachers_grid.id);
+                                                    dijit.byId("dialogFormTeacher-id").set('value','');
+                                                    var school_id = demo.getSelectedSchoolId();
+                                                    if(school_id !== undefined){
+                                                        dijit.byId("dialogFormTeacher-school-id").set('value',school_id);
+                                                    }
+
+                                                    dijit.byId("dialogFormTeacher-name").set('value','');
+                                                    dijit.byId("dialogFormTeacher").show();
+                                                }
+                                            }, div).startup();
+
+                                            var div = query('.grid-teacher-delete', node.id)[0];
+                                            var myButton = new dijit.form.Button({
+                                                label: "Delete",
+                                                onClick: function(){
+                                                    if (confirm('Are you sure you want to delete from the database?')) {
+                                                        var school_id = demo.getSelectedSchoolId();
+                                                        if(school_id !== undefined){
+                                                            demo.deleteById("teacher", teachers_grid.id, "api/teachers/"+school_id);
+                                                        }
+                                                    }
+                                                }
+                                            }, div).startup();
+
+//                                            var dataStore = [];
+//                                            registry.byId(teachers_grid.id).store.fetch(
+//                                                    {
+//                                                        onComplete:function(items,request) // items is an array
+//                                                        {
+//                                                            array.forEach(items, function(entry, i){
+//                                                                dataStore.push({"id":entry.id[0],"name":entry.name[0]});
+//                                                            });
+//                                                        }
+//                                                    })
+//
+//
+//                                            var subdis = query('[name=head_teacher_id]', node.id)[0];
+//                                            var subdisSel = new FilteringSelect(
+//                                                    {
+//                                                        id: "head_teacher_id_" + data.id,
+//                                                        name: "head_teacher_id",
+//                                                        store: new Memory({ idProperty: "id", data: dataStore }),
+//                                                        query: {type_id:3, parent_id: data.district},
+//                                                        searchAttr: 'name',
+//                                                        autoComplete: true,
+//                                                        value: data.head_teacher_id
+//                                                    }, subdis
+//                                            ).startup();
+
+// end teachers
+
+// start classes
+                                            var classes_grid = query('.grid-classes', node.id)[0];
+                                            var class_students_grid = query('.grid-class-students', node.id)[0];
+
+                                            var school_id = demo.getSelectedSchoolId();
+                                            if(school_id !== undefined){
+                                                demo.reloadGrid(classes_grid.id, "api/classes/"+school_id, function(){});
+                                            }
+                                            dojo.connect(dijit.byId(classes_grid.id), "onRowClick", function(evt) {
+                                                var idx = evt.rowIndex,
+                                                        item = this.getItem(idx);
+
+                                                //console.debug(idx);
+                                                var classID = this.store.getValue(item, "id");
+
+                                                // refresh student grid
+                                                demo.reloadGrid(class_students_grid.id, "api/students/"+school_id+"/"+classID, function(){});
+                                            });
+                                            dojo.connect(dijit.byId(classes_grid.id), "onRowDblClick", function(evt) {
+
+                                                var idx = evt.rowIndex,
+                                                        item = this.getItem(idx);
+
+                                                //console.debug(idx);
+                                                var classID = this.store.getValue(item, "id");
+
+                                                var school_id = demo.getSelectedSchoolId();
+                                                if(school_id !== undefined){
+                                                    request.get("api/class/"+classID,{
+                                                        handleAs: "json"
+                                                    }).then(function(data){
+                                                        dijit.byId("grid-class-refresh-id").set('value',classes_grid.id);
+                                                        dijit.byId("dialogFormClass-id").set('value',data.id);
+                                                        dijit.byId("dialogFormClass-school-id").set('value',data.school_id);
+                                                        var dataStore = [];
+                                                        registry.byId(teachers_grid.id).store.fetch(
+                                                                {
+                                                                    onComplete:function(items,request) // items is an array
+                                                                    {
+                                                                        array.forEach(items, function(entry, i){
+                                                                            dataStore.push({"id":entry.id[0],"name":entry.name[0]});
+                                                                        });
+                                                                    }
+                                                                })
+                                                        var eSelect = dijit.byId('dialogFormClass-class_teacher_id');
+//                                                    eSelect.store.close();
+                                                        eSelect.store = new Memory({ idProperty: "id", data: dataStore });
+                                                        eSelect.startup();
+
+                                                        dijit.byId("dialogFormClass-class_teacher_id").set('value',data.class_teacher_id);
+                                                        dijit.byId("dialogFormClass-name").set('value',data.name);
+                                                        dijit.byId("dialogFormClass").show();
+                                                    });
+                                                }
+                                            });
+
+                                            var div = query('.grid-class-refresh', node.id)[0];
+                                            var myButton = new dijit.form.Button({
+                                                label: "Refresh",
+                                                onClick: function(){
+                                                    var school_id = demo.getSelectedSchoolId();
+                                                    if(school_id !== undefined){
+                                                        demo.reloadGrid(classes_grid.id, "api/classes/"+school_id, function(){});
+                                                    }
+                                                }
+                                            }, div).startup();
+
+                                            var div = query('.grid-class-new', node.id)[0];
+                                            var myButton = new dijit.form.Button({
+                                                label: "New...",
+                                                onClick: function(){
+                                                    dijit.byId("grid-class-refresh-id").set('value',classes_grid.id);
+                                                    dijit.byId("dialogFormClass-id").set('value','');
+                                                    var school_id = demo.getSelectedSchoolId();
+                                                    if(school_id !== undefined){
+                                                        dijit.byId("dialogFormClass-school-id").set('value',school_id);
+                                                    }
+                                                    var dataStore = [];
+                                                    registry.byId(teachers_grid.id).store.fetch(
+                                                            {
+                                                                onComplete:function(items,request) // items is an array
+                                                                {
+                                                                    array.forEach(items, function(entry, i){
+                                                                        dataStore.push({"id":entry.id[0],"name":entry.name[0]});
+                                                                    });
+                                                                }
+                                                            })
+                                                    var eSelect = dijit.byId('dialogFormClass-class_teacher_id');
+//                                                    eSelect.store.close();
+                                                    eSelect.store = new Memory({ idProperty: "id", data: dataStore });
+                                                    eSelect.startup();
+
+                                                    dijit.byId("dialogFormClass-class_teacher_id").set('value','');
+
+                                                    dijit.byId("dialogFormClass-name").set('value','');
+                                                    dijit.byId("dialogFormClass").show();
+                                                }
+                                            }, div).startup();
+
+                                            var div = query('.grid-class-delete', node.id)[0];
+                                            var myButton = new dijit.form.Button({
+                                                label: "Delete",
+                                                onClick: function(){
+                                                    if (confirm('Are you sure you want to delete from the database?')) {
+                                                        var school_id = demo.getSelectedSchoolId();
+                                                        if(school_id !== undefined){
+                                                            demo.deleteById("class", classes_grid.id, "api/classes/"+school_id);
+                                                        }
+                                                    }
+                                                }
+                                            }, div).startup();
+
+// end classes
+
+
+// start students
+                                            var students_grid = query('.grid-class-students', node.id)[0];
+                                            var school_id = demo.getSelectedSchoolId();
+                                            if(school_id !== undefined){
+                                                // get class id
+                                                var classID = demo.getGridSelectedRow(classes_grid.id);
+                                                demo.reloadGrid(students_grid.id, "api/students/"+school_id+"/"+classID, function(){});
+                                            }
+                                            dojo.connect(dijit.byId(students_grid.id), "onRowDblClick", function(evt) {
+
+                                                var idx = evt.rowIndex,
+                                                        item = this.getItem(idx);
+
+                                                //console.debug(idx);
+                                                var studentID = this.store.getValue(item, "id");
+                                                console.debug(studentID);
+                                                var school_id = demo.getSelectedSchoolId();
+                                                console.debug(school_id);
+
+                                                if(school_id !== undefined){
+                                                    var tabContainer = "mainTabContainer";
+
+                                                    if (typeof tabContainer === "string"){
+                                                        tabContainer = registry.byId(tabContainer);
+                                                    }
+                                                    //var href = "app/html/school_info_form.html";
+                                                    var href = "app/html/school_info_form_edited.html";
+                                                    var tabName = "tab" + demo.basename(href,".html"),
+                                                            tab = registry.byId(tabName);
+
+                                                    if (typeof tab !== "undefined"){
+                                                        tabContainer.selectChild(tab);
+                                                        if (confirm('Do you want to open without save change Student Info?')) {
+                                                            demo.setSelectedStudentId(studentID);
+                                                            tab.set("title", "Edit Student");
+                                                            // populate
+                                                            demo.populateStudentInfo(studentID);
+                                                        }
+                                                    }else{
+                                                        // populate
+                                                        demo.setSelectedStudentId(studentID);
+                                                        tab = new dojox.layout.ContentPane({
+                                                            id: tabName,
+                                                            //schoolid: tabName,
+                                                            title: "Edit Student",
+                                                            href: href,
+                                                            closable: true,
+                                                            style: "padding: 0;",
+                                                            executeScripts: true,
+                                                        });
+                                                        tabContainer.addChild(tab);
+                                                        tabContainer.selectChild(tab);
+                                                    }
+                                                }
+                                            });
+
+                                            var div = query('.grid-student-refresh', node.id)[0];
+                                            var myButton = new dijit.form.Button({
+                                                label: "Refresh",
+                                                onClick: function(){
+                                                    var school_id = demo.getSelectedSchoolId();
+                                                    if(school_id !== undefined){
+                                                        var classID = demo.getGridSelectedRow(classes_grid.id);
+                                                        demo.reloadGrid(students_grid.id, "api/students/"+school_id+"/"+classID, function(){});
+                                                    }
+                                                }
+                                            }, div).startup();
+
+                                            var div = query('.grid-student-new', node.id)[0];
+                                            var myButton = new dijit.form.Button({
+                                                label: "New...",
+                                                onClick: function(){
+                                                    var tabContainer = "mainTabContainer";
+
+                                                    if (typeof tabContainer === "string"){
+                                                        tabContainer = registry.byId(tabContainer);
+                                                    }
+                                                    //var href = "app/html/school_info_form.html";
+                                                    var href = "app/html/school_info_form_edited.html";
+                                                    var tabName = "tab" + demo.basename(href,".html"),
+                                                            tab = registry.byId(tabName);
+
+                                                    if (typeof tab !== "undefined"){
+                                                        tabContainer.selectChild(tab);
+                                                        if (confirm('Do you want to open without save change Student Info?')) {
+                                                            var school_id = demo.getSelectedSchoolId();
+                                                            //alert(school_id);
+                                                            
+                                                            tab.set("title", "New Student");
+                                                            // reset data
+                                                            demo.setSelectedStudentId(undefined);
+                                                            demo.resetStudentInfo(true);
+                                                        }
+                                                    }else{
+                                                        demo.setSelectedStudentId(undefined);
+                                                        // reset data
+                                                        tab = new dojox.layout.ContentPane({
+                                                            id: tabName,
+                                                            //schoolid: tabName,
+                                                            title: "New Student",
+                                                            href: href,
+                                                            closable: true,
+                                                            style: "padding: 0;",
+                                                            executeScripts: true,
+                                                        });
+                                                        tabContainer.addChild(tab);
+                                                        tabContainer.selectChild(tab);
+                                                    }
+                                                }
+                                            }, div).startup();
+
+                                            var div = query('.grid-student-delete', node.id)[0];
+                                            var myButton = new dijit.form.Button({
+                                                label: "Delete",
+                                                onClick: function(){
+                                                    if (confirm('Are you sure you want to delete from the database?')) {
+                                                        var school_id = demo.getSelectedSchoolId();
+                                                        if(school_id !== undefined){
+                                                            var classID = demo.getGridSelectedRow(classes_grid.id);
+                                                            demo.deleteById("student", students_grid.id, "api/students/"+school_id+"/"+classID);
+                                                        }
+                                                    }
+                                                }
+                                            }, div).startup();
+
+// end students
+                                });
+                            }
+                        }
+
+                    });
+                });
+            });
+    function loadForm(data){
+        console.debug(data);
+    }
+</script>

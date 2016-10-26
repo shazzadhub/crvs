@@ -1,0 +1,1031 @@
+<script>
+    var student_father_dead_flag = false;
+    var student_mother_dead_flag = false;
+
+    var school_id_form_save;
+    demo.lang.setObject("demo.populateStudentInfo", function(studentId){
+        demo.request.get("api/student/"+studentId,{
+            handleAs: "json"
+        }).then(function(data){
+            school_id_form_save = data.id;
+            //student info  
+            dijit.byId('id').set('value',school_id_form_save);
+            
+            dijit.byId('studentid').set('value',data.student_ed_id);
+            dijit.byId('student_form_serial_no').set('value',data.form_serial_no);
+            dijit.byId('student_name_ban').set('value',data.name_ban);
+            dijit.byId('student_name_eng').set('value',data.name_eng);
+            dijit.byId('student_birth_no').set('value',data.birth_no);
+            dijit.byId('student_birth_place').set('value',data.birth_place);
+            dijit.byId('student_birth_date').set('value',data.birth_date);
+            dijit.byId('student_sex').set('value',data.student_sex);
+            dijit.byId('student_nationality').set('value',data.student_nationality);
+            dijit.byId('student_nationality_other').set('value',data.student_nationality_other);
+            dijit.byId('student_classCode').set('value',data.student_classCode);
+            dijit.byId('student_religion').set('value',data.student_religion);
+            dijit.byId('student_relegion_other').set('value',data.student_relegion_other);
+            dijit.byId('student_bloodbroup').set('value',data.student_bloodbroup);
+            dijit.byId('student_spotmark').set('value',data.student_spotmark);
+            dijit.byId('student_disability_if').set('value',data.student_disability_if);
+            dijit.byId('student_disability_code').set('value',data.student_disability_code);
+
+            //siblings_info
+            dijit.byId('student_younger_brother_name_ban').set('value',data.student_younger_brother_name_ban);
+            dijit.byId('student_younger_brother_name_eng').set('value',data.student_younger_brother_name_eng);
+            dijit.byId('student_younger_brother_borndate').set('value',data.student_younger_brother_borndate);
+            dijit.byId('student_younger_brother_brn').set('value',data.student_younger_brother_brn);
+
+            dijit.byId('student_younger_brother_name_ban1').set('value',data.student_younger_brother_name_ban1);
+            dijit.byId('student_younger_brother_name_eng1').set('value',data.student_younger_brother_name_eng1);
+            dijit.byId('student_younger_brother_borndate1').set('value',data.student_younger_brother_borndate1);
+            dijit.byId('student_younger_brother_brn1').set('value',data.student_younger_brother_brn1);
+
+            dijit.byId('student_younger_brother_name_ban2').set('value',data.student_younger_brother_name_ban2);
+            dijit.byId('student_younger_brother_name_eng2').set('value',data.student_younger_brother_name_eng2);
+            dijit.byId('student_younger_brother_borndate2').set('value',data.student_younger_brother_borndate2);
+            dijit.byId('student_younger_brother_brn2').set('value',data.student_younger_brother_brn2);
+
+            dijit.byId('student_younger_brother_name_ban3').set('value',data.student_younger_brother_name_ban3);
+            dijit.byId('student_younger_brother_name_eng3').set('value',data.student_younger_brother_name_eng3);
+            dijit.byId('student_younger_brother_borndate3').set('value',data.student_younger_brother_borndate3);
+            dijit.byId('student_younger_brother_brn3').set('value',data.student_younger_brother_brn3);
+
+            //guardian_info
+            dijit.byId('student_father_nid_have').set('value',data.student_father_nid_have);
+            dijit.byId('student_father_nid').set('value',data.student_father_nid);
+            dijit.byId('student_father_name_ban').set('value',data.student_father_name_ban);
+            dijit.byId('student_father_name_eng').set('value',data.student_father_name_eng);
+            dijit.byId('student_father_deathdate').set('value',data.student_father_deathdate);
+            
+            dijit.byId('student_mother_nid_have').set('value',data.student_mother_nid_have);
+            dijit.byId('student_mother_nid').set('value',data.student_mother_nid);
+            dijit.byId('student_mother_name_ban').set('value',data.student_mother_name_ban);
+            dijit.byId('student_mother_name_eng').set('value',data.student_mother_name_eng);
+            dijit.byId('student_mother_deathdate').set('value',data.student_mother_deathdate);
+            
+            dijit.byId('student_legalgurdian_nid').set('value',data.student_legalgurdian_nid);
+            dijit.byId('student_legalgurdian_name_ban').set('value',data.student_legalgurdian_name_ban);
+            dijit.byId('student_legalgurdian_rel').set('value',data.student_legalgurdian_rel);
+
+            //Address_info
+            dijit.byId('student_address_pres').set('value',data.student_address_pres);
+            dijit.byId('student_address_parm').set('value',data.student_address_parm);
+            
+            //Others_info
+            dijit.byId('student_operator_nid').set('value',data.student_operator_nid);
+            dijit.byId('student_operator_name_ban').set('value',data.student_operator_name_ban);
+            dijit.byId('student_operator_entrydate').set('value',data.student_operator_entrydate);
+
+            dijit.byId('student_biometric_nid').set('value',data.student_biometric_nid);
+            dijit.byId('student_biometric_name_ban').set('value',data.student_biometric_name_ban);
+            dijit.byId('student_biometric_entrydate').set('value',data.student_biometric_entrydate);
+
+
+            //dijit.byId('studentid').set('value',data.id);
+            //dijit.byId('studentNumEng').set('value',data.name);
+            if(data.PSC == '0'){ dijit.byId('student_PSC').set('checked', false); }else{ dijit.byId('student_PSC').set('checked', true); }
+            if(data.JSC == '0'){ dijit.byId('student_JSC').set('checked', false); }else{ dijit.byId('student_JSC').set('checked', true); }
+            if(data.SSC == '0'){ dijit.byId('student_SSC').set('checked', false); }else{ dijit.byId('student_SSC').set('checked', true); }
+            if(data.ibtadayi == '0'){ dijit.byId('student_ibtadayi').set('checked', false); }else{ dijit.byId('student_ibtadayi').set('checked', true); }
+            if(data.JDC == '0'){ dijit.byId('student_JDC').set('checked', false); }else{ dijit.byId('student_JDC').set('checked', true); }
+            if(data.dakhil == '0'){ dijit.byId('student_dakhil').set('checked', false); }else{ dijit.byId('student_dakhil').set('checked', true); }
+            if(data.student_father_death_if == '0'){ dijit.byId('student_father_death_if').set('checked', false); }else{ dijit.byId('student_father_death_if').set('checked', true); }
+            if(data.student_mother_death_if == '0'){ dijit.byId('student_mother_death_if').set('checked', false); }else{ dijit.byId('student_mother_death_if').set('checked', true); }
+        });
+    });
+    demo.lang.setObject("demo.resetStudentInfo", function(flg){
+        //student info  
+        dijit.byId('studentid').set('value','');
+        dijit.byId('student_form_serial_no').set('value','');
+        dijit.byId('student_name_ban').set('value','');
+        dijit.byId('student_name_eng').set('value','');
+        dijit.byId('student_birth_no').set('value','');
+        dijit.byId('student_birth_place').set('value','');
+        dijit.byId('student_birth_date').set('value','');
+        dijit.byId('student_sex').set('value','');
+        dijit.byId('student_nationality').set('value','');
+        dijit.byId('student_nationality_other').set('value','');
+        dijit.byId('student_classCode').set('value','');
+        dijit.byId('student_religion').set('value','');
+        dijit.byId('student_relegion_other').set('value','');
+        dijit.byId('student_bloodbroup').set('value','');
+        dijit.byId('student_spotmark').set('value','');
+        dijit.byId('student_disability_if').set('value','না');
+        dijit.byId('student_disability_code').set('value','');
+
+        //siblings_info
+        dijit.byId('student_younger_brother_name_ban').set('value','');
+        dijit.byId('student_younger_brother_name_eng').set('value','');
+        dijit.byId('student_younger_brother_borndate').set('value','');
+        dijit.byId('student_younger_brother_brn').set('value','');
+
+        dijit.byId('student_younger_brother_name_ban1').set('value','');
+        dijit.byId('student_younger_brother_name_eng1').set('value','');
+        dijit.byId('student_younger_brother_borndate1').set('value','');
+        dijit.byId('student_younger_brother_brn1').set('value','');
+
+        dijit.byId('student_younger_brother_name_ban2').set('value','');
+        dijit.byId('student_younger_brother_name_eng2').set('value','');
+        dijit.byId('student_younger_brother_borndate2').set('value','');
+        dijit.byId('student_younger_brother_brn2').set('value','');
+
+        dijit.byId('student_younger_brother_name_ban3').set('value','');
+        dijit.byId('student_younger_brother_name_eng3').set('value','');
+        dijit.byId('student_younger_brother_borndate3').set('value','');
+        dijit.byId('student_younger_brother_brn3').set('value','');
+
+        //guardian_info
+        dijit.byId('student_father_nid_have').set('value','হ্যাঁ');
+        dijit.byId('student_father_nid').set('value','');
+        dijit.byId('student_father_name_ban').set('value','');
+        dijit.byId('student_father_name_eng').set('value','');
+        dijit.byId('student_father_deathdate').set('value','');
+
+        dijit.byId('student_mother_nid_have').set('value','হ্যাঁ');
+        dijit.byId('student_mother_nid').set('value','');
+        dijit.byId('student_mother_name_ban').set('value','');
+        dijit.byId('student_mother_name_eng').set('value','');
+        dijit.byId('student_mother_deathdate').set('value','');
+        
+        dijit.byId('student_legalgurdian_nid').set('value','');
+        dijit.byId('student_legalgurdian_name_ban').set('value','');
+        dijit.byId('student_legalgurdian_rel').set('value','');
+
+        //Address_info
+        dijit.byId('student_address_pres').set('value','');
+        dijit.byId('student_address_parm').set('value','');
+        
+        //Others_info
+        dijit.byId('student_operator_nid').set('value','');
+        dijit.byId('student_operator_name_ban').set('value','');
+        dijit.byId('student_operator_entrydate').set('value','');
+
+        dijit.byId('student_biometric_nid').set('value','');
+        dijit.byId('student_biometric_nid').set('value','');
+        dijit.byId('student_biometric_nid').set('value','');
+
+        dijit.byId('student_PSC').set('checked', false);
+        dijit.byId('student_JSC').set('checked', false);
+        dijit.byId('student_SSC').set('checked', false);
+        dijit.byId('student_ibtadayi').set('checked', false);
+        dijit.byId('student_JDC').set('checked', false);
+        dijit.byId('student_dakhil').set('checked', false);
+        
+
+        /*if(school_id !== undefined){
+            var classID = demo.getGridSelectedRow(classes_grid.id);
+            dijit.byId('studentNewSchoolid').set('value',school_id);
+            dijit.byId('studentNewClassid').set('value',classID);
+        }*/
+
+        //dijit.byId('studentid').set('value','');
+        //dijit.byId('studentNumEng').set('value','');
+
+    });
+    require(["dojo/domReady!"], function(){
+        var studentID = demo.getSelectedStudentId();
+        if((typeof studentID !== "undefined")){
+            demo.populateStudentInfo(studentID);
+        }
+    });
+
+/*    require(["dojo/on", "dojo/dom-form"], function(on, domForm){
+        var eSelect = dijit.byId('dialogFormClass-student_submit');
+        dijit.byId("dialogFormClass-class_teacher_id").set('value',"Test comfirm");
+
+        var formsubmit = demo.dom.byId("studentForm");
+        on(formsubmit, "submit", function(event){
+            
+            dijit.byId("dialogFormStudentSubmit-data").set('value',JSON.stringify(domForm.toObject("studentForm")));
+            dijit.byId("dialogFormStudentSubmit").show();
+            //alert(JSON.stringify(domForm.toObject("studentForm")));
+            
+            var formdata = domForm.toObject("studentForm");
+
+            var stu_id = formdata.studentid;
+            var student_autism = formdata.student_autism;
+            console.log(stu_id);
+            
+            event.preventDefault();
+            event.stopPropagation();
+        });        
+    });*/
+    function nationality_other(value) {
+        var target = demo.registry.byId('student_nationality_other');
+        demo.domstyle.set(target.domNode, 'display', 'none');
+        if(value == "অন্যান্য"){
+            demo.domstyle.set(target.domNode, 'display', 'block');
+            target.focus();
+        }
+    }
+    function relegion_other(value) {
+        var target = demo.registry.byId('student_relegion_other');
+        demo.domstyle.set(target.domNode, 'display', 'none');
+        if(value == "অন্যান্য"){
+            demo.domstyle.set(target.domNode, 'display', 'block');
+            target.focus();
+        }
+    }
+    function student_disability(value) {
+        var target = demo.registry.byId('student_disability_code');
+        demo.domstyle.set(target.domNode, 'display', 'none');
+        if(value == "হ্যাঁ"){
+            demo.domstyle.set(target.domNode, 'display', 'block');
+            target.focus();
+        }
+    }
+    function father_death_if(value){
+        var target = demo.dijit.byId('student_father_deathdate');
+        demo.domstyle.set(target.domNode, 'display', 'none');
+        if (value){
+            student_father_dead_flag = true;
+            demo.domstyle.set(target.domNode, 'display', 'block');
+        } else {
+            student_father_dead_flag = false;
+            demo.domstyle.set(target.domNode, 'display', 'none');
+            target.setValue(null);
+        }
+    }
+    function mother_death_if(value){
+        var target = demo.dijit.byId('student_mother_deathdate');
+        demo.domstyle.set(target.domNode, 'display', 'none');
+        if (value){
+            student_mother_dead_flag = true;
+            demo.domstyle.set(target.domNode, 'display', 'block');
+        } else {
+            student_mother_dead_flag = false;
+            demo.domstyle.set(target.domNode, 'display', 'none');
+            target.setValue(null);
+        }
+    }
+    function father_health_triggure(value) {
+        var target = demo.dijit.byId('student_father_nid');
+        if(value == "না"){
+            //alert("nid nai"+ value);
+            target.set('readonly', true);
+            target.set('value', '');
+
+            if(!student_father_dead_flag){
+                dijit.byId("id_for_healthform").set('value',school_id_form_save);
+                dijit.byId("healthDialog").show();
+                target.set('placeHolder', 'হেলথ আইডি ফর্ম পূরণ করুন');
+            } else {
+                target.set('placeHolder', 'প্রয়োজন নেই');
+            }
+        }else{
+            target.set('readonly', false);
+            target.set('placeHolder', 'শুধু মাত্র সংখ্যা এখানে অনুমোদিত');
+            dijit.byId("healthDialog").hide();
+        }
+    }
+    function mother_health_triggure(value) {
+        var target = demo.dijit.byId('student_mother_nid');
+        if(value == "না"){
+            //alert("nid nai"+ value);
+            target.set('readonly', true);
+            target.set('value', '');
+
+            if(!student_mother_dead_flag){
+                dijit.byId("id_for_healthform").set('value',school_id_form_save);
+                dijit.byId("healthDialog").show();
+                target.set('placeHolder', 'হেলথ আইডি ফর্ম পূরণ করুন');
+            } else {
+                target.set('placeHolder', 'প্রয়োজন নেই');
+            }
+        }else{
+            target.set('readonly', false);
+            target.set('placeHolder', 'শুধু মাত্র সংখ্যা এখানে অনুমোদিত');
+            dijit.byId("healthDialog").hide();
+        }
+    }
+</script>
+
+<!--
+<script>
+    require([
+        "dojo/dom", "dojo/store/Memory", "dijit/form/ComboBox",
+        "dojo/domReady!"
+    ], function(dom, Memory, ComboBox){
+        var dojoStore = new Memory({data: [
+            {id: 1, name:"বাংলাদেশী", label:"<b>বাংলাদেশী</b>"},
+            {id: 2, name:"অন্যান্য", label:"অন্যান্য <input type='text'></input>"}
+        ]});
+
+       var fs = new ComboBox({
+             id: "test_filtering_select",
+             value: '',
+             store: dojoStore,
+             searchAttr: "name",
+             name: "xyz",
+             labelAttr: "label",
+             labelType: "html"
+       }, dom.byId("test_filtering_select")).startup();
+    });
+</script>
+-->
+
+
+<link rel="stylesheet" type="text/css" href="app/css/crvs.css">
+
+<div data-dojo-type="dijit/form/Form" style="width: 100%; height: 100%;">
+
+    <script type="dojo/on" data-dojo-event="submit" data-dojo-args="evt">
+        dojo.stopEvent(evt);
+        if(this.validate()){
+            //console.log(JSON.stringify(demo.domForm.toObject(this.id)));
+            return demo.saveForm("student",this.id,function(message){},function(message){});
+        }else{
+        alert('Form contains invalid data.  Please correct first');
+        return false;
+        }
+        return false;
+    </script>
+
+     <h3 style="border: 1px solid #F1F1F1; margin: 0px auto; padding: 1% 2%; background-color: #FAFAFA; font-weight: bold; height: 6%;">
+         <input type="submit" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="Submit" iconClass="dijitNoIcon" style="float: left;"></input>
+     </h3>
+
+    <input type="hidden" id="id" name="id" data-dojo-type="dijit/form/TextBox"/>
+    <input type="hidden" id="studentNewSchoolid" name="studentNewSchoolid" data-dojo-type="dijit/form/TextBox"/>
+    <input type="hidden" id="studentNewClassid" name="studentNewClassid" data-dojo-type="dijit/form/TextBox"/>
+
+    <span data-dojo-type="dijit/layout/TabContainer" style="min-width: 1em; min-height: 1em; width: 100%; height: 94%;" controllerWidget="dijit.layout.TabController">
+        <div data-dojo-type="dijit/layout/ContentPane" title="ছাত্রছাত্রীর তথ্য" extractContent="false" preventCache="false" preload="false" refreshOnShow="false" doLayout="true" selected="true" closable="false" style="height: auto;">
+            <table border="0" style="border-collapse: separate; table-layout: fixed; width: 100%; height: auto;">
+                <colgroup>
+                <col class="colgroup_first_col"></col>
+                <col></col>
+                </colgroup>
+                <tbody>
+
+
+                    <tr>
+                        <td><label>ছাত্রছাত্রীর আইডি:</label></td>
+                        <td>
+                            <input type="number" data-dojo-type="dijit/form/TextBox" id="studentid" name="studentid" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="true" placeHolder="সংখ্যায় লিখুন"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>
+                            ফরম এর সিরিয়াল নাম্বার:</label>
+                        </td>
+                        <td>
+                            <input type="number" data-dojo-type="dijit/form/TextBox" id="student_form_serial_no" name="student_form_serial_no" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="সংখ্যায় লিখুন"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>
+                            শিক্ষার্থীর নাম(বাংলা):*</label>
+                        </td>
+                        <td>
+                            <input type="text" data-dojo-type="dijit/form/TextBox" id="student_name_ban" name="student_name_ban" required intermediateChanges="false" maxlength="35" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>
+                            শিক্ষার্থীর নাম(ইংরেজি বড় অক্ষরে):*</label>
+                        </td>
+                        <td>
+                            <input type="text" data-dojo-type="dijit/form/TextBox" id="student_name_eng" name="student_name_eng" required intermediateChanges="false" maxlength="35" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="ইংরেজি বড় অক্ষরে লিখুন"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>
+                            জন্ম নিবন্ধন নম্বর:*</label>
+                        </td>
+                        <td>
+                            <input type="number" data-dojo-type="dijit/form/TextBox" id="student_birth_no" name="student_birth_no" required intermediateChanges="false" maxlength="17" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="সংখ্যায় লিখুন"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>
+                            জন্ম তারিখ:*(DD/MM/YYYY)*</label>
+                        </td>
+                        <td>
+                            <input type="text" data-dojo-type="dijit/form/DateTextBox" id="student_birth_date" name="student_birth_date" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>
+                            জন্মস্থান:*</label>
+                        </td>
+                        <td>
+                            <input type="text" data-dojo-type="dijit/form/TextBox" id="student_birth_place" name="student_birth_place" required intermediateChanges="false" maxlength="2" trim="false" uppercase="false" lowercase="false" propercase="false" placeHolder="জন্মস্থান" selectOnClick="false"></input>
+                        </td> <!-- style="width: 3em;"-->
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>লিঙ্গ:*</label>
+                        </td>
+                        <td>
+                            <select data-dojo-type="dijit/form/Select" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" id="student_sex" name="student_sex" placeHolder="সিলেক্ট করুন">
+                                <option value="পুরুষ">
+                                পুরুষ</option>
+                                <option value="মহিলা">
+                                মহিলা</option>
+                                <option value="অন্যান্য">
+                                অন্যান্য</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>জাতীয়তা:*</label>
+                        </td>
+                        <td>
+                            <select data-dojo-type="dijit/form/Select" value="বাংলাদেশী" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" id="student_nationality" name="student_nationality" onChange="nationality_other" placeHolder="সিলেক্ট করুন">
+                                <option value="বাংলাদেশী">
+                                বাংলাদেশী</option>
+                                <option value="অন্যান্য">
+                                অন্যান্য
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input data-dojo-type="dijit/form/TextBox" id="student_nationality_other" name="student_nationality_other" style="display:none" value="" placeHolder="type other Nationality"></input>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <label>ধর্ম:*</label>
+                        </td>
+                        <td>
+                            <select data-dojo-type="dijit/form/Select" value="ধর্ম" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" id="student_religion" name="student_religion" onChange="relegion_other" placeHolder="সিলেক্ট করুন">
+                                <option value="ইসলাম">
+                                ইসলাম</option>
+                                <option value="হিন্দু">
+                                হিন্দু</option>
+                                <option value="বৌদ্ধ">
+                                বৌদ্ধ</option>
+                                <option value="খ্রিষ্টান">
+                                খ্রিষ্টান</option>
+                                <option value="অন্যান্য">
+                                অন্যান্য</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input data-dojo-type="dijit/form/TextBox" id="student_relegion_other" name="student_relegion_other" style="display:none" value="" placeHolder="type other Religion"></input>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label>শিক্ষাগত যোগ্যতা (বর্তমান শ্রেণী):*</label>
+                        </td>
+                        <td>
+                            <!-- <label>শ্রেণী কোড:*</label> -->
+                            <input type="text" data-dojo-type="dijit/form/TextBox" id="student_classCode" name="student_classCode" required intermediateChanges="false" maxlength="2" placeHolder="শ্রেণি" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false"></input>
+                        </td>
+                    </tr>
+<tr>
+    <td>
+        <label>
+        সামাপনী পরীক্ষা পাস(প্রযেজ্য ক্ষেত্রে):</label>
+    </td>
+    <td>
+        <input id="student_PSC" type="checkbox" checked="false" data-dojo-type="dijit/form/CheckBox" name="PSC" intermediateChanges="false" iconClass="dijitNoIcon"></input>পি এস সি
+        <input id="student_JSC" type="checkbox" checked="false" data-dojo-type="dijit/form/CheckBox" name="JSC" intermediateChanges="false" iconClass="dijitNoIcon"></input>জে এস সি
+        <input id="student_SSC" type="checkbox" checked="false" data-dojo-type="dijit/form/CheckBox" name="SSC" intermediateChanges="false" iconClass="dijitNoIcon"></input>এস এস সি
+        <input id="student_ibtadayi" type="checkbox" checked="false" data-dojo-type="dijit/form/CheckBox" name="ibtadayi" intermediateChanges="false" iconClass="dijitNoIcon"></input>ইবতেদায়ি
+        <input id="student_JDC" type="checkbox" checked="false" data-dojo-type="dijit/form/CheckBox" name="JDC" intermediateChanges="false" iconClass="dijitNoIcon"></input>জে ডি সি
+        <input id="student_dakhil" type="checkbox" checked="false" data-dojo-type="dijit/form/CheckBox" name="dakhil" intermediateChanges="false" iconClass="dijitNoIcon"></input>দাখিল
+    </td>
+</tr>
+                
+                    <tr>
+                        <td>
+                            <label>অসামর্থতা/প্রতিবন্ধিতা আছে কি না ?:</label>
+                        </td>
+                        <td>
+                            <select data-dojo-type="dijit/form/Select" value="না" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" id="student_disability_if" name="student_disability_if" onChange="student_disability">
+                                <option value="না">
+                                না</option>
+                                <option value="হ্যাঁ">
+                                হ্যাঁ</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input data-dojo-type="dijit/form/TextBox" id="student_disability_code" name="student_disability_code" style="display:none" value="" placeHolder="অসমর্থতা/প্রতিবন্ধিতার কোড"></input>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label>দৃশ্যমান সনাক্তকরণ চিহ্ন:</label>
+                        </td>
+                        <td>
+                            <textarea type="text" id="student_spotmark" name="student_spotmark" data-dojo-type="dijit/form/Textarea" intermediateChanges="false" rows="3" trim="false" uppercase="false" lowercase="false" propercase="false" style="height: auto; width: 95%;" placeHolder="প্রযোজ্য ক্ষেত্রে বাংলায়"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>রক্তের গ্রুপ (যদি জানা থাকে দিন):</label>
+                        </td>
+                        <td>
+                            <select data-dojo-type="dijit/form/Select" id="student_bloodbroup" name="student_bloodbroup" value="Blood Group" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" placeHolder="সিলেক্ট করুন">
+                                <option value="A+">
+                                A+</option>
+                                <option value="A-">
+                                A-</option>
+                                <option value="B+">
+                                B+</option>
+                                <option value="B-">
+                                B-</option>
+                                <option value="AB+">
+                                AB+</option>
+                                <option value="AB-">
+                                AB-</option>
+                                <option value="O+">
+                                O+</option>
+                                <option value="O-">
+                                O-</option>
+                            </select>
+                        </td>
+                    </tr>
+                
+                </tbody>
+            </table>
+        </div>
+        
+
+        
+        
+
+
+
+        <!-- /////////////////////////////////////////////////////SUDENT FATHER START///////////////////////////////////////////////////////// -->
+
+        <div data-dojo-type="dijit/layout/ContentPane" title="পিতামাতার তথ্য" extractContent="false" preventCache="false" preload="false" refreshOnShow="false" doLayout="true" selected="true" closable="false" style="height: auto;">
+            <!-- <input id="studentHealthFormcheck" type="checkbox" data-dojo-type="dijit/form/CheckBox" intermediateChanges="true" name="studentHealthFormcheck">জাতীয় পরিচয় পত্র নাম্বার না থাকলে টিক দিন</input> -->
+            <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em; left: 9px; top: 8px;">
+                <legend>পিতার তথ্য</legend>
+                <span style="width: 25%; float: right;"><img></img></span><span style="width: 75%; float: left;">
+            
+            <table border="0" style="border-collapse: separate; table-layout: fixed; width: 100%; height: auto;">
+                <colgroup>
+                <col class="colgroup_first_col"></col>
+                <col></col>
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>
+                            <label>
+                            পিতার নাম (বাংলা):*</label>
+                        </td>
+                        <td>
+                            <input type="text" id="student_father_name_ban" name="student_father_name_ban" data-dojo-type="dijit/form/TextBox" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>
+                            পিতার নাম (ইংরেজি বড় অক্ষরে):*</label>
+                        </td>
+                        <td>
+                            <input type="text" id="student_father_name_eng" name="student_father_name_eng" data-dojo-type="dijit/form/TextBox" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="ইংরেজিতে লিখুন"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>
+                            পিতা মৃত হইলে মৃত্যুর সন (পিতা মৃত হলে টিক দিন):</label>
+                        </td>
+                        <td>
+                            <input id="student_father_death_if" name="student_father_death_if" type="checkbox" checked="false" onChange="father_death_if" data-dojo-type="dijit/form/CheckBox" intermediateChanges="false" iconClass="dijitNoIcon"></input>
+                            <input type="text" id="student_father_deathdate" name="student_father_deathdate" data-dojo-type="dijit/form/DateTextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" style="display:none"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                       <td>
+                           <label>পিতার NID নম্বার আছে কি ?</label>
+                       </td>
+                       <td>
+                           <select data-dojo-type="dijit/form/Select" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" id="student_father_nid_have" name="student_father_nid_have" onChange="father_health_triggure">
+                                <option value="হ্যাঁ">
+                                হ্যাঁ</option>
+                                <option value="না">
+                                না</option>
+                            </select>
+                       </td> 
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>
+                            জাতীয় পরিচয় পত্র নাম্বার:</label>
+                        </td>
+                        <td>
+                            <input id="student_father_nid" name="student_father_nid" type="number" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" maxlength="17" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="শুধু মাত্র সংখ্যা এখানে অনুমোদিত"></input>
+                        </td>
+                    </tr>
+            </tbody>
+            </table>
+            </span>
+            </fieldset>
+            <!-- /////////////////////////////////////////////////////SUDENT FATHER END///////////////////////////////////////////////////////// -->
+
+            
+
+
+
+
+
+
+
+
+
+
+
+            <!-- /////////////////////////////////////////////////////SUDENT MOTHER START///////////////////////////////////////////////////////// -->
+            
+            <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em; left: 9px; top: 8px;">
+                <legend>মাতার তথ্য</legend>
+                <span style="width: 25%; float: right;"><img></img>
+                    </span><span style="width: 75%; float: left;">
+                    <table border="0" style="border-collapse: separate; table-layout: fixed; width: 100%; height: auto;">
+                        <colgroup>
+                        <col class="colgroup_first_col"></col>
+                        <col></col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <td><label>মাতার নাম (বাংলা):*</label></td>
+                                <td>
+                                    <input type="text" id="student_mother_name_ban" name="student_mother_name_ban" data-dojo-type="dijit/form/TextBox" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন"></input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>মাতার নাম (ইংরেজি বড় অক্ষরে):*</label>
+                                </td>
+                                <td>
+                                    <input type="text" id="student_mother_name_eng" name="student_mother_name_eng" data-dojo-type="dijit/form/TextBox" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="ইংরেজিতে লিখুন"></input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>মাতা মৃত হইলে মৃত্যুর সন (মাতা মৃত হলে টিক দিন):</label>
+                                </td>
+                                <td>
+                                    <input id="student_mother_death_if" name="student_mother_death_if" type="checkbox" checked="false" onChange="mother_death_if" data-dojo-type="dijit/form/CheckBox" intermediateChanges="false" iconClass="dijitNoIcon"></input>
+                                    <input type="text" id="student_mother_deathdate" name="student_mother_deathdate" data-dojo-type="dijit/form/DateTextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" style="display:none"></input>
+                                </td>
+                            </tr>
+                            <tr>
+                               <td>
+                                   <label>মাতার NID নম্বার আছে কি ?</label>
+                               </td>
+                               <td>
+                                   <select data-dojo-type="dijit/form/Select" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" id="student_mother_nid_have" name="student_mother_nid_have" onChange="mother_health_triggure">
+                                        <option value="হ্যাঁ">
+                                        হ্যাঁ</option>
+                                        <option value="না">
+                                        না</option>
+                                    </select>
+                               </td> 
+                            </tr>  
+                            <tr>
+                                <td>
+                                    <label>জাতীয় পরিচয় পত্র নাম্বার:</label>
+                                </td>
+                                <td>
+                                    <input type="number" id="student_mother_nid" name="student_mother_nid" type="number" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" maxlength="17" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="শুধু মাত্র সংখ্যা এখানে অনুমোদিত"></input>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </span>
+            </fieldset>
+            <!-- /////////////////////////////////////////////////////SUDENT MOTHER END///////////////////////////////////////////////////////// -->
+            
+
+
+
+
+            <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em; left: 9px; top: 8px;">
+                <legend>
+                আইনানুগ অভিভাবক, স্থানীয় অভিভাবক (পিতা মাতার অবর্তমানে)</legend>
+                <table border="0" style="border-collapse: separate; table-layout: fixed; width: 100%; height: auto;">
+                    <colgroup>
+                    <col class="colgroup_first_col" style="width: 38%;"></col>
+                    <col></col>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>
+                            জাতীয় পরিচয় পত্র নাম্বার:</td>
+                            <td>
+                                <input type="number" data-dojo-type="dijit/form/TextBox" id="student_legalgurdian_nid" name="student_legalgurdian_nid" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="সংখ্যায় লিখুন"></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            নাম(বাংলা):</td>
+                            <td>
+                                <input type="text" id="student_legalgurdian_name_ban" name="student_legalgurdian_name_ban" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন"></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>
+                                ছাত্রছাত্রীর সাথে সম্পর্কঃ</label>
+                            </td>
+                            <td>
+                                <select data-dojo-type="dijit/form/Select" id="student_legalgurdian_rel" name="student_legalgurdian_rel" value="" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" placeHolder="সিলেক্ট করুন">
+                                    <option value="চাচা/চাচী">
+                                    চাচা/চাচী</option>
+                                    <option value="আইনগত অভিভাবক">
+                                    আইনগত অভিভাবক</option>
+                                    <option value="চাচাত ভাই">
+                                    চাচাত ভাই</option>
+                                    <option value="পিতামহ/মাতামহ">
+                                    পিতামহ/মাতামহ</option>
+                                    <option value="ভাই/বোন">
+                                    ভাই/বোন</option>
+                                    <option value="অন্যান্য">
+                                    অন্যান্য</option>
+                                    
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+        </div>
+
+
+        
+        <div data-dojo-type="dijit/layout/ContentPane" title="৭ বছরের নিচের বয়সী সহদরগনের    তথ্য" extractContent="false" preventCache="false" preload="false" refreshOnShow="false" doLayout="true" selected="true" closable="false" style="height: auto;">
+
+            <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em;">
+                <legend>(১)</legend>
+                <table border="0" style="border-collapse: separate; table-layout: fixed; width: 100%; height: auto;">
+                    <colgroup>
+                    <col></col>
+                    <col></col>
+                    <col></col>
+                    <col></col>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>নাম(বাংলা)</td>
+                            <td>নাম(ইংরেজি বড় অক্ষরে)</td>
+                            <td>জন্ম তারিখ</td>
+                            <td>BRN</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" id="student_younger_brother_name_ban" name="student_younger_brother_name_ban" maxlength="27" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন" style="width: 95%;"></input>
+                            </td>
+                            <td>
+                                <input type="text" id="student_younger_brother_name_eng" name="student_younger_brother_name_eng" maxlength="27" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="ইংরেজি বড় অক্ষরে লিখুন" style="width: 95%;"></input>
+                            </td>
+                            <td>
+                                <input type="text" id="student_younger_brother_borndate" name="student_younger_brother_borndate" data-dojo-type="dijit/form/DateTextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" style="width: 95%;"></input>
+                            </td>
+                            <td>
+                                <input type="number" id="student_younger_brother_brn" name="student_younger_brother_brn" maxlength="17" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="সংখ্যায় লিখুন" style="width: 95%;"></input>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+
+            <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em;">
+                <legend>(২)</legend>
+                <table border="0" style="border-collapse: separate; table-layout: fixed; width: 100%; height: auto;">
+                    <colgroup>
+                    <col></col>
+                    <col></col>
+                    <col></col>
+                    <col></col>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>নাম(বাংলা)</td>
+                            <td>নাম(ইংরেজি বড় অক্ষরে)</td>
+                            <td>জন্ম তারিখ</td>
+                            <td>BRN</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" id="student_younger_brother_name_ban1" name="student_younger_brother_name_ban1" maxlength="27" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন" style="width: 95%;"></input>
+                            </td>
+                            <td>
+                                <input type="text" id="student_younger_brother_name_eng1" name="student_younger_brother_name_eng1" maxlength="27" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="ইংরেজি বড় অক্ষরে লিখুন" style="width: 95%;"></input>
+                            </td>
+                            <td>
+                                <input type="text" id="student_younger_brother_borndate1" name="student_younger_brother_borndate1" data-dojo-type="dijit/form/DateTextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" style="width: 95%;"></input>
+                            </td>
+                            <td>
+                                <input type="number" id="student_younger_brother_brn1" name="student_younger_brother_brn1" maxlength="17" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="সংখ্যায় লিখুন" style="width: 95%;"></input>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+
+            <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em;">
+                <legend>(৩)</legend>
+                <table border="0" style="border-collapse: separate; table-layout: fixed; width: 100%; height: auto;">
+                    <colgroup>
+                    <col></col>
+                    <col></col>
+                    <col></col>
+                    <col></col>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>নাম(বাংলা)</td>
+                            <td>নাম(ইংরেজি বড় অক্ষরে)</td>
+                            <td>জন্ম তারিখ</td>
+                            <td>BRN</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" id="student_younger_brother_name_ban2" name="student_younger_brother_name_ban2" maxlength="27" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন" style="width: 95%;"></input>
+                            </td>
+                            <td>
+                                <input type="text" id="student_younger_brother_name_eng2" name="student_younger_brother_name_eng2" maxlength="27" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="ইংরেজি বড় অক্ষরে লিখুন" style="width: 95%;"></input>
+                            </td>
+                            <td>
+                                <input type="text" id="student_younger_brother_borndate2" name="student_younger_brother_borndate2" data-dojo-type="dijit/form/DateTextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" style="width: 95%;"></input>
+                            </td>
+                            <td>
+                                <input type="number" id="student_younger_brother_brn2" name="student_younger_brother_brn2" maxlength="17" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="সংখ্যায় লিখুন" style="width: 95%;"></input>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+
+            <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em;">
+                <legend>(৪)</legend>
+                <table border="0" style="border-collapse: separate; table-layout: fixed; width: 100%; height: auto;">
+                    <colgroup>
+                    <col></col>
+                    <col></col>
+                    <col></col>
+                    <col></col>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>নাম(বাংলা)</td>
+                            <td>নাম(ইংরেজি বড় অক্ষরে)</td>
+                            <td>জন্ম তারিখ</td>
+                            <td>BRN</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" id="student_younger_brother_name_ban3" name="student_younger_brother_name_ban3" maxlength="27" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন" style="width: 95%;"></input>
+                            </td>
+                            <td>
+                                <input type="text" id="student_younger_brother_name_eng3" name="student_younger_brother_name_eng3" maxlength="27" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="ইংরেজি বড় অক্ষরে লিখুন" style="width: 95%;"></input>
+                            </td>
+                            <td>
+                                <input type="text" id="student_younger_brother_borndate3" name="student_younger_brother_borndate3" data-dojo-type="dijit/form/DateTextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" style="width: 95%;"></input>
+                            </td>
+                            <td>
+                                <input type="number" id="student_younger_brother_brn3" name="student_younger_brother_brn3" maxlength="17" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="সংখ্যায় লিখুন" style="width: 95%;"></input>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+        </div>
+
+
+        
+        <div data-dojo-type="dijit/layout/ContentPane" title="ঠিকানা" extractContent="false" preventCache="false" preload="false" refreshOnShow="false" doLayout="true" selected="true" closable="false" style="height: auto;">
+            <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em;">
+                <legend>বর্তমান ঠিকানা*</legend>
+                <textarea type="text" id="student_address_pres" name="student_address_pres" data-dojo-type="dijit/form/Textarea" required intermediateChanges="false" rows="3" trim="false" uppercase="false" lowercase="false" propercase="false" style="margin-left: 5%; width: 70%; height: auto;"></textarea>
+                <br></br>
+                <a style="margin-left: 5%; margin-top: 2%;">
+                সঠিক ঠিকানা লিখার জন্য ক্লিক করুন</a>
+            </fieldset>
+            <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em;">
+                <input type="checkbox" data-dojo-type="dijit/form/CheckBox" intermediateChanges="false" iconClass="dijitNoIcon"></input>বর্তমান ও স্থায়ী ঠিকানা একই হলে চেকমার্ক বক্সে ক্রস চহ্ন দিন
+                <legend>স্থায়ী ঠিকানা*</legend>
+                <br></br>
+                <textarea type="text" id="student_address_parm" name="student_address_parm" data-dojo-type="dijit/form/Textarea" required intermediateChanges="false" rows="3" trim="false" uppercase="false" lowercase="false" propercase="false" style="height: auto; margin-left: 5%; width: 70%;"></textarea>
+                <br></br>
+                <a style="margin-left: 5%; margin-top: 2%;">
+                সঠিক ঠিকানা লিখার জন্য ক্লিক করুন</a>
+            </fieldset>
+        </div>
+
+
+
+        <div data-dojo-type="dijit/layout/ContentPane" title="অন্যান্য" extractContent="false" preventCache="false" preload="false" refreshOnShow="false" doLayout="true" selected="true" closable="false" style="height: auto;">
+            <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em; left: 8px; top: 237px;">
+                <legend>
+                ডাটা এন্ট্রি অপারেটর</legend>
+                <p style="left: 24px; top: 435px;">
+                পিতা/মাতা/আইনানুগ অভিভাবকের প্রত্যয়ন কম্পিউটারে সকল ডাটার সঠিক এন্ট্রি নিশ্চিত করিলাম ।</p>
+                <br></br>
+                <table border="0" style="border-collapse: separate; table-layout: fixed; width: 100%; height: auto;">
+                    <colgroup>
+                    <col class="colgroup_first_col"></col>
+                    <col></col>
+                    </colgroup>
+                    <tbody>
+                    <tr></tr>
+                <tr></tr>
+            <tr></tr>
+            </tbody>
+            </table>
+            <table border="0" style="border-collapse: separate; table-layout: fixed; width: 100%; height: auto;">
+            <colgroup>
+            <col class="colgroup_first_col"></col>
+            <col></col>
+            </colgroup>
+            <tbody>
+            <tr>
+                <td>
+                জাতীয় পরিচয় পত্র নাম্বার:*</td>
+                <td>
+                    <input type="number" data-dojo-type="dijit/form/TextBox" id="student_operator_nid" name="student_operator_nid" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="সংখ্যায় লিখুন"></input>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                নাম(বাংলা):*</td>
+                <td>
+                    <input type="text" data-dojo-type="dijit/form/TextBox" id="student_operator_name_ban" name="student_operator_name_ban" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন"></input>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                তারিখ(DD/MM/YYYY):*</td>
+                <td>
+                    <input type="text" data-dojo-type="dijit/form/DateTextBox" id="student_operator_entrydate" name="student_operator_entrydate" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$"></input>
+                </td>
+            </tr>
+            </tbody>
+            </table>
+            </fieldset>
+
+            <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em; left: 8px; top: 237px;">
+                <legend>বয়োমেট্রিক তথ্য সংগ্রহকারী</legend>
+                <p style="left: 24px; top: 435px;">আবেদনকারীর ছবি, আঙ্গুলের ছাপ ও IRIS সংগৃহীত হল ।</p>
+                <br></br>
+                <table border="0" style="border-collapse: separate; table-layout: fixed; width: 100%; height: auto;">
+                    <colgroup>
+                    <col class="colgroup_first_col"></col>
+                    <col></col>
+                    </colgroup>
+                    <tbody>
+                    <tr></tr>
+                <tr></tr>
+            <tr></tr>
+            </tbody>
+            </table>
+            <table border="0" style="border-collapse: separate; table-layout: fixed; width: 100%; height: auto;">
+            <colgroup>
+            <col class="colgroup_first_col"></col>
+            <col></col>
+            </colgroup>
+            <tbody>
+            <tr>
+                <td>
+                জাতীয় পরিচয় পত্র নাম্বার:*</td>
+                <td>
+                    <input type="number" data-dojo-type="dijit/form/TextBox" id="student_biometric_nid" name="student_biometric_nid" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="সংখ্যায় লিখুন"></input>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                নাম(বাংলা):*</td>
+                <td>
+                    <input type="text" data-dojo-type="dijit/form/TextBox" id="student_biometric_name_ban" name="student_biometric_name_ban" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন"></input>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                তারিখ(DD/MM/YYYY):*</td>
+                <td>
+                    <input type="text" data-dojo-type="dijit/form/DateTextBox" id="student_biometric_entrydate" name="student_biometric_entrydate" required intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$"></input>
+                </td>
+            </tr>
+            </tbody>
+            </table>
+            </fieldset>
+        </div>
+    </span>
+</div>

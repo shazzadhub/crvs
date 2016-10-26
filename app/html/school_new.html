@@ -1,0 +1,202 @@
+<div data-dojo-type="dijit/layout/BorderContainer"
+     data-dojo-props="liveSplitters: false, design: 'sidebar'">
+    <div data-dojo-type="dijit/layout/ContentPane"
+         data-dojo-props="region: 'center'" onShow="onShowNodes(this)">
+
+        <div data-dojo-type="dijit/form/Form" id="new_school_form">
+
+            <script type="dojo/on" data-dojo-event="reset">
+                return confirm('Press OK to reset widget values');
+            </script>
+
+            <script type="dojo/on" data-dojo-event="submit" data-dojo-args="evt">
+                dojo.stopEvent(evt);
+                if(this.validate()){
+                    return demo.saveForm("school","new_school_form",function(message){},function(message){});
+                }else{
+                    alert('Form contains invalid data.  Please correct first');
+                    return false;
+                }
+                return false;
+            </script>
+
+            <h1>Create New School</h1>
+            <br/>
+            <table>
+                <tr>
+                    <td width="150px"><label>Name</label></td>
+                    <td>
+                        <input type="text" id="new_name" name="name"
+                               data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true"
+                               data-dojo-props="regExp:'[\\w]+', invalidMessage:'Name cannot be empty.'"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Institute Type</label></td>
+                    <td><input type="text" id="new_school_type_id" name="school_type_id" /></td>
+                </tr>
+                <tr>
+                    <td><label>EIIN (4-Digit EIIN Code)</label></td>
+                    <td><input type="text" id="new_eiin" name="eiin" required="true"
+                               data-dojo-props="regExp:'\\d{4}', invalidMessage:'Invalid EIIN code.'"
+                               data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true" /></td>
+                </tr>
+                <tr>
+                    <td><label>Head Teacher</label></td>
+                    <td><input type="text" id="new_head_teacher_id" name="head_teacher_id" /></td>
+                </tr>
+
+                <!--<tr>-->
+                    <!--<td><label>Modified</label></td>-->
+                    <!--<td><input  id="new_modified"-->
+                                <!--data-dojo-type="dijit/form/DateTextBox"-->
+                                <!--data-dojo-props="placeHolder: 'YYYY-MM-DD', constraints: { datePattern : 'yyyy-MM-dd' }"-->
+                                <!--type="text" name="modified" /></td>-->
+                <!--</tr>-->
+                <tr>
+                    <td><label>Division</label></td>
+                    <td><input type="text" id="new_division" name="division" /></td>
+                </tr>
+                <tr>
+                    <td><label>District</label></td>
+                    <td><input type="text" id="new_district" name="district" id="district" /></td>
+                </tr>
+                <tr>
+                    <td><label>Sub-District</label></td>
+                    <td><input type="text" id="new_subdistrict" name="subdistrict" /></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><br />
+                        <button type="submit" data-dojo-type="dijit/form/Button">Submit</button>
+                        <button type="reset" data-dojo-type="dijit/form/Button">Reset</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    function onShowNodes(node){
+        demo.initSchoolForm(node);
+    }
+
+    require(["dojo/_base/lang", "dojo/ready", "dijit/registry", "dojo/query", "dojo/dom",
+    "dijit/form/DateTextBox", "dijit/form/ComboBox", "dijit/form/FilteringSelect",
+        "dojo/store/Memory", "dojo/request",  "dojo/domReady!"],
+    function(lang,ready, registry, query, dom, DateTextBox, ComboBox, FilteringSelect, Memory, request) {
+
+        ready(function() {
+        });
+
+        lang.setObject("demo.initSchoolForm", function(node){
+            query('[id="tabschool_new"]').forEach(function(nd){
+
+                if(nd.id.length>0){
+
+                    var widget = registry.byId(nd.id);
+                    var widget2 = registry.byId(node.id);
+                    if(dom.isDescendant(widget2.domNode, widget.domNode)){
+
+                        var store;
+                        store = JSON.parse(demo.getPlaces());
+
+                        var school_types;
+                        school_types = JSON.parse(demo.getSchoolTypes());
+
+                        var school_type = query('#new_school_type_id', node.id)[0];
+                        var school_typeSel = new FilteringSelect(
+                                {
+                                    id: "new_school_type_id",
+                                    name: "school_type_id",
+                                    store: new Memory({ idProperty: "id", data: school_types }),
+                                    searchAttr: 'name',
+                                    autoComplete: true,
+                                    value: undefined
+                                }, school_type
+                        ).startup();
+
+
+                        var subdis = query('#new_subdistrict', node.id)[0];
+                        var subdisSel = new FilteringSelect(
+                                {
+                                    name: "subdistrict",
+                                    store: new Memory({ idProperty: "id", data: store }),
+                                    query: {type_id:3},
+                                    searchAttr: 'name',
+                                    autoComplete: true,
+                                    value: undefined
+                                }, subdis
+                        ).startup();
+
+                        var dis = query('#new_district', node.id)[0];
+                        var disSel = new FilteringSelect(
+                                {
+                                    name: "district",
+                                    store: new Memory({ idProperty: "id", data: store }),
+                                    query: {type_id:2},
+                                    autoComplete: true,
+                                    onChange: function(name){
+                                        if(this.item)
+                                            dijit.byId("new_subdistrict").query.parent_id = this.item.id || /.*/;
+                                        dijit.byId("new_subdistrict").set('value','');
+                                    },
+                                    value: undefined
+                                }, dis
+                        ).startup();
+                        //
+                        var div = query('#new_division', node.id)[0];
+                        var divSel = new FilteringSelect(
+                                {
+                                    name: "division",
+                                    store: new Memory({ idProperty: "id", data: store }),
+                                    query: {type_id:1},
+                                    autoComplete: true,
+                                    onChange: function(name){
+                                        if(this.item)
+                                            dijit.byId("new_district").query.parent_id = this.item.id || /.*/;
+                                        dijit.byId("new_district").set('value','');
+                                    },
+                                    value: undefined
+                                }, div
+                        ).startup();
+
+                        var school_id = demo.getSelectedSchoolId();
+                        if(school_id !== undefined){
+//                                                demo.reloadGrid(teachers_grid.id, "api/teachers/"+school_id, function(){});
+                            var newStore = new dojo.data.ItemFileReadStore({url: "api/teachers/"+school_id});
+
+                            var dataStore;
+                            newStore.fetch(
+                                    {
+                                        onComplete:function(items,request) // items is an array
+                                        {
+                                            array.forEach(items, function(entry, i){
+                                                dataStore.push({"id":entry.id[0],"name":entry.name[0]});
+                                            });
+                                        }
+                                    });
+                            console.debug(dataStore);
+                            var subdis = query('#new_head_teacher_id', node.id)[0];
+                            var subdisSel = new FilteringSelect(
+                                    {
+                                        id: "new_head_teacher_id",
+                                        name: "head_teacher_id",
+                                        store: new Memory({ idProperty: "id", data: dataStore }),
+//                                                                searchAttr: 'name',
+//                                                                autoComplete: true,
+                                        value: undefined
+                                    }, subdis
+                            ).startup();
+
+                        }
+                    }
+                }
+            });
+        });
+    });
+
+</script>

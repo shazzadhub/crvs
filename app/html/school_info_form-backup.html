@@ -1,0 +1,817 @@
+
+
+<form id="schoolForm" style="width: 100%; height: 100%;">
+ <h3 style="border: 1px solid #F1F1F1; margin: 0px auto; padding: 1% 2%; background-color: #FAFAFA; font-weight: bold; height: 6%;">
+   Menu &gt;&gt; Student Info</h3>
+   <span data-dojo-type="dijit/layout/TabContainer" style="min-width: 1em; min-height: 1em; width: 100%; height: 94%;" controllerWidget="dijit.layout.TabController">
+    <div data-dojo-type="dijit/layout/ContentPane" title="ছাত্রছাত্রীর তথ্য" extractContent="false" preventCache="false" preload="false" refreshOnShow="false" doLayout="true" selected="true" closable="false" style="height: auto;">
+   <table border="0" style="border-collapse: collapse; table-layout: fixed; width: 100%; height: auto;">
+   <colgroup>
+       <col></col>
+       <col></col>
+     </colgroup>
+     <tbody>
+       <tr>
+         <td>
+           <label>
+             
+               
+                   ছাত্রছাত্রীর আইডি:*</label>
+         </td>
+         <td>
+           <input type="number" data-dojo-type="dijit/form/TextBox" id="studentId" name="studentId" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="সংখ্যায় লিখুন"></input>
+         </td>
+       </tr>
+       <tr>
+         <td>
+           <label>
+             
+               
+                   ফরম এর সিরিয়াল নাম্বার:*</label>
+         </td>
+         <td>
+           <input type="number" data-dojo-type="dijit/form/TextBox" name="formSerialNum" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="সংখ্যায় লিখুন"></input>
+         </td>
+       </tr>
+       <tr>
+         <td>
+           <label>
+             
+               
+                   নাম(বাংলা):*</label>
+         </td>
+         <td>
+           <input type="text" data-dojo-type="dijit/form/TextBox" name="studentNum" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন"></input>
+         </td>
+       </tr>
+       <tr>
+         <td>
+           <label>
+             
+               
+                   নাম(ইংরেজি বড় অক্ষরে):*</label>
+         </td>
+         <td>
+           <input type="text" data-dojo-type="dijit/form/TextBox" id="studentNumEng" name="studentNumEng" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="ইংরেজি বড় অক্ষরে লিখুন"></input>
+         </td>
+       </tr>
+       <tr>
+         <td>
+           <label>
+             
+               
+                   জন্ম নিবন্ধন নম্বর:*</label>
+         </td>
+         <td>
+           <input type="number" data-dojo-type="dijit/form/TextBox" name="studentBornNum" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="সংখ্যায় লিখুন"></input>
+         </td>
+       </tr>
+       <tr>
+         <td>
+           <label>
+             
+               
+                   জন্মস্থান:*</label>
+         </td>
+         <td>
+           <input type="text" data-dojo-type="dijit/form/TextBox" name="studentBornPlace" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false"></input>
+         </td>
+       </tr>
+       <tr>
+         <td>
+           <label>
+             
+               
+                   জন্ম তারিখ:(DD/MM/YYYY)*</label>
+         </td>
+         <td>
+           <input type="text" data-dojo-type="dijit/form/DateTextBox" name="studentBornDate" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$"></input>
+         </td>
+       </tr>
+       <tr>
+         <td>
+           <label>
+             
+               
+                   লিঙ্গ:</label>
+         </td>
+         <td>
+           <input showlabel="true" type="radio" data-dojo-type="dijit/form/RadioButton" name="gender" intermediateChanges="false" iconClass="dijitNoIcon" value="পুরুষ"></input>পুরুষ<input showlabel="true" type="radio" data-dojo-type="dijit/form/RadioButton" name="gender" intermediateChanges="false" iconClass="dijitNoIcon" value="মহিলা"></input>মহিলা<input showlabel="true" type="radio" data-dojo-type="dijit/form/RadioButton" name="gender" intermediateChanges="false" iconClass="dijitNoIcon" value="অন্যান্য"></input>অন্যান্য</td>
+       </tr>
+       <tr>
+         <td>
+           <label>
+             
+               
+                   জাতীয়তা:</label>
+         </td>
+         <td>
+           <input showlabel="true" type="radio" data-dojo-type="dijit/form/RadioButton" name="nationality" intermediateChanges="false" iconClass="dijitNoIcon" value="বাংলাদেশী"></input>বাংলাদেশী<input showlabel="true" type="radio" data-dojo-type="dijit/form/RadioButton" id="dijit_form_RadioButton_3" name="nationality" intermediateChanges="false" iconClass="dijitNoIcon" value="অন্যান্য"></input>অন্যান্য</td>
+       </tr>
+       <tr>
+         <td>
+           <label>
+             
+               
+                   শিক্ষাগত যোগ্যতা:</label>
+         </td>
+         <td>
+           <label>
+             
+               
+                   শ্রেণী কোড:*</label>
+           <input type="text" data-dojo-type="dijit/form/TextBox" name="classCode" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false"></input>
+         </td>
+       </tr>
+       <tr>
+         <td>
+           <label>
+             
+               
+                   সামাপনী পরীক্ষা পাস(প্রযেজ্য ক্ষেত্রে):</label>
+         </td>
+         <td>
+           <input type="checkbox" data-dojo-type="dijit/form/CheckBox" name="PSC" intermediateChanges="false" iconClass="dijitNoIcon"></input>PSC<input type="checkbox" data-dojo-type="dijit/form/CheckBox" name="JSC" intermediateChanges="false" iconClass="dijitNoIcon"></input>JSC<input type="checkbox" data-dojo-type="dijit/form/CheckBox" id="dijit_form_CheckBox_1" name="SSC" intermediateChanges="false" iconClass="dijitNoIcon"></input>SSC</td>
+       </tr>
+       <tr>
+         <td>
+           <label>
+             
+               
+                   ধর্ম</label>
+         </td>
+         <td>
+           <input showlabel="true" type="radio" data-dojo-type="dijit/form/RadioButton" name="relagion" value="ইসলাম" intermediateChanges="false" iconClass="dijitNoIcon"></input>ইসলাম<input showlabel="true" type="radio" data-dojo-type="dijit/form/RadioButton" name="relagion" value="হিন্দু " intermediateChanges="false" iconClass="dijitNoIcon"></input>হিন্দু<input showlabel="true" type="radio" data-dojo-type="dijit/form/RadioButton" name="relagion" value="বৌদ্ধ " intermediateChanges="false" iconClass="dijitNoIcon"></input>বৌদ্ধ<input showlabel="true" type="radio" data-dojo-type="dijit/form/RadioButton" name="relagion" value="খ্রিষ্টান" intermediateChanges="false" iconClass="dijitNoIcon" checked="true"></input>খ্রিষ্টান<input showlabel="true" type="radio" data-dojo-type="dijit/form/RadioButton" name="relagion" value="অন্যান্য" intermediateChanges="false" iconClass="dijitNoIcon"></input>অন্যান্য</td>
+       </tr>
+       <tr>
+         <td>
+           <label>
+             
+               
+                   ভাইবোনের সংখ্যা:</label>
+         </td>
+         <td>
+           <input type="text" data-dojo-type="dijit/form/NumberTextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" name="numberOfBro"></input>
+         </td>
+       </tr>
+       <tr>
+         <td>
+           <label>
+             
+               
+                   অসামর্থতা/প্রতিবন্ধিতার প্রকৃতি:</label>
+         </td>
+         <td>
+           <input type="checkbox" data-dojo-type="dijit/form/CheckBox" name="autism" intermediateChanges="false" iconClass="dijitNoIcon">
+             
+               প্রযোজ্য নয</input>
+           <input type="checkbox" data-dojo-type="dijit/form/CheckBox" name="autism" intermediateChanges="false" iconClass="dijitNoIcon">
+             
+               অটিজম বা অটিজম স্পেকট্রাম ডিজঅর্ডারসী</input>
+           <input type="checkbox" data-dojo-type="dijit/form/CheckBox" name="autism" intermediateChanges="false" iconClass="dijitNoIcon">
+             
+               মানসিক অসুস্থতাজনিত প্রতিবন্ধিতা</input>
+           <input type="checkbox" data-dojo-type="dijit/form/CheckBox" name="autism" intermediateChanges="false" iconClass="dijitNoIcon">
+             
+               দৃষ্টি প্রতিবন্ধিতা</input>
+           <input type="checkbox" data-dojo-type="dijit/form/CheckBox" name="autism" intermediateChanges="false" iconClass="dijitNoIcon">
+             
+               শারীরিক প্রতিবন্ধিতা</input>
+           <input type="checkbox" data-dojo-type="dijit/form/CheckBox" name="autism" intermediateChanges="false" iconClass="dijitNoIcon">
+             
+               শ্রবণ প্রতিবন্ধিতা</input>
+           <input type="checkbox" data-dojo-type="dijit/form/CheckBox" name="autism" intermediateChanges="false" iconClass="dijitNoIcon">
+             
+               শ্রবণ-দৃষ্টি প্রতিবন্ধিতা</input>
+           <input type="checkbox" data-dojo-type="dijit/form/CheckBox" name="autism" intermediateChanges="false" iconClass="dijitNoIcon">
+             
+               বাক প্রতিবন্ধিতা</input>
+           <input type="checkbox" data-dojo-type="dijit/form/CheckBox" name="autism" intermediateChanges="false" iconClass="dijitNoIcon">
+             
+               সেরিব্রাল পালসি</input>
+           <input type="checkbox" data-dojo-type="dijit/form/CheckBox" name="autism" intermediateChanges="false" iconClass="dijitNoIcon">
+             
+               ডাউন সিনড্রোম</input>
+           <input type="checkbox" data-dojo-type="dijit/form/CheckBox" name="autism" intermediateChanges="false" iconClass="dijitNoIcon">
+             
+               বহুমাত্রিক প্রতিবন্ধিতা</input>
+           <input type="checkbox" data-dojo-type="dijit/form/CheckBox" name="autism" intermediateChanges="false" iconClass="dijitNoIcon">
+             
+               অন্যান্য প্রতিবন্ধিতা</input>
+         </td>
+       </tr>
+       <tr>
+         <td>
+           <label>
+             
+               
+                   রক্তের গ্রুপ (যদি জানা থাকে) (দিন):</label>
+         </td>
+         <td>
+           <select data-dojo-type="dijit/form/ComboBox" value="A+" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" name="bloodGroup">
+             <option value="A+">
+               
+                 
+                    A+</option>
+             <option value="A-">
+               
+                 
+                    A-</option>
+             <option value="B+">
+               
+                 
+                    B+</option>
+             <option value="B-">
+               
+                 
+                    B-</option>
+             <option value="AB+">
+               
+                 
+                    AB+</option>
+             <option value="AB-">
+               
+                 
+                    AB-</option>
+             <option value="O+">
+               
+                 
+                    O+</option>
+             <option value="O-">
+               
+                 
+                    O-</option>
+           </select>
+         </td>
+       </tr>
+       <tr>
+         <td>
+           <label>
+             
+               
+                   দৃশ্যমান সনাক্তকরণ চিহ্ন:</label>
+         </td>
+         <td>
+           <textarea type="text" data-dojo-type="dijit/form/Textarea" intermediateChanges="false" rows="3" trim="false" uppercase="false" lowercase="false" propercase="false" style="height: auto; width: 95%;" name="spotMark"></textarea>
+         </td>
+       </tr>
+     </tbody>
+   </table>
+   <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em;">
+     <legend>
+       ৭ বছর এর নিচে ভাইবোন</legend>
+     <table border="0" style="border-collapse: collapse; table-layout: fixed; width: 100%; height: auto;">
+       <colgroup>
+         <col></col>
+         <col></col>
+         <col></col>
+         <col></col>
+       </colgroup>
+       <tbody id="studentRelativeTbody">
+         <tr>
+           <td>
+             নাম(বাংলা)</td>
+           <td>
+             নাম(ইংরেজি বড় অক্ষরে)</td>
+           <td>
+             জন্ম তারিখ</td>
+           <td>
+             Remove</td>
+         </tr>
+         <tr id="studentRelativeCopyTR">
+           <td>
+            <input type="text" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন" style="width: 95%;" name="youngerName"></input>
+          </td>
+           <td>
+            <input type="text" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="ইংরেজি বড় অক্ষরে লিখুন" style="width: 95%;" name="youngerNameEng"></input>
+          </td>
+           <td>
+            <input type="text" data-dojo-type="dijit/form/DateTextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" style="width: 95%;" name="youngerBornDate"></input>
+          </td>
+           <td style="padding-top: 1%; margin-bottom: 3%;">
+            <input id="studentRelativeRemove" type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="Remove" iconClass="dijitNoIcon" value="Remove" style="float: right;"></input>
+          </td>
+         </tr>
+       </tbody>
+     </table>
+      <input id="studentRelativeAddnew" type="button" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="Add New" iconClass="dijitNoIcon" value="Add New"></input>
+   </fieldset>
+ </div>
+ <div data-dojo-type="dijit/layout/ContentPane" title="পিতামাতার তথ্য" style="height: 100%; width: 100%;">
+   <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em; left: 9px; top: 8px;">
+     <legend>
+       
+         
+        পিতার তথ্য</legend><span style="width: 25%; float: right;"><img></img>
+     </span><span style="width: 75%; float: left;">
+     <input id="fathernationalIdHave" type="checkbox" data-dojo-type="dijit/form/CheckBox" intermediateChanges="false" iconClass="dijitNoIcon" name="fathernationalIdHave">
+জাতীয় পরিচয় পত্র নাম্বার না থাকলে টিক দিন</input>
+     <table border="0" style="border-collapse: collapse; table-layout: fixed; width: 100%; height: auto;">
+       <colgroup>
+         <col></col>
+         <col></col>
+       </colgroup>
+       <tbody>
+         <tr>
+           <td>
+             <label>
+               
+ জাতীয় পরিচয় পত্র নাম্বার:</label>
+           </td>
+           <td>
+             <input id="fathernationalId" type="number" data-dojo-type="dijit/form/TextBox" name="fatherNationalId" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="শুধু মাত্র সংখ্যা এখানে অনুমোদিত"></input>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             <label>
+               
+ পিতার নাম(বাংলা):</label>
+           </td>
+           <td>
+             <input type="text" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" name="fatherName"></input>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             <label>
+               
+ পিতার নাম((ইংরেজি বড় অক্ষরে):</label>
+           </td>
+           <td>
+             <input type="text" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" name="fatherNameEng"></input>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             <label>
+               
+ জন্ম তারিখ:(DD/MM/YYYY)</label>
+           </td>
+           <td>
+             <input type="text" data-dojo-type="dijit/form/DateTextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" name="fatherBornDate"></input>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             <label>
+               
+ পেশাঃ</label>
+           </td>
+           <td>
+             <select data-dojo-type="dijit/form/ComboBox" name="fatherOccupation" value="Engineer" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" style="width: 253px;">
+               <option value="Engineer">
+                 
+     Engineer</option>
+               <option value="Doctor">
+                 
+     Doctor</option>
+               <option value="Other">
+                 
+     Other</option>
+             </select>
+           </td>
+         </tr>
+         <tr></tr>
+         <tr>
+           <td>
+             <label>
+               
+ পিতা মৃত হইলে মৃত্যুর সন(YYYY):</label>
+           </td>
+           <td>
+             <input type="text" data-dojo-type="dijit/form/DateTextBox" name="fatherDeathDate" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$"></input>
+           </td>
+         </tr>
+       </tbody>
+     </table>
+     </span>
+   </fieldset>
+
+
+
+    
+
+
+    
+  
+
+
+<fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em; left: 9px; top: 8px;">
+     <legend>মাতার তথ্য</legend>
+     <span style="width: 25%; float: right;"><img></img>
+     </span><span style="width: 75%; float: left;"><input id="mothernationalIdHave" type="checkbox" data-dojo-type="dijit/form/CheckBox" intermediateChanges="false" iconClass="dijitNoIcon" name="mothernationalIdHave">
+       
+জাতীয় পরিচয় পত্র নাম্বার না থাকলে টিক দিন</input>
+     <table border="0" style="border-collapse: collapse; table-layout: fixed; width: 100%; height: auto;">
+       <colgroup>
+         <col></col>
+         <col></col>
+       </colgroup>
+       <tbody>
+         <tr>
+           <td>
+             <label>
+               
+ জাতীয় পরিচয় পত্র নাম্বার:</label>
+           </td>
+           <td>
+       <input id="mothernationalId" type="number" data-dojo-type="dijit/form/TextBox" name="motherNationalId" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="শুধু মাত্র সংখ্যা এখানে অনুমোদিত" ></input>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             <label>
+               
+মাতার নাম(বাংলা):</label>
+           </td>
+           <td>
+             <input type="text" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" name="mohterName"></input>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             <label>
+               
+ মাতার নাম((ইংরেজি বড় অক্ষরে):</label>
+           </td>
+           <td>
+       <input type="text" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" name="motherNameEng"></input>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             <label>
+               
+ জন্ম তারিখ:(DD/MM/YYYY)</label>
+           </td>
+           <td>
+       <input type="text" data-dojo-type="dijit/form/DateTextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" name="motherBornDate"></input>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             <label>
+               
+ পেশাঃ</label>
+           </td>
+           <td>      
+       <select data-dojo-type="dijit/form/ComboBox" name="motherOccupation" value="Engineer" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" style="width: 251px;">
+        <option value="Engineer">
+                 
+     Engineer</option>
+               <option value="Doctor">
+                 
+     Doctor</option>
+               <option value="Other">
+                 
+     Other</option>
+       </select>
+           </td>
+         </tr>
+         <tr></tr>
+         <tr>
+           <td>
+             <label>
+               
+ মাতা মৃত হইলে মৃত্যুর সন(YYYY):</label>
+           </td>
+           <td>
+       <input type="text" data-dojo-type="dijit/form/DateTextBox" name="motherDeathDate" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$"></input>
+           </td>
+         </tr>
+       </tbody>
+     </table>
+     </span>
+   </fieldset>
+
+
+
+
+
+
+
+
+
+
+
+
+   <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em;">
+     <legend>
+       
+         বর্তমান ঠিকানা</legend>
+     <textarea type="text" data-dojo-type="dijit/form/Textarea" intermediateChanges="false" rows="3" trim="false" uppercase="false" lowercase="false" propercase="false" style="margin-left: 5%; width: 70%; height: auto;" name="presentAddress"></textarea>
+     <br></br>
+     <a style="margin-left: 5%; margin-top: 2%;">
+       
+         সঠিক ঠিকানা লিখার জন্য ক্লিক করুন</a>
+   </fieldset>
+   <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em;">
+     <input type="checkbox" data-dojo-type="dijit/form/CheckBox" intermediateChanges="false" iconClass="dijitNoIcon"></input>বর্তমান ও স্থায়ী ঠিকানা একই হলে চেকমার্ক বক্সে ক্রস চহ্ন দিন<legend>
+       
+         স্থায়ী ঠিকানা</legend>
+     <br></br>
+     <textarea type="text" data-dojo-type="dijit/form/Textarea" intermediateChanges="false" rows="3" trim="false" uppercase="false" lowercase="false" propercase="false" style="height: auto; margin-left: 5%; width: 70%;" name="permanentAddress"></textarea>
+     <br></br>
+     <a style="margin-left: 5%; margin-top: 2%;">
+       
+         সঠিক ঠিকানা লিখার জন্য ক্লিক করুন</a>
+   </fieldset>
+ </div>
+ <div data-dojo-type="dijit/layout/ContentPane" title="বিদ্যালয়ের তথ্য" style="height: 100%; width: 100%;">
+   <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em; left: 9px; top: 8px;">
+     <legend>
+       
+         আইনানুগ অভিভাবক, স্থানীয় অভিভাবক(পিতা মাতার অবর্তমানে)</legend>
+     <table border="0" style="border-collapse: collapse; table-layout: fixed; width: 100%; height: auto;">
+       <colgroup>
+         <col></col>
+         <col></col>
+       </colgroup>
+       <tbody>
+         <tr>
+           <td>
+             
+               
+          জাতীয় পরিচয় পত্র নাম্বার:</td>
+           <td>
+             <input type="number" data-dojo-type="dijit/form/TextBox" name="temporaryParentNationalId" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="সংখ্যায় লিখুন"></input>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             
+               
+          নাম(বাংলা):</td>
+           <td>
+             <input type="text" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" name="temporaryparentName"></input>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             
+               
+          ছাত্রছাত্রীর সাথে সম্পর্ক:</td>
+           <td>
+             <input showlabel="true" type="radio" data-dojo-type="dijit/form/RadioButton" name="relation" value="চাচা/চাচী" intermediateChanges="false" iconClass="dijitNoIcon">
+               
+                 চাচা/চাচী</input>
+             <input showlabel="true" type="radio" data-dojo-type="dijit/form/RadioButton" name="relation" value="আইনগত অভিভাবক" intermediateChanges="false" iconClass="dijitNoIcon">
+               
+                 আইনগত অভিভাবক</input>
+             <input showlabel="true" type="radio" data-dojo-type="dijit/form/RadioButton" name="relation" value="চাচাত ভাই" intermediateChanges="false" iconClass="dijitNoIcon">
+               
+                 চাচাত ভাই</input>
+             <input showlabel="true" type="radio" data-dojo-type="dijit/form/RadioButton" name="relation" value="পিতামহ/মাতামহ" intermediateChanges="false" iconClass="dijitNoIcon">
+               
+                 পিতামহ/মাতামহ</input>
+             <input showlabel="true" type="radio" data-dojo-type="dijit/form/RadioButton" name="relation" value="ভাই/বোন" intermediateChanges="false" iconClass="dijitNoIcon">
+               
+                 ভাই/বোন</input>
+             <input showlabel="true" type="radio" data-dojo-type="dijit/form/RadioButton" name="relation" value="অন্যান্য" intermediateChanges="false" iconClass="dijitNoIcon">
+               
+                 অন্যান্য</input>
+           </td>
+         </tr>
+       </tbody>
+     </table>
+   </fieldset>
+   <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em; left: 9px; top: 372.75px;">
+     <legend>
+       
+         বিদ্যালয়ের তথ্য</legend>
+     <table border="0" style="border-collapse: collapse; table-layout: fixed; width: 100%; height: auto;">
+       <colgroup>
+         <col></col>
+         <col></col>
+       </colgroup>
+       <tbody>
+         <tr>
+           <td>
+             
+               বিভাগঃ<select data-dojo-type="dijit/form/ComboBox" name="division" value="ঢাকা" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" style="width: 253px;">
+               <option value="ঢাকা">
+                 ঢাকা</option>
+               <option value="চট্টগ্রাম">
+                 চট্টগ্রাম</option>
+               <option value="খুলনা">
+                 খুলনা</option>
+               <option value="বরিশাল">
+                 বরিশাল</option>
+               <option value="সিলেট">
+                 সিলেট</option>
+               <option value="রাজশাহী">
+                 রাজশাহী</option>
+               <option value="রংপুর">
+                 রংপুর</option>
+             </select>
+           </td>
+           <td>
+             
+               জেলাঃ<select data-dojo-type="dijit/form/ComboBox" value="Item 1" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" style="width: 262px;" name="district">
+               <option value="Item 1">
+                 Item 1</option>
+               <option value="Item 2">
+                 Item 2</option>
+               <option value="Item 3">
+                 Item 3</option>
+             </select>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             
+               থানা/উপজেলাঃ<select data-dojo-type="dijit/form/ComboBox" value="Item 1" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" style="width: 205px;" name="station">
+               <option value="Item 1">
+                 Item 1</option>
+               <option value="Item 2">
+                 Item 2</option>
+               <option value="Item 3">
+                 Item 3</option>
+             </select>
+           </td>
+           <td>
+             
+               ওয়ার্ড/ইউনিয়ন:<select data-dojo-type="dijit/form/ComboBox" value="Item 1" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" style="width: 206px;" name="union">
+               <option value="Item 1">
+                 Item 1</option>
+               <option value="Item 2">
+                 Item 2</option>
+               <option value="Item 3">
+                 Item 3</option>
+             </select>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             
+               বিদ্যালয় এর নাম:*</td>
+           <td>
+             <select data-dojo-type="dijit/form/ComboBox" value="Item 1" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" pageSize="Infinity" searchDelay="200" name="schoolName">
+               <option value="Item 1">
+                 Item 1</option>
+               <option value="Item 2">
+                 Item 2</option>
+               <option value="Item 3">
+                 Item 3</option>
+             </select>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             
+               বিদ্যালয় এর ই আই আই এন:*</td>
+           <td>
+             <input type="text" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" name="schoolEIIN"></input>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             
+               ঠিকানা:</td>
+           <td>
+             <textarea type="text" data-dojo-type="dijit/form/Textarea" intermediateChanges="false" rows="3" trim="false" uppercase="false" lowercase="false" propercase="false" style="width: 200px; height: auto;" name="schoolAddress"></textarea>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             
+               পোস্ট কোডঃ</td>
+           <td>
+             <input type="text" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" name="schoolPostCode"></input>
+           </td>
+         </tr>
+       </tbody>
+     </table>
+   </fieldset>
+   <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em; left: 9px; top: 372.75px;">
+     <legend>
+       
+         শ্রেণী শিক্ষকের</legend>
+     <table border="0" style="border-collapse: collapse; table-layout: fixed; width: 100%; height: auto;">
+       <colgroup>
+         <col></col>
+         <col></col>
+       </colgroup>
+       <tbody>
+         <tr>
+           <td>
+             
+               জাতীয় পরিচয় পত্র নাম্বার:*</td>
+           <td>
+             <input type="number" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="সংখ্যায় লিখুন" name="classTeacherNID"></input>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             
+               নাম(বাংলা):</td>
+           <td>
+             <input type="text" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন" name="classTeacherName"></input>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             
+               তারিখ(DD/MM/YYYY):</td>
+           <td>
+             <input type="text" data-dojo-type="dijit/form/DateTextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" name="classTeacherBornDate"></input>
+           </td>
+         </tr>
+       </tbody>
+     </table>
+   </fieldset>
+   <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em; left: 9px; top: 370.75px;">
+     <legend>
+       
+         প্রধান শিক্ষকের</legend>
+     <table border="0" style="border-collapse: collapse; table-layout: fixed; width: 100%; height: auto;">
+       <colgroup>
+         <col></col>
+         <col></col>
+       </colgroup>
+       <tbody>
+         <tr>
+           <td>
+             
+               জাতীয় পরিচয় পত্র নাম্বার:*</td>
+           <td>
+             <input type="number" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="সংখ্যায় লিখুন" name="headTeacherNID"></input>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             
+               নাম(বাংলা):</td>
+           <td>
+             <input type="text" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন" name="headTeacherName"></input>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             
+               তারিখ(DD/MM/YYYY):</td>
+           <td>
+             <input type="text" data-dojo-type="dijit/form/DateTextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" name="headTeacherBornDate"></input>
+           </td>
+         </tr>
+       </tbody>
+     </table>
+   </fieldset>
+   <fieldset style="border: 2px groove threedface; margin: 2px; padding: 0.75em; left: 8px; top: 237px;">
+     <legend>
+       
+         ডাটা এন্ট্রি অপারেটর</legend>
+     <p style="left: 24px; top: 435px;">
+       পিতা/মাতা/আইনানুগ অভিভাবকের প্রত্যয়ন কম্পিউটারে সকল ডাটার সঠিক এন্ট্রি নিশ্চিত করিলাম ।</p>
+     <br></br>
+     <table border="0" style="border-collapse: collapse; table-layout: fixed; width: 100%; height: auto;">
+       <colgroup>
+         <col></col>
+         <col></col>
+       </colgroup>
+       <tbody>
+         <tr></tr>
+         <tr></tr>
+         <tr></tr>
+       </tbody>
+     </table>
+     <table border="0" style="border-collapse: collapse; table-layout: fixed; width: 100%; height: auto;">
+       <colgroup>
+         <col></col>
+         <col></col>
+       </colgroup>
+       <tbody>
+         <tr>
+           <td>
+             
+               জাতীয় পরিচয় পত্র নাম্বার:*</td>
+           <td>
+             <input type="number" data-dojo-type="dijit/form/TextBox" name="entryNID" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="সংখ্যায় লিখুন"></input>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             
+               নাম(বাংলা):</td>
+           <td>
+             <input type="text" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" placeHolder="বাংলায় লিখুন" name="entryName"></input>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             
+               তারিখ(DD/MM/YYYY):</td>
+           <td>
+             <input type="text" data-dojo-type="dijit/form/DateTextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="$_unset_$" name="entryBornDate"></input>
+           </td>
+         </tr>
+       </tbody>
+     </table>
+   </fieldset>
+   <input type="submit" data-dojo-type="dijit/form/Button" intermediateChanges="false" label="Submit" iconClass="dijitNoIcon" style="float: right;"></input>
+
+    <div id="testReplaceDIV">respected seniors, course mates, beloved juniors, relatives and friends Assalamu Alaikum. I would like to info you all (though many of you have already come to know about), today afternoon I am adorned with the rank of Major in 1 Sig Bn. Pls pray for me and keep me and my family in your prayer... Regards...</div>
+
+ </div>
+ </span></form>
